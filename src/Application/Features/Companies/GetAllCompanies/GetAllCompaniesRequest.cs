@@ -21,9 +21,9 @@ namespace ErpDashboard.Application.Features.Companies.GetAllCompanies
     }
     internal class GetAllCompaniesRequestHandler : IRequestHandler<GetAllCompaniesRequest, IResult<List<GetAllCompaniesDto>>>
     {
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly ICompanyRepository _repository;
-        public GetAllCompaniesRequestHandler(CustomIUnitOfWork<int> unitOfWork, ICompanyRepository repository)
+        public GetAllCompaniesRequestHandler(ICustomIUnitOfWork<int> unitOfWork, ICompanyRepository repository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;
