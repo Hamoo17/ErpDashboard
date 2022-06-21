@@ -24,11 +24,11 @@ namespace ErpDashboard.Application.Features.PlanDays.Command.AddEdit
     }
     internal class AddEditPlanDaysCommandHandelr : IRequestHandler<AddEditPlanDaysCommand, IResult<int>>
     {
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly ICurrentUserService _currentUser;
         private readonly IMapper _mapper;
 
-        public AddEditPlanDaysCommandHandelr(CustomIUnitOfWork<int> unitOfWork, ICurrentUserService currentUser, IMapper mapper)
+        public AddEditPlanDaysCommandHandelr(ICustomIUnitOfWork<int> unitOfWork, ICurrentUserService currentUser, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;

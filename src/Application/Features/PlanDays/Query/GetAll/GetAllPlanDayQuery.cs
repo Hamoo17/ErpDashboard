@@ -16,9 +16,9 @@ namespace ErpDashboard.Application.Features.PlanDays.Query.GetAll
 
     internal class GetAllPlanDayQueryHandler : IRequestHandler<GetAllPlanDayQuery, IResult<List<PlanDayDto>>>
     {
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
-        public GetAllPlanDayQueryHandler(CustomIUnitOfWork<int> unitOfWork, IMapper mapper)
+        public GetAllPlanDayQueryHandler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

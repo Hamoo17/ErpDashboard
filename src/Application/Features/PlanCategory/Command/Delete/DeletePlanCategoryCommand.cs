@@ -18,9 +18,9 @@ namespace ErpDashboard.Application.Features.PlanCategory.Command.Delete
     }
     internal class DeletePlanCategoryCommandHandler:IRequestHandler<DeletePlanCategoryCommand,Result<int>>
     {
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
 
-        public DeletePlanCategoryCommandHandler(CustomIUnitOfWork<int> unitOfWork)
+        public DeletePlanCategoryCommandHandler(ICustomIUnitOfWork<int> unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

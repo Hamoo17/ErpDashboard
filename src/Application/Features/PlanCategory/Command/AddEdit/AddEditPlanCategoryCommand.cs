@@ -27,11 +27,11 @@ namespace ErpDashboard.Application.Features.PlanCategory.Command.AddEdit
     }
     internal class AddEditPlanCategoryCommandHandler : IRequestHandler<AddEditPlanCategoryCommand, IResult<int>>
     {
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly ICurrentUserService _currentUser;
         private readonly IMapper _mapper;
 
-        public AddEditPlanCategoryCommandHandler(CustomIUnitOfWork<int> unitOfWork, ICurrentUserService currentUser, IMapper mapper)
+        public AddEditPlanCategoryCommandHandler(ICustomIUnitOfWork<int> unitOfWork, ICurrentUserService currentUser, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;

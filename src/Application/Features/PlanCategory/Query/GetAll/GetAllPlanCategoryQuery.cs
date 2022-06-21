@@ -23,10 +23,10 @@ namespace ErpDashboard.Application.Features.PlanCategory.Query.GetAll
 
     internal class GetAllPlanCategoryQueryHandler : IRequestHandler<GetAllPlanCategoryQuery, Result<List<PlanCategoryDto>>>
 {
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllPlanCategoryQueryHandler(CustomIUnitOfWork<int> unitOfWork, IMapper mapper)
+        public GetAllPlanCategoryQueryHandler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

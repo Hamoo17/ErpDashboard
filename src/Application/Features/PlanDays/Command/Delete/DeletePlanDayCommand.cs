@@ -20,10 +20,10 @@ namespace ErpDashboard.Application.Features.PlanDays.Command.Delete
     internal class DeletePlanDayCommandHnadler : IRequestHandler<DeletePlanDayCommand, IResult<int>>
     {
 
-        private readonly CustomIUnitOfWork<int> _unitOfWork;
+        private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DeletePlanDayCommandHnadler(CustomIUnitOfWork<int> unitOfWork, IMapper mapper)
+        public DeletePlanDayCommandHnadler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
