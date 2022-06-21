@@ -127,11 +127,6 @@ namespace ErpDashboard.Shared.Wrapper
             return new Result<T> { Succeeded = true, Data = data, Messages = messages };
         }
 
-        public new static Task<Result<T>> SuccessAsync()
-        {
-            return Task.FromResult(Success());
-        }
-
         public new static Task<Result<T>> SuccessAsync(string message)
         {
             return Task.FromResult(Success(message));

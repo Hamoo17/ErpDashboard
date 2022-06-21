@@ -126,7 +126,7 @@ namespace ErpDashboard.Server.Extensions
                         Url = new Uri("https://opensource.org/licenses/MIT")
                     }
                 });
-
+                
                 var localizer = await GetRegisteredServerLocalizerAsync<ServerCommonResources>(services);
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -138,6 +138,7 @@ namespace ErpDashboard.Server.Extensions
                     BearerFormat = "JWT",
                     Description = localizer["Input your Bearer token in this format - Bearer {your token here} to access this API"],
                 });
+                c.OperationFilter<AddRequiredHeaderParameter>();
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -177,7 +178,7 @@ namespace ErpDashboard.Server.Extensions
             IConfiguration configuration)
         {
            return services
-                  .AddDbContext<BlazorHeroContext>(options => options
+                  .AddDbContext<BlazorHeroContext>(options => options.UseLazyLoadingProxies()
                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))).AddDbContext<ERBSYSTEMContext>(o=> o.UseSqlServer(configuration.GetConnectionString("ErpConnection")))
               .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
         }

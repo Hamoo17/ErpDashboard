@@ -36,6 +36,7 @@ namespace ErpDashboard.Server.Extensions
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", typeof(Program).Assembly.GetName().Name);
                 options.RoutePrefix = "swagger";
                 options.DisplayRequestDuration();
+              
             });
         }
 
