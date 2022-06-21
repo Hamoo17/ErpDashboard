@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static ErpDashboard.Application.Enums.ErpSystemEnums;
 
 #nullable disable
 
@@ -34,7 +35,7 @@ namespace ErpDashboard.Application.Models
         public int? TransactionType { get; set; }
         public string PlanDays { get; set; }
         public string PlanMeals { get; set; }
-        public int SubscriptionStatus { get; set; }
+        public SubscriptionStatus SubscriptionStatus { get; set; }
         public int PlanCategory { get; set; }
         public int Durations { get; set; }
         public int RemainDays { get; set; }

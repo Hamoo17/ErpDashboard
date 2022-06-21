@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static ErpDashboard.Application.Enums.ErpSystemEnums;
 
 #nullable disable
 
@@ -20,10 +21,10 @@ namespace ErpDashboard.Application.Models
         public DateTime DeliveryDate { get; set; }
         public int DayNumberCount { get; set; }
         public int PaymentsDetailsId { get; set; }
-        public int LineState { get; set; }
+        public InvoiceState LineState { get; set; }
         public int RelatedLineChange { get; set; }
         public string Sticker { get; set; }
-        public int DeliveryStatus { get; set; }
+        public DeliveryStatus DeliveryStatus { get; set; }
         public string Notes { get; set; }
         public string DeliveryNotes { get; set; }
         public bool AutoDislikeMeal { get; set; }
