@@ -1,0 +1,67 @@
+﻿@page "/PlanDays"
+@using Client.Infrastructure.Managers.PlanDays
+@using ErpDashboard.Application.Features.PlanDays.Query.Dto;
+@inject IPlanDaysManager _PlanDaysManager
+
+<MudAppBar Color="Color.Transparent" Fixed="false" >
+	<HeroTitle Title="PlanDays"/>
+	  <MudSpacer />
+	<MudIconButton Icon=@Icons.Custom.Brands.Instagram Color=Color.Inherit Edge="Edge.Start"/>
+</MudAppBar>
+
+@if (PlanDays!= null)
+{
+	<MudTable Items="@PlanDays" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>DayCount</MudTh>
+        <MudSpacer/>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Sign">@context.Name</MudTd>
+        <MudTd DataLabel="Name">@context.DayCount</MudTd>
+		<MudSpacer/>
+		<MudTd>		
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+		</MudTd>
+   </RowTemplate>
+	</MudTable>
+}else
+{
+	<h1>Loading...</h1>
+}
+
+
+
+
+
+
+
+@code{
+
+	List<PlanDayDto> PlanDays;
+	protected override async Task OnInitializedAsync()
+	{
+		 await GetData();
+	}
+
+	private async Task GetData()
+	{
+		var Response = await _PlanDaysManager.GetPlanDaysAsync();
+		if(Response.Succeeded)
+		{
+			PlanDays = Response.Data;
+		}
+		else
+		{
+			foreach(var msg in Response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+		}
+	}
+}

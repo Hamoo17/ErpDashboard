@@ -4,7 +4,7 @@
 @inject IPlanCtegoryManager _PlanCategoryManager
 
 <HeroTitle Title="Plan Categories" Description="Manage Plan Categories" />
-@if (PlanCategories != null)
+if (PlanCategories != null)
 {
 	<MudTable Items="@PlanCategories" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
@@ -57,7 +57,8 @@
 				_snackBar.Add(msg, Severity.Error);
 			}
 		}
-
+
+
 	}
 
 

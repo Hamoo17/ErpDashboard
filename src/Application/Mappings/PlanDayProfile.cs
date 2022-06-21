@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpDashboard.Application.Features.PlanDays.Command.AddEdit;
+using ErpDashboard.Application.Features.PlanDays.Query.Dto;
 using ErpDashboard.Application.Models;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace ErpDashboard.Application.Mappings
         public PlanDayProfile()
         {
             CreateMap<AddEditPlanDaysCommand,TbPlanDay>().ReverseMap();
+            CreateMap<PlanDayDto,TbPlanDay>().ReverseMap();
         }
     }
 }
