@@ -9,6 +9,7 @@ namespace ErpDashboard.Application.Features.Subscriptions.Queries.Dto
 {
     public class SubscriptionDetailDto
     {
+
         public int SubscriptionId { get; set; }
         public string DeliveryAddres { get; set; }
         public string PlanName { get; set; }

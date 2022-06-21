@@ -177,7 +177,7 @@ namespace ErpDashboard.Server.Extensions
             IConfiguration configuration)
         {
            return services
-                  .AddDbContext<BlazorHeroContext>(options => options
+                  .AddDbContext<BlazorHeroContext>(options => options.UseLazyLoadingProxies()
                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))).AddDbContext<ERBSYSTEMContext>(o=> o.UseSqlServer(configuration.GetConnectionString("ErpConnection")))
               .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
         }
