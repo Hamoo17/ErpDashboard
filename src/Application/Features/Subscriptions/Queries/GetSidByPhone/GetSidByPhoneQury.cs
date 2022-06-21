@@ -37,7 +37,7 @@ namespace ErpDashboard.Application.Features.Subscriptions.Queries.GetSidByPhone
                         CustomerId = x.CustomerId,
                         CustomerName = x.CustomerName,
                         Email = x.Email,
-                        Phone = String.Join(" | ", x.TbCustomersPhones.Where(p => !string.IsNullOrEmpty(p.Phone)).Select(x => x.Phone)),
+                        Phone = String.Join(" | ", x.TbCustomersPhones.Where(p =>  !string.IsNullOrEmpty(p.Phone)).Select(x => x.Phone)),
                         Subscriptions = x.TbSubscrbtionHeaders.Select(d => new SubscriptionDetailDto() 
                                             {
                                                 DeliveryAddres = d.TbSubscrbtionDetails.Select(x=>x.DeliveryAdressNavigation.Adress).First(),
@@ -50,7 +50,7 @@ namespace ErpDashboard.Application.Features.Subscriptions.Queries.GetSidByPhone
                                                 SubscriptionId = d.Id,
                                                 PlanName = d.Plan.PlanName,
                                                 PlanTitle = d.SubscriptionExepression,
-                                                RemainingDays = d.TbSubscrbtionDetails.Where(x=> x.DeliveryStatus == Enums.ErpSystemEnums.DeliveryStatus.Pending || x.DeliveryStatus == Enums.ErpSystemEnums.DeliveryStatus.Hold).Count(),
+                                                RemainingDays = d.TbSubscrbtionDetails.Where(x=> x.DeliveryStatus == Enums.ErpSystemEnums.DeliveryStatus.Pending || x.DeliveryStatus == Enums.ErpSystemEnums.DeliveryStatus.Hold).Select(c => c.DayNumberCount).Distinct().Count(),
 
                                             }).ToList()
 
