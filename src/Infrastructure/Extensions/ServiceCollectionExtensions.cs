@@ -28,11 +28,12 @@ namespace ErpDashboard.Infrastructure.Extensions
                 .AddTransient(typeof(IRepositoryAsync<,>), typeof(RepositoryAsync<,>))
                 .AddTransient(typeof(CustomIRepositoryAsync<,>), typeof(CustomRepositoryAsync<,>))
                 .AddTransient<IProductRepository, ProductRepository>()
+                .AddTransient<ICompanyRepository, CompanyRepository>()
                 .AddTransient<IBrandRepository, BrandRepository>()
                 .AddTransient<IDocumentRepository, DocumentRepository>()
                 .AddTransient<IDocumentTypeRepository, DocumentTypeRepository>()
                 .AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
-                .AddTransient(typeof(CustomIUnitOfWork<>), typeof(CustomUnitOfWork<>));
+                .AddTransient(typeof(ICustomIUnitOfWork<>), typeof(CustomUnitOfWork<>));
         }
 
         public static IServiceCollection AddExtendedAttributesUnitOfWork(this IServiceCollection services)

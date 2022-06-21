@@ -23,6 +23,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Actions\" />
+    <Folder Include="Features\ItemsDepartments\Commands\AddEdit\" />
+    <Folder Include="Features\ItemsDepartments\Commands\Delete\" />
+    <Folder Include="Features\ItemsDepartments\Queries\GetAll\" />
+    <Folder Include="Features\ItemsDepartments\Queries\GetById\" />
+    <Folder Include="Features\ItemsDepartments\Queries\Dto\" />
     <Folder Include="Features\Subscriptions\" />
   </ItemGroup>
 

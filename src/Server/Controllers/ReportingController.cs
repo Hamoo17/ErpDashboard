@@ -27,6 +27,7 @@ namespace ErpDashboard.Server.Controllers
             string modelJsonScript = new ReportDesignerClientSideModelGenerator(HttpContext.RequestServices)
                 .GetJsonModelScript(reportUrl, null, "/DXXRD", "/DXXRDV", "/DXQB");
             return new JavaScriptSerializer().Deserialize<object>(modelJsonScript);
+
         }
     }
     [ApiExplorerSettings(IgnoreApi = true)]
