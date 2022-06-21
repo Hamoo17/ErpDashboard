@@ -32,6 +32,7 @@ namespace ErpDashboard.Infrastructure.Extensions
                 .AddTransient<IBrandRepository, BrandRepository>()
                 .AddTransient<IDocumentRepository, DocumentRepository>()
                 .AddTransient<IDocumentTypeRepository, DocumentTypeRepository>()
+                .AddTransient<IMealCategoryRepository, MealCategoryRepository>()
                 .AddTransient(typeof(IUnitOfWork<>), typeof(UnitOfWork<>))
                 .AddTransient(typeof(ICustomIUnitOfWork<>), typeof(CustomUnitOfWork<>));
         }
