@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.Subscriptions.Queries.Dto
 {
-    internal class CustomerInfoDto
+    public class CustomerInfoDto
     {
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+
     }
 }

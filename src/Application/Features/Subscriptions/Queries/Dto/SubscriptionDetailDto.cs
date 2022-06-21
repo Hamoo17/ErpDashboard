@@ -19,5 +19,6 @@ namespace ErpDashboard.Application.Features.Subscriptions.Queries.Dto
         public int RemainingDays { get; set; }
         public int Duration { get; set; }
         public SubscriptionStatus Status { get; set; }
+        public string Company { get; set; }
     }
 }
