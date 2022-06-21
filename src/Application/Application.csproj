@@ -24,6 +24,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Actions\" />
+    <Folder Include="Features\ItemsDepartments\Queries\GetAll\" />
+    <Folder Include="Features\ItemsDepartments\Queries\GetById\" />
+    <Folder Include="Features\ItemsDepartments\Queries\Dto\" />
+    <Folder Include="Features\Subscriptions\" />
     <Folder Include="Features\Subscriptions\Commands\" />
     <Folder Include="Features\Subscriptions\Queries\GetSubscriptionBySid\" />
   </ItemGroup>
