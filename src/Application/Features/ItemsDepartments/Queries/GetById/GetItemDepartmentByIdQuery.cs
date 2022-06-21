@@ -31,7 +31,7 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetById
         {
             var dept = _unitOfWork.Repository<TbDepartment>().GetByIdAsync(request.id);
             var MapedDept =  _mapper.Map<GetItemDepartmentResponse>(dept);
-            return await Result<GetItemDepartmentResponse>.Success(MapedDept);
+            return await Result<GetItemDepartmentResponse>.SuccessAsync(MapedDept);
         }
     }
 }
