@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Interfaces.Repositories
 {
-    internal interface IItemDepartment
+    public interface IItemDepartment
     {
         Task<bool> IsDepartmentExist(int dept_id);
         Task<bool> IsDepartmentUsed(int dept_id);
-
-
     }
 }
