@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Interfaces.Repositories
 {
-    internal interface IMealCategoryRepository
+    public interface IMealCategoryRepository
     {
         Task<bool> IsMealCatUsed(int MealCatId);
     }

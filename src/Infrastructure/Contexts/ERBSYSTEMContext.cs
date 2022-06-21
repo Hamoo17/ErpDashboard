@@ -3371,7 +3371,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                 entity.Property(e => e.TypeName)
                     .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
-
+                entity.HasQueryFilter(x => _currentUser.CompanyID.HasValue ? x.ComId == _currentUser.CompanyID : true);
                 entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
@@ -3388,6 +3388,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+                entity.HasQueryFilter(x => _currentUser.CompanyID.HasValue ? x.CompanyId == _currentUser.CompanyID : true);
             });
 
             modelBuilder.Entity<TbPlanHdrType>(entity =>

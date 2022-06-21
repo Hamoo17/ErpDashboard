@@ -23,6 +23,13 @@
         <MudNavLink Href="/designer" Icon="@Icons.Material.Outlined.DesignServices">
             @_localizer["Test Designer"]
         </MudNavLink>
+    <MudListSubheader Class="mt-2 mb-n2">@_localizer["Plans Manager"]</MudListSubheader>
+    @if(_canViewPlanCategory)
+    {
+        <MudNavLink Href="/PlanCategory" Icon="@Icons.Material.Outlined.Dashboard">
+          Plan Category
+        </MudNavLink>
+    }
     <MudListSubheader Class="mt-2 mb-n2">@_localizer["Personal"]</MudListSubheader>
     @if (_canViewDashboards)
     {
@@ -108,6 +115,8 @@
     private bool _canViewChat;
     private bool _canViewProducts;
     private bool _canViewBrands;
+    private bool _canViewPlanCategory;
+
 
     protected override async Task OnParametersSetAsync()
     {
@@ -122,5 +131,6 @@
         _canViewChat = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Communication.Chat)).Succeeded;
         _canViewProducts = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Products.View)).Succeeded;
         _canViewBrands = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Brands.View)).Succeeded;
+        _canViewPlanCategory = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.PlanCategory.View)).Succeeded;
     }
 }

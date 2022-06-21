@@ -82,6 +82,24 @@ namespace ErpDashboard.Shared.Constants.Permission
             public const string Delete = "Permissions.RoleClaims.Delete";
             public const string Search = "Permissions.RoleClaims.Search";
         }
+        public static class PlanCategory
+        {
+            public const string View = "Permissions.PlanCategory.View";
+            public const string Create = "Permissions.PlanCategory.Create";
+            public const string Edit = "Permissions.PlanCategory.Edit";
+            public const string Delete = "Permissions.PlanCategory.Delete";
+            public const string Export = "Permissions.PlanCategory.Export";
+            public const string Search = "Permissions.PlanCategory.Search";
+        }
+        public static class planday
+        {
+            public const string View = "Permissions.Brands.View";
+            public const string Create = "Permissions.Brands.Create";
+            public const string Edit = "Permissions.Brands.Edit";
+            public const string Delete = "Permissions.Brands.Delete";
+            public const string Export = "Permissions.Brands.Export";
+            public const string Search = "Permissions.Brands.Search";
+        }
 
         public static class Communication
         {
