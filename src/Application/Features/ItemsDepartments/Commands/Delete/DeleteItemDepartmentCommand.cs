@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.Delete
 {
@@ -18,20 +20,18 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.Delete
     }
     internal class DeleteItemDepartmentCommandHandler : IRequestHandler<DeleteItemDepartmentCommand, Result<int>>
     {
-        private readonly IItemDepartment _IItemDepartment;
         private readonly IStringLocalizer<DeleteItemDepartmentCommand> _localizer;
         private readonly ICustomIUnitOfWork<int> _customIUnitOf;
-        public DeleteItemDepartmentCommandHandler(ICustomIUnitOfWork<int> customIUnitOf , IItemDepartment IItemDepartment, IStringLocalizer<DeleteItemDepartmentCommand> localizer)
+        public DeleteItemDepartmentCommandHandler(ICustomIUnitOfWork<int> customIUnitOf , IStringLocalizer<DeleteItemDepartmentCommand> localizer)
         {
 
             _customIUnitOf = customIUnitOf;
-            _IItemDepartment = IItemDepartment;
             _localizer = localizer;
 
         }
         public async Task<Result<int>> Handle(DeleteItemDepartmentCommand command, CancellationToken cancellationToken)
         {
-            var deptIsUsed = await _IItemDepartment.IsDepartmentUsed(command.Id);
+            var deptIsUsed = await _customIUnitOf.Repository<TbDepartment>().Entities.AnyAsync(c=>c.Id == command.Id);
             if(!deptIsUsed)
             {
                 var dept = await _customIUnitOf.Repository<TbDepartment>().GetByIdAsync(command.Id);
