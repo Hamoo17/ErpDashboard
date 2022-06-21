@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit
 {
@@ -25,20 +27,18 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit
         private readonly IMapper _mapper;
         private readonly ICustomIUnitOfWork<int> _customIUnitOf;
         private readonly IStringLocalizer<AddEditItemDepartmentCommand> _localizer;
-        private readonly IItemDepartment _IItemDepartment;
 
 
-        public AddEditItemDepartmentCommandHandler(ICustomIUnitOfWork<int> customIUnitOf, IMapper mapper, IItemDepartment IItemDepartment, IStringLocalizer<AddEditItemDepartmentCommand> localizer)
+        public AddEditItemDepartmentCommandHandler(ICustomIUnitOfWork<int> customIUnitOf, IMapper mapper,  IStringLocalizer<AddEditItemDepartmentCommand> localizer)
         {
             _customIUnitOf = customIUnitOf;
             _mapper = mapper;
             _localizer = localizer;
-            _IItemDepartment = IItemDepartment;
         }
         public async Task<Result<int>> Handle(AddEditItemDepartmentCommand command, CancellationToken cancellationToken)
         {
-            var IsDeptUsed = await _IItemDepartment.IsDepartmentUsed(command.Id);
-            if (!IsDeptUsed)
+            var IsDeptExist= await _customIUnitOf.Repository<TbDepartment>().Entities.AnyAsync(c=>c.Name ==command.Name);
+            if (!IsDeptExist)
             {
                 if (command.Id == 0)
                 {

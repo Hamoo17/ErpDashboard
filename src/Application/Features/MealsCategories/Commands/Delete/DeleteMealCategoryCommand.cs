@@ -7,6 +7,8 @@ using MediatR;
 using Microsoft.Extensions.Localization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ErpDashboard.Application.Features.MealCategory.Commands.Delete
 {
@@ -17,19 +19,17 @@ namespace ErpDashboard.Application.Features.MealCategory.Commands.Delete
 
     internal class DeleteMealCategoryCommandHandler : IRequestHandler<DeleteMealCategoryCommand, Result<int>>
     {
-        private readonly IMealCategoryRepository _mealCategoryRepository;
         private readonly IStringLocalizer<DeleteMealCategoryCommandHandler> _localizer;
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
-        public DeleteMealCategoryCommandHandler(ICustomIUnitOfWork<int> unitOfWork, IMealCategoryRepository mealCategoryRepository, IStringLocalizer<DeleteMealCategoryCommandHandler> localizer)
+        public DeleteMealCategoryCommandHandler(ICustomIUnitOfWork<int> unitOfWork, IStringLocalizer<DeleteMealCategoryCommandHandler> localizer)
         {
             _unitOfWork = unitOfWork;
-            _mealCategoryRepository = mealCategoryRepository;
             _localizer = localizer;
         }
 
         public async Task<Result<int>> Handle(DeleteMealCategoryCommand command, CancellationToken cancellationToken)
         {
-            var isMealCatUsed = await _mealCategoryRepository.IsMealCatUsed(command.Id);
+            var isMealCatUsed = await _unitOfWork.Repository<TbMealsCategory>().Entities.AnyAsync(c=>c.Id == command.Id);
             if (!isMealCatUsed)
             {
                 var MealCat = await _unitOfWork.Repository<TbMealsCategory>().GetByIdAsync(command.Id);

@@ -26,6 +26,7 @@ namespace ErpDashboard.Shared.Constants.Permission
             public const string Search = "Permissions.Brands.Search";
         }
 
+
         public static class Documents
         {
             public const string View = "Permissions.Documents.View";
@@ -100,7 +101,24 @@ namespace ErpDashboard.Shared.Constants.Permission
             public const string Export = "Permissions.Brands.Export";
             public const string Search = "Permissions.Brands.Search";
         }
-
+        public static class MealCategories
+        {
+            public const string View = "Permissions.MealCategories.View";
+            public const string Create = "Permissions.MealCategories.Create";
+            public const string Edit = "Permissions.MealCategories.Edit";
+            public const string Delete = "Permissions.MealCategories.Delete";
+            public const string Export = "Permissions.MealCategories.Export";
+            public const string Search = "Permissions.MealCategories.Search";
+        }
+        public static class ItemDepartment
+        {
+            public const string View = "Permissions.ItemDepartment.View";
+            public const string Create = "Permissions.ItemDepartment.Create";
+            public const string Edit = "Permissions.ItemDepartment.Edit";
+            public const string Delete = "Permissions.ItemDepartment.Delete";
+            public const string Export = "Permissions.ItemDepartment.Export";
+            public const string Search = "Permissions.ItemDepartment.Search";
+        }
         public static class Communication
         {
             public const string Chat = "Permissions.Communication.Chat";
