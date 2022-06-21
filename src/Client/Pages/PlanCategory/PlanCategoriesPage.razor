@@ -1,0 +1,64 @@
+﻿@page "/PlanCategory"
+@using Client.Infrastructure.Managers.PlanCategory
+@using ErpDashboard.Application.Features.PlanCategory.Query.Dto
+@inject IPlanCtegoryManager _PlanCategoryManager
+
+<HeroTitle Title="Plan Categories" Description="Manage Plan Categories" />
+@if (PlanCategories != null)
+{
+	<MudTable Items="@PlanCategories" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Symbol</MudTh>
+        <MudSpacer/>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Sign">@context.TypeName</MudTd>
+        <MudTd DataLabel="Name">@context.Symbol</MudTd>
+		<MudSpacer/>
+		<MudTd>		
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+		</MudTd>
+
+   </RowTemplate>
+	</MudTable>
+}else
+{
+	<h1>Loading...</h1>
+}
+
+
+
+
+@code {
+
+	List<PlanCategoryDto>PlanCategories;
+	protected async override Task OnInitializedAsync()
+	{
+		 await GetData();
+		 
+	}
+
+	private async Task GetData()
+	{
+		var Response = await _PlanCategoryManager.GetAllAsync();
+		if (Response.Succeeded)
+		{
+			PlanCategories = Response.Data;
+		}
+		else
+		{
+			foreach(var msg in Response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+		}
+
+	}
+
+
+}

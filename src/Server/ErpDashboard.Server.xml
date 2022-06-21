@@ -423,6 +423,46 @@
             </summary>
             <returns>Status 200 OK </returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.PlanCategoryController.Post(ErpDashboard.Application.Features.PlanCategory.Command.AddEdit.AddEditPlanCategoryCommand)">
+            <summary>
+            Create/Update a Plan Category
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.PlanCategoryController.Delete(System.Int32)">
+            <summary>
+            Delete a PlanCategory
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.PlanCategoryController.GetAll">
+            <summary>
+            Get All Plancategory
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.planDayController.Post(ErpDashboard.Application.Features.PlanDays.Command.AddEdit.AddEditPlanDaysCommand)">
+            <summary>
+            Create/Update a PlanDay
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.planDayController.Delete(System.Int32)">
+            <summary>
+            Delete a PlanDay
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.planDayController.GetAll">
+            <summary>
+            Get All PlanDay
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="F:ErpDashboard.Server.Reports.CustomersReport.components">
             <summary>
             Required designer variable.
