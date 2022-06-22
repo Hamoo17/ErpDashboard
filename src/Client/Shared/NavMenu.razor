@@ -23,6 +23,10 @@
 	<MudNavLink Href="/designer" Icon="@Icons.Material.Outlined.DesignServices">
 		@_localizer["Test Designer"]
 	</MudNavLink>
+	<MudListSubheader Class="mt-2 mb-n2">@_localizer["Subscription Manager"]</MudListSubheader>
+	<MudNavLink Href="/Subscription" Icon="@Icons.Material.Outlined.Dashboard">
+			Subscriptions
+		</MudNavLink>
 	<MudListSubheader Class="mt-2 mb-n2">@_localizer["Plans Manager"]</MudListSubheader>
 	@if (_canViewPlanCategory)
 	{

@@ -51,7 +51,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\PlanCategory\Compnents\" />
-    <Folder Include="Pages\Subscriptions\Components\" />
   </ItemGroup>
 
 </Project>
