@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>ErpDashboard.Infrastructure.Shared</RootNamespace>
     <AssemblyName>ErpDashboard.Infrastructure.Shared</AssemblyName>
   </PropertyGroup>
@@ -10,7 +10,7 @@
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.13.0" />
-    <PackageReference Include="MimeKit" Version="2.13.0" />
+    <PackageReference Include="MailKit" Version="3.3.0" />
+    <PackageReference Include="MimeKit" Version="3.3.0" />
   </ItemGroup>
 </Project>
