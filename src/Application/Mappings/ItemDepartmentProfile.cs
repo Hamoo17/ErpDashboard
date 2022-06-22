@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit;
+using ErpDashboard.Application.Features.ItemsDepartments.Queries.Dto;
 using ErpDashboard.Application.Models;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace ErpDashboard.Application.Mappings
         public ItemDepartmentProfile()
         {
             CreateMap<AddEditItemDepartmentCommand , TbDepartment>().ReverseMap();
-            //CreateMap<itemdeparmentResponse, TbDepartment>().ReverseMap();
+            CreateMap<GetItemDepartmentResponse, TbDepartment>().ReverseMap();
 
         }
     }
