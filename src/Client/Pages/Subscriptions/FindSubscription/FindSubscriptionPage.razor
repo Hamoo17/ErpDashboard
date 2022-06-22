@@ -13,7 +13,7 @@
        <MudForm Model="Model" @ref="form" @onsubmit="Submit" >
        <MudTextField HelperTextOnFocus="true" T="string" OnAdornmentClick="Submit"  @onfocusout="ResetValidation" OnClearButtonClick="ResetValidation" 
             Adornment="Adornment.End" @bind-Value="Model.PhoneNumber" Validation="PhoneValidator.Validation" AdornmentIcon="@Icons.Filled.Search" 
-            Clearable="true" Immediate="true" OnKeyDown="OnKeyDownPhone" Label="Phone" MaxLength="10" Variant="Variant.Outlined" 
+            Clearable="true" Immediate="true"  Mask="@(new PatternMask("0000000000"))" OnKeyDown="OnKeyDownPhone" Label="Phonee" MaxLength="10" Variant="Variant.Outlined" 
             HelperText="Search By Phone Number ex. 050XXXXXXX" >
         </MudTextField>
        </MudForm>
@@ -28,6 +28,19 @@
        </MudForm>
     </MudItem>
 </MudGrid>
+@if (CustomerInfo.Subscriptions != null)
+{
+ <MudStack Spacing="5" Row="true">
+    @foreach (var subscription in CustomerInfo.Subscriptions)
+    {
+        <ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent
+         PlanTitle="@subscription.PlanTitle" PlanSlogan="@subscription.PlanName.Split('-')[0]" >
+
+        </ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent>
+    }
+
+</MudStack>   
+}
 
 @code {
     [Inject] public ISubscriptionManager _subscriptionManager { get; set; }
@@ -35,7 +48,13 @@
     CustomerInfoDto CustomerInfo = new();
     MudForm form;
     MudForm form2;
-    EditForm edform;
+    
+    protected override Task OnInitializedAsync()
+    {
+        CustomerInfo = new();
+        CustomerInfo.Subscriptions = new();
+        return base.OnInitializedAsync();
+    }
     private async Task OnKeyDownPhone(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
@@ -73,5 +92,5 @@
             CustomerInfo = new();
         }
     }
-    FluentValueValidator<string> PhoneValidator = new FluentValueValidator<string>(x => x.Matches("^\\d{10}$").WithMessage("Provide a True Phone Number").Length(10).WithMessage("Number Must be 10 Digits"));
+    FluentValueValidator<string> PhoneValidator = new FluentValueValidator<string>(x => x.Length(10).WithMessage("Number Must be 10 Digits"));
 }

@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>ErpDashboard.Infrastructure</RootNamespace>
     <AssemblyName>ErpDashboard.Infrastructure</AssemblyName>
+	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <!--<ItemGroup>
