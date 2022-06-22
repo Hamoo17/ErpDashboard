@@ -38,6 +38,7 @@ namespace ErpDashboard.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddCors();
             services.AddDevExpressControls();
           //  services.AddTransient<ProductValidationServices, ProductValidationService>();
@@ -102,8 +103,11 @@ namespace ErpDashboard.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IStringLocalizer<Startup> localizer)
         {
-            app.UseCors();
+#if !DEBUG
             app.UseResponseCompression();
+#endif
+            app.UseCors();
+          //  app.UseResponseCompression();
 
             app.UseExceptionHandling(env);
             app.UseHttpsRedirection();
