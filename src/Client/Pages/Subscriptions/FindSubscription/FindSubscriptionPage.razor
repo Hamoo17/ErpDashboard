@@ -13,7 +13,7 @@
        <MudForm Model="Model" @ref="form" @onsubmit="Submit" >
        <MudTextField HelperTextOnFocus="true" T="string" OnAdornmentClick="Submit"  @onfocusout="ResetValidation" OnClearButtonClick="ResetValidation" 
             Adornment="Adornment.End" @bind-Value="Model.PhoneNumber" Validation="PhoneValidator.Validation" AdornmentIcon="@Icons.Filled.Search" 
-            Clearable="true" Immediate="true"  Mask="@(new PatternMask("0000000000"))" OnKeyDown="OnKeyDownPhone" Label="Phonee" MaxLength="10" Variant="Variant.Outlined" 
+            Clearable="true" Immediate="true"  Mask="@(new PatternMask("0000000000"))" OnKeyDown="OnKeyDownPhone" Label="Phone" MaxLength="10" Variant="Variant.Outlined" 
             HelperText="Search By Phone Number ex. 050XXXXXXX" >
         </MudTextField>
        </MudForm>
@@ -28,13 +28,18 @@
        </MudForm>
     </MudItem>
 </MudGrid>
+@if (!found)
+{
+    <MudAlert Severity="MudBlazor.Severity.Error">@NotfoundMsg</MudAlert>
+}
 @if (CustomerInfo.Subscriptions != null)
 {
- <MudStack Spacing="5" Row="true">
+ <MudStack Class="pt-5" Spacing="5" Row="true" Style="flex-wrap: wrap;" Justify="Justify.FlexStart"  AlignItems="AlignItems.Center">
     @foreach (var subscription in CustomerInfo.Subscriptions)
     {
         <ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent
-         PlanTitle="@subscription.PlanTitle" PlanSlogan="@subscription.PlanName.Split('-')[0]" >
+         PlanTitle="@subscription.PlanTitle" PlanSlogan="@subscription.PlanName.Split('-')[0]"
+        RemainingDays="@subscription.RemainingDays.ToString()" SusbscriptionId="@subscription.SubscriptionId" Status="@subscription.Status.ToString()">
 
         </ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent>
     }
@@ -48,7 +53,8 @@
     CustomerInfoDto CustomerInfo = new();
     MudForm form;
     MudForm form2;
-    
+    string NotfoundMsg = "";
+    bool found = true;
     protected override Task OnInitializedAsync()
     {
         CustomerInfo = new();
@@ -69,7 +75,7 @@
         {
             form.ResetValidation();
         }
-       
+
     }
     private async Task Submit()
     {
@@ -78,19 +84,21 @@
 
         if (form.IsValid && !string.IsNullOrEmpty(Model.PhoneNumber) && !string.IsNullOrWhiteSpace(Model.PhoneNumber))
         {
-           await SerchByPhone();
+            await SerchByPhone();
         }
     }
     private async Task SerchByPhone()
     {
         var Response = await _subscriptionManager.GetSidByPhone(Model.PhoneNumber);
         if (Response.Succeeded)
-        {
+        {   
             CustomerInfo = Response.Data;
         }else
         {
             CustomerInfo = new();
+            NotfoundMsg = Response.Messages[0];
         }
+        found = Response.Succeeded;
     }
     FluentValueValidator<string> PhoneValidator = new FluentValueValidator<string>(x => x.Length(10).WithMessage("Number Must be 10 Digits"));
 }

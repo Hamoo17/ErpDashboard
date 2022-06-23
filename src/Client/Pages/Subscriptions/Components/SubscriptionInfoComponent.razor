@@ -1,27 +1,36 @@
 ﻿<MudCard>
     <MudCardHeader>
         <CardHeaderAvatar>
-            <MudAvatar Color="Color.Secondary">@PlanSlogan</MudAvatar>
+            <MudAvatar Style="height:70px; width:70px; font-size:2rem;" Variant="Variant.Outlined"
+            Color="Color.Secondary">@SusbscriptionId.ToString()</MudAvatar>
         </CardHeaderAvatar>
         <CardHeaderContent>
-            <MudText Typo="Typo.body1">@PlanTitle</MudText>
-            <MudText Typo="Typo.body2">Peninsula in Europe</MudText>
+           
         </CardHeaderContent>
         <CardHeaderActions>
-            <MudIconButton Icon="@Icons.Material.Filled.Settings" Color="Color.Default" />
+            <div class="pt-5"> 
+                 <MudChip Color="Color.Success" >@Status</MudChip>
+            </div>
         </CardHeaderActions>
     </MudCardHeader>
     
     <MudCardContent>
-        <MudText Typo="Typo.body2">PLAN</MudText>
+            <MudText Typo="Typo.caption">Plan: @PlanTitle</MudText>
+            <br/>
+            <MudText Typo="Typo.caption">Remaining Days: @RemainingDays </MudText>
+            
     </MudCardContent>
     <MudCardActions>
-        <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default" />
-        <MudIconButton Icon="@Icons.Material.Filled.Share" Color="Color.Default" />
+
+<MudButton Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.Settings" Color="Color.Primary">Manage</MudButton>
     </MudCardActions>
 </MudCard>
 
 @code {
 [Parameter]public string PlanSlogan { get; set; }
 [Parameter]public string PlanTitle { get; set; }
+[Parameter]public string RemainingDays { get; set; }
+[Parameter]public int SusbscriptionId { get; set; }
+[Parameter]public string Status { get; set; }
+
 }
