@@ -31,7 +31,7 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.Delete
         }
         public async Task<Result<int>> Handle(DeleteItemDepartmentCommand command, CancellationToken cancellationToken)
         {
-            var deptIsUsed = await _customIUnitOf.Repository<TbDepartment>().Entities.AnyAsync(c=>c.Id == command.Id);
+            var deptIsUsed = await _customIUnitOf.Repository<TbItemsDepartment>().Entities.AnyAsync(c=>c.DeptId == command.Id);
             if(!deptIsUsed)
             {
                 var dept = await _customIUnitOf.Repository<TbDepartment>().GetByIdAsync(command.Id);

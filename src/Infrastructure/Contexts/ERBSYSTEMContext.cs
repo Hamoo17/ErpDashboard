@@ -1341,6 +1341,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                 entity.Property(e => e.ComId).HasColumnName("com_id");
 
                 entity.Property(e => e.Name).UseCollation("SQL_Latin1_General_CP1_CI_AS");
+                entity.HasQueryFilter(x => _currentUser.CompanyID.HasValue ? x.ComId == _currentUser.CompanyID : true);
             });
 
             modelBuilder.Entity<TbDiscountOption>(entity =>

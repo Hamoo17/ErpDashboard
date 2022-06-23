@@ -423,6 +423,33 @@
             </summary>
             <returns>Status 200 OK </returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.Post(ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit.AddEditItemDepartmentCommand)">
+            <summary>
+            Create/Update Item Department
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.Delete(System.Int32)">
+            <summary>
+            Delete item department
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.GetById(System.Int32)">
+            <summary>
+            Get item department By Id
+            </summary>
+            <param name="id">Id To Get</param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.GetAll">
+            <summary>
+            Get all item department
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.MealCategoriesController.Post(ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit.AddEditMealsCategoryCommand)">
             <summary>
             Create/Update a Meal Category
