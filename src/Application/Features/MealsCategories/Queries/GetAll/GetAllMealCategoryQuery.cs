@@ -22,12 +22,12 @@ namespace ErpDashboard.Application.Features.MealsCategory.Queries.GetAll
 
         }
     }
-    internal class GetAllMealCategoryQueryHandeler : IRequestHandler<GetAllMealCategoryQuery, Result<List<GetMealCategoryResponse>>>
+    internal class GetAllMealCategoryQueryHandler : IRequestHandler<GetAllMealCategoryQuery, Result<List<GetMealCategoryResponse>>>
     {
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IAppCache _cashe;
-        public GetAllMealCategoryQueryHandeler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper, IAppCache cash)
+        public GetAllMealCategoryQueryHandler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper, IAppCache cash)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

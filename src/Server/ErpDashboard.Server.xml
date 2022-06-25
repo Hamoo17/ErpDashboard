@@ -423,6 +423,33 @@
             </summary>
             <returns>Status 200 OK </returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemController.Post(ErpDashboard.Application.Features.Items.Commands.AddEdit.AddEditItemCommand)">
+            <summary>
+            Create/Update Item
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemController.Delete(System.Int32)">
+            <summary>
+            Delete Item
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemController.GetAll">
+            <summary>
+            Get All Items
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemController.GetById(System.Int32)">
+            <summary>
+            Get Items By Id
+            </summary>
+            <param name="id">Id To Get</param>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.Post(ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit.AddEditItemDepartmentCommand)">
             <summary>
             Create/Update Item Department
