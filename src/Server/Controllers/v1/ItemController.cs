@@ -14,7 +14,7 @@ namespace ErpDashboard.Server.Controllers.v1
     public class ItemController : BaseApiController<ItemController>
     {
         /// <summary>
-        /// Create/Update Item
+        /// Create/Update Item (AddEditItemCommand)
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Status 200 OK</returns>
@@ -38,7 +38,7 @@ namespace ErpDashboard.Server.Controllers.v1
         }
 
         /// <summary>
-        /// Get All Items
+        /// Get All Items (List of GetItemResponse)
         /// </summary>
         /// <returns>Status 200 OK</returns>
         [Authorize(Policy = Permissions.Item.View)]
@@ -50,7 +50,7 @@ namespace ErpDashboard.Server.Controllers.v1
         }
 
         /// <summary>
-        /// Get Items By Id
+        /// Get Items By Id (GetItemResponse)
         /// </summary>
         /// <param name="id">Id To Get</param>
         /// <returns>Status 200 OK</returns>

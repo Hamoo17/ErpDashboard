@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
+namespace ErpDashboard.Application.Features.RecipeHdr.Queries
 {
-    public class AddEditRecipeCommand
+    public class ReciepeResponse
     {
+
     }
 }
