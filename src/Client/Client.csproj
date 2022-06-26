@@ -464,4 +464,9 @@
 	<ItemGroup>
 	  <TypeScriptCompile Include="wwwroot\lib\types.d.ts" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Sticker.Designer.cs">
+	    <DependentUpon>Sticker.repx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 </Project>

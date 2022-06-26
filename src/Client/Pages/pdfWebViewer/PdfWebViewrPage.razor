@@ -1,12 +1,38 @@
 ﻿@page "/webviewer"
 @inject IJSRuntime JSRuntime
+@inject HttpClient _httpClient
 <h1>Pdf Web Viewer</h1>
+<a href="@myLink">The Link Is=> @myLink</a>
+<MudButton OnClick="DownLoad">Get</MudButton>
 <div id='viewer' style='width: 100%; height: 85vh; margin: 0 auto;'></div>
+<iframe src="http://docs.google.com/gview?url=http://infolab.stanford.edu/pub/papers/google.pdf&embedded=true" frameborder="0" style="width:600px;height:500px"></iframe>
 @code {
+    string myLink = "";
+    string Mydata = "";
     protected override async void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
-         await JSRuntime.InvokeAsync<object>("webviewerFunctions.initWebViewer");
+        var data = await _httpClient.GetAsync("api/v1/Reports/All");
+        Mydata = await data.Content.ReadAsStringAsync();
+
+        //  await JSRuntime.InvokeAsync<object>("webviewerFunctions.initWebViewer");
     }
-    
+    private async void DownLoad()
+    {
+        var link = await JSRuntime.InvokeAsync<string>("Download", new
+        {
+            ByteArray = Mydata,
+            FileName = $"AA.pdf",
+            MimeType = "application/pdf"
+        });
+        myLink = link;
+        StateHasChanged();
+        
+        //await JSRuntime.InvokeVoidAsync("Download", new
+         //   {
+         //       ByteArray = Mydata,
+         //       FileName = $"Subscription_{DateTime.Now:ddMMyyyyHHmmss}.pdf",
+         //       MimeType = "application/pdf"
+         //   });
+    }
 }
