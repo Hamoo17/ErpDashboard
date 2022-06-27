@@ -1,6 +1,7 @@
 using DevExpress.AspNetCore;
 using DevExpress.XtraReports.Web.Extensions;
 using ErpDashboard.Application.Extensions;
+using ErpDashboard.Application.Reports;
 using ErpDashboard.Client.Infrastructure.ServerSideValidations;
 using ErpDashboard.Infrastructure.Extensions;
 using ErpDashboard.Server.Extensions;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -38,6 +40,7 @@ namespace ErpDashboard.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddCors();
             services.AddDevExpressControls();
           //  services.AddTransient<ProductValidationServices, ProductValidationService>();
@@ -63,7 +66,7 @@ namespace ErpDashboard.Server
             services.AddDatabase(_configuration);
             services.AddServerStorage(); //TODO - should implement ServerStorageProvider to work correctly!
             services.AddScoped<ServerPreferenceManager>();
-         
+            services.AddScoped<AllCustomersReport>();
             services.AddPaymobCashIn(config =>
                 {
                     config.ApiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SndjbTltYVd4bFgzQnJJam94T0RBME1Ea3NJbU5zWVhOeklqb2lUV1Z5WTJoaGJuUWlMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuRmVRVHZXQ3ExclFlTTkycDR2T0RtMWVsMzVXVHJOUEsyamd5WEg1U2luRDRuUVVjc18tS0MtcUJsNlc1T1lqRHlpczBJZzluMVJNdG40N1Rqd0k5MHc=";
@@ -102,18 +105,30 @@ namespace ErpDashboard.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IStringLocalizer<Startup> localizer)
         {
-            app.UseCors();
+#if !DEBUG
             app.UseResponseCompression();
+#endif
+            app.UseCors();
+          //  app.UseResponseCompression();
 
             app.UseExceptionHandling(env);
             app.UseHttpsRedirection();
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseBlazorFrameworkFiles();
+            var provider = new FileExtensionContentTypeProvider();
+       
+            provider.Mappings[".res"] = "application/octet-stream";
+            provider.Mappings[".pexe"] = "application/x-pnacl";
+            provider.Mappings[".nmf"] = "application/octet-stream";
+            provider.Mappings[".mem"] = "application/octet-stream";
+            provider.Mappings[".wasm"] = "application/wasm";
+
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Files")),
-                RequestPath = new PathString("/Files")
+                RequestPath = new PathString("/Files"),
+                ContentTypeProvider = provider
             });
             app.UseRequestLocalizationByCulture();
             app.UseRouting();

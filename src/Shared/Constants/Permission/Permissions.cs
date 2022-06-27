@@ -119,6 +119,15 @@ namespace ErpDashboard.Shared.Constants.Permission
             public const string Export = "Permissions.ItemDepartment.Export";
             public const string Search = "Permissions.ItemDepartment.Search";
         }
+        public static class Item
+        {
+            public const string View = "Permissions.Item.View";
+            public const string Create = "Permissions.Item.Create";
+            public const string Edit = "Permissions.Item.Edit";
+            public const string Delete = "Permissions.Item.Delete";
+            public const string Export = "Permissions.Item.Export";
+            public const string Search = "Permissions.Item.Search";
+        }
         public static class Communication
         {
             public const string Chat = "Permissions.Communication.Chat";

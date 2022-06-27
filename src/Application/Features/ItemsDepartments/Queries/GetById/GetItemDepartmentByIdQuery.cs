@@ -13,7 +13,7 @@ using ErpDashboard.Application.Models;
 
 namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetById
 {
-    internal class GetItemDepartmentByIdQuery : IRequest<Result<GetItemDepartmentResponse>>
+    public class GetItemDepartmentByIdQuery : IRequest<Result<GetItemDepartmentResponse>>
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -29,7 +29,7 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetById
         }
         public async Task<Result<GetItemDepartmentResponse>> Handle(GetItemDepartmentByIdQuery request, CancellationToken cancellationToken)
         {
-            var dept = _unitOfWork.Repository<TbDepartment>().GetByIdAsync(request.id);
+            var dept = await _unitOfWork.Repository<TbDepartment>().GetByIdAsync(request.id);
             var MapedDept =  _mapper.Map<GetItemDepartmentResponse>(dept);
             return await Result<GetItemDepartmentResponse>.SuccessAsync(MapedDept);
         }

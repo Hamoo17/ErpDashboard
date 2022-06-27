@@ -8,8 +8,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace ErpDashboard.Server
-{
+namespace ErpDashboard.Server;
+
     public class Program
     {
         public async static Task Main(string[] args)
@@ -51,4 +51,3 @@ namespace ErpDashboard.Server
                     webBuilder.UseStartup<Startup>();
                 });
     }
-}
