@@ -1,0 +1,59 @@
+﻿
+@using ErpDashboard.Client.Infrastructure.Managers.PlanCategory
+@using ErpDashboard.Application.Features.PlanCategory.Query.Dto
+@inject IPlanCtegoryManager _PlanCategoryManager 
+<MudSelect T="int" @bind-Value="MyValue"  Label="Plan category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+  @if (PlanCategoryList != null)
+  {
+	  foreach (var Cat in PlanCategoryList)
+	  {
+		   <MudSelectItem Value="@Cat.Id">@Cat.TypeName</MudSelectItem>
+	  }
+  }
+</MudSelect>
+
+@code {
+
+	private List<PlanCategoryDto> PlanCategoryList { get; set; }=new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadData();
+	}
+
+	private async Task LoadData()
+	{
+		var response = await _PlanCategoryManager.GetAllAsync();
+
+		if (response.Succeeded)
+		{
+			PlanCategoryList = response.Data;
+		}
+		else
+		{
+			foreach (var msg in response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+
+		}
+	}
+
+
+	private int _value;
+
+	[Parameter]
+	public int MyValue
+	{
+		get => _value;
+		set
+		{
+			if (_value == value ) return;
+			_value = value;
+			MyValueChanged.InvokeAsync(value);
+		}
+	}
+
+	[Parameter]
+	public EventCallback<int> MyValueChanged { get; set; }
+}

@@ -123,7 +123,7 @@ namespace ErpDashboard.Client.Infrastructure.Settings
                 AppbarText= "#9BA2B9",
                 BackgroundGrey= "#F5F5F9",
                 TextPrimary= "#282F48", //"#9BA2B9",
-                TextSecondary = "#9BA2B9",
+                TextSecondary = "#9BA2B9"
 
             },
             Typography = DefaultTypography,

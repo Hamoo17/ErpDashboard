@@ -455,10 +455,6 @@
     <ProjectReference Include="..\Client.Infrastructure\Client.Infrastructure.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\PlanCategory\Compnents\" />
-  </ItemGroup>
 	<ItemGroup>
 		<!-- Avoid trimming of the Msal library.
              There's something too much trimmed from Msal in the publish step. Then, after logging in,

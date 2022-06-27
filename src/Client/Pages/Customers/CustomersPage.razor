@@ -5,21 +5,28 @@
 @inject ICustomersManager _CustomerManager;
 
 
-
+<style>
+	.mySize th{
+	width:1px;
+	}
+	
+</style>
 <MudAppBar Color="Color.Transparent" Fixed="false" Class="mb-4">
 	<MudIcon Size=Size.Large  Color=Color.Tertiary Class="mr-4" Icon="@Icons.Material.Filled.AccountCircle" ></MudIcon>
 	<HeroTitle  Title=Customers ></HeroTitle>
 	<MudSpacer></MudSpacer>
-
+	<h1>@SelectedCategory.ToString()</h1>
 	<MudFab StartIcon="@Icons.Filled.Add" Label="Add New Customer" Color=Color.Success/>
 	</MudAppBar>
+	<ErpDashboard.Client.Pages.PlanCategory.Compnents.PlanCategoryComboBoxCombonent @bind-Myvalue = "SelectedCategory">
 
+	</ErpDashboard.Client.Pages.PlanCategory.Compnents.PlanCategoryComboBoxCombonent>
 @if (Customers != null)
 {
-	<MudTable Items="@Customers" Hover="true" Breakpoint="Breakpoint.Sm" Loading=@_Loading LoadingProgressColor=Color.Success Dense=true Class="mt-4">
+	<MudTable Items="@Customers" Hover="true" Breakpoint="Breakpoint.Sm" Loading=@_Loading  LoadingProgressColor=Color.Success Dense=true Class="mt-4">
 		<HeaderContent>
 			<MudTh>Avatar</MudTh>
-			<MudTh>ID</MudTh>
+			<MudTh Class="mySize">ID</MudTh>
 			<MudTh>Name</MudTh>
 			<MudTh> Phones</MudTh>
 			<MudTh> Adress</MudTh>
@@ -30,7 +37,7 @@
 		</HeaderContent>
 		<RowTemplate>
 			<MudTd><MudAvatar Color="Color.Tertiary">@context.CustomerName.Substring(0,1)</MudAvatar></MudTd>
-			<MudTd DataLabel="Nr">@context.CustomerId</MudTd>
+			<MudTd Class="mySize" DataLabel="Nr">@context.CustomerId</MudTd>
 			<MudTd DataLabel="Sign">@context.CustomerName</MudTd>
 			<MudTd DataLabel="Name">@context.CustomerPhone</MudTd>
 			<MudTd DataLabel="Name">@context.Adress</MudTd>
@@ -56,6 +63,7 @@ else
 	private List<GetAllCustomerViewModal> Customers;
 	private GetAllCustomerViewModal _customer;
 	private bool _Loading;
+	int SelectedCategory;
 	protected override async Task OnInitializedAsync()
 	{
 		_Loading = true;
