@@ -33,6 +33,7 @@ namespace ErpDashboard.Client.Pages.Catalog
             {
                 _snackBar.Add(response.Messages[0], Severity.Success);
                 MudDialog.Close();
+                
             }
             else
             {

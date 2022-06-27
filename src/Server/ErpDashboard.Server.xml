@@ -417,6 +417,19 @@
             <param name="name"></param>
             <returns>Status 200 OK</returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll">
+            <summary>
+            Get All Customers
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.Post(ErpDashboard.Application.Features.Customer.Command.AddEdit.AddEditCustomerCommand)">
+            <summary>
+            Create/Update a Customers
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.DashboardController.GetDataAsync">
             <summary>
             Get Dashboard Data

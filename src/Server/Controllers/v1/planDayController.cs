@@ -39,7 +39,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// </summary>
         /// <returns>Status 200 OK</returns>
         [Authorize(Policy = Permissions.planday.View)]
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var PlanDays= await _mediator.Send(new GetAllPlanDayQuery());

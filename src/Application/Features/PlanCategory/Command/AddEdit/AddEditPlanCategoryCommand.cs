@@ -56,7 +56,8 @@ namespace ErpDashboard.Application.Features.PlanCategory.Command.AddEdit
                 if(plancategory != null)
                 {
                     //update
-                    plancategory = _mapper.Map<TbPlanCategory>(request);
+                    plancategory.TypeName = request.TypeName ?? plancategory.TypeName;
+                    plancategory.Symbol = request.Symbol ?? plancategory.Symbol;
                     await _unitOfWork.Repository<TbPlanCategory>().UpdateAsync(plancategory, request.Id);
                     await _unitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(plancategory.Id, "Plan Category Updated");

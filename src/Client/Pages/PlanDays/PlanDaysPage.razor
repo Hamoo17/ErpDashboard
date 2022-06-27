@@ -2,7 +2,8 @@
 @using Client.Infrastructure.Managers.PlanDays
 @using ErpDashboard.Application.Features.PlanDays.Query.Dto;
 @inject IPlanDaysManager _PlanDaysManager
-
+@using ErpDashboard.Application.Features.PlanDays.Command.AddEdit;
+@using System.Security.Claims;
 <MudAppBar Color="Color.Transparent" Fixed="false" >
 	<HeroTitle Title="PlanDays"/>
 	  <MudSpacer />
@@ -12,6 +13,16 @@
 @if (PlanDays!= null)
 {
 	<MudTable Items="@PlanDays" Hover="true" Breakpoint="Breakpoint.Sm">
+		<ToolBarContent>
+            <div class="justify-center mud-text-align-center">
+                @if (_canCreate)
+                {
+                    <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary" OnClick="(() => InvokeModal())" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">Create</MudButton>
+                }
+				<MudButton DisableElevation Variant="Variant.Filled" OnClick="GetData" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface" Color="Color.Secondary">Reload"</MudButton>
+
+            </div>
+			</ToolBarContent>
     <HeaderContent>
         <MudTh>ID</MudTh>
         <MudTh>Name</MudTh>
@@ -25,8 +36,8 @@
         <MudTd DataLabel="Name">@context.DayCount</MudTd>
 		<MudSpacer/>
 		<MudTd>		
-			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
-			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Edit" OnClick="(() => InvokeModal(context.Id))" Color="Color.Tertiary"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" OnClick="(() => Delete(context.Id))" Color="Color.Error"></MudIconButton>
 		</MudTd>
    </RowTemplate>
 	</MudTable>
@@ -43,25 +54,89 @@
 
 @code{
 
-	List<PlanDayDto> PlanDays;
-	protected override async Task OnInitializedAsync()
-	{
-		 await GetData();
-	}
+    private List<PlanDayDto> PlanDays;
+    private PlanDayDto _PlanDay = new();
 
-	private async Task GetData()
-	{
-		var Response = await _PlanDaysManager.GetPlanDaysAsync();
-		if(Response.Succeeded)
-		{
-			PlanDays = Response.Data;
-		}
-		else
-		{
-			foreach(var msg in Response.Messages)
-			{
-				_snackBar.Add(msg, Severity.Error);
-			}
-		}
-	}
+    bool _canCreate;
+    private ClaimsPrincipal _currentUser;
+    protected override async Task OnInitializedAsync()
+    {
+        await GetData();
+         _currentUser = await _authenticationManager.CurrentUser();
+        _canCreate = (await _authorizationService.AuthorizeAsync(_currentUser, Permissions.planday.Create)).Succeeded;
+    }
+
+    private async Task GetData()
+    {
+        var Response = await _PlanDaysManager.GetAllAsync();
+        if(Response.Succeeded)
+        {
+            PlanDays = Response.Data;
+        }
+        else
+        {
+            foreach(var msg in Response.Messages)
+            {
+                _snackBar.Add(msg, Severity.Error);
+            }
+        }
+    }
+     private async Task Delete(int id)
+        {
+            string deleteContent = "You Are Going To Delete the Plan Days";
+            var parameters = new DialogParameters
+            {
+                {nameof(Shared.Dialogs.DeleteConfirmation.ContentText), string.Format(deleteContent, id)}
+            };
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+            var dialog = _dialogService.Show<Shared.Dialogs.DeleteConfirmation>("Delete", parameters, options);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                var response = await _PlanDaysManager.DeleteAsync(id);
+                if (response.Succeeded)
+                {
+                    await Reset();
+                    _snackBar.Add(response.Messages[0], Severity.Success);
+                }
+                else
+                {
+                    await Reset();
+                    foreach (var message in response.Messages)
+                    {
+                        _snackBar.Add(message, Severity.Error);
+                    }
+                }
+            }
+        }
+    private async Task InvokeModal(int id = 0)
+    {
+        var parameters = new DialogParameters();
+        if (id != 0)
+        {
+            _PlanDay = PlanDays.FirstOrDefault(c => c.Id == id);
+            if (_PlanDay != null)
+            {
+                parameters.Add(nameof(AddEditPlanDaysModal.Model), new AddEditPlanDaysCommand
+                    {
+                        Id = _PlanDay.Id,
+                        Name = _PlanDay.Name,
+                        DayCount = _PlanDay.DayCount
+                    });
+            }
+        }
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+        var dialog = _dialogService.Show<AddEditPlanDaysModal>(id == 0 ? "Create" : "Edit", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            await Reset();
+        }
+    }
+    private async Task Reset()
+    {
+        _PlanDay = new PlanDayDto();
+        await GetData();
+    }
+
 }
