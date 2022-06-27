@@ -1,7 +1,6 @@
 ﻿using ErpDashboard.Application.Extensions;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Requests;
-using System.IO;
 
 namespace ErpDashboard.Infrastructure.Services
 {

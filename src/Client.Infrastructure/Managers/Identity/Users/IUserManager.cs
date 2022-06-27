@@ -1,8 +1,6 @@
 ﻿using ErpDashboard.Application.Requests.Identity;
 using ErpDashboard.Application.Responses.Identity;
 using ErpDashboard.Shared.Wrapper;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Identity.Users
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ErpDashboard.Application.Responses.Identity
+﻿namespace ErpDashboard.Application.Responses.Identity
 {
     public class PermissionResponse
     {

@@ -4,12 +4,6 @@ using ErpDashboard.Application.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Contexts
 {
@@ -22,7 +16,7 @@ namespace ErpDashboard.Infrastructure.Contexts
             _currentUser = currentUser;
         }
         public virtual DbSet<TbSystemLogger> TbSystemLoggers { get; set; }
-        public List<AuditEntryy> OnBeforeSaveChanges(int? userid,int? comId)
+        public List<AuditEntryy> OnBeforeSaveChanges(int? userid, int? comId)
         {
 
             ChangeTracker.DetectChanges();
@@ -34,8 +28,8 @@ namespace ErpDashboard.Infrastructure.Contexts
                     continue;
                 var auditEntry = new AuditEntryy(entry);
                 auditEntry.TableName = entry.Entity.GetType().Name;
-                auditEntry.UserId = userid?? 0;
-                auditEntry.CompanyID = comId?? 0;
+                auditEntry.UserId = userid ?? 0;
+                auditEntry.CompanyID = comId ?? 0;
 
                 auditEntries.Add(auditEntry);
 
@@ -57,28 +51,28 @@ namespace ErpDashboard.Infrastructure.Contexts
                         auditEntry.KeyValues[propertyName] = property.CurrentValue;
                         continue;
                     }
-                        switch (entry.State)
-                        {
-                            case EntityState.Added:
-                                auditEntry.AuditType = AuditType.Create;
-                                auditEntry.NewValues[propertyName] = property.CurrentValue;
-                                break;
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            auditEntry.AuditType = AuditType.Create;
+                            auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            break;
 
-                            case EntityState.Deleted:
-                                auditEntry.AuditType = AuditType.Delete;
+                        case EntityState.Deleted:
+                            auditEntry.AuditType = AuditType.Delete;
+                            auditEntry.OldValues[propertyName] = property.OriginalValue;
+                            break;
+
+                        case EntityState.Modified:
+                            if (property.IsModified && property.OriginalValue?.Equals(property.CurrentValue) == false)
+                            {
+                                auditEntry.ChangedColumns.Add(propertyName);
+                                auditEntry.AuditType = AuditType.Update;
                                 auditEntry.OldValues[propertyName] = property.OriginalValue;
-                                break;
-
-                            case EntityState.Modified:
-                                if (property.IsModified && property.OriginalValue?.Equals(property.CurrentValue) == false)
-                                {
-                                    auditEntry.ChangedColumns.Add(propertyName);
-                                    auditEntry.AuditType = AuditType.Update;
-                                    auditEntry.OldValues[propertyName] = property.OriginalValue;
-                                    auditEntry.NewValues[propertyName] = property.CurrentValue;
-                                }
-                                break;
-                        }
+                                auditEntry.NewValues[propertyName] = property.CurrentValue;
+                            }
+                            break;
+                    }
                 }
             }
 
@@ -89,9 +83,9 @@ namespace ErpDashboard.Infrastructure.Contexts
             return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
         }
 
-        public virtual async Task<int> SaveChangesAsync(int? userId = null,int? commId = null, CancellationToken cancellationToken = new())
+        public virtual async Task<int> SaveChangesAsync(int? userId = null, int? commId = null, CancellationToken cancellationToken = new())
         {
-            var auditEntries = OnBeforeSaveChanges(_currentUser.SystemUserId,_currentUser.CompanyID);
+            var auditEntries = OnBeforeSaveChanges(_currentUser.SystemUserId, _currentUser.CompanyID);
             var result = await base.SaveChangesAsync(cancellationToken);
             await OnAfterSaveChanges(auditEntries, cancellationToken);
             return result;
@@ -99,7 +93,7 @@ namespace ErpDashboard.Infrastructure.Contexts
 
         private Task OnAfterSaveChanges(List<AuditEntryy> auditEntries, CancellationToken cancellationToken = new CancellationToken())
         {
-           
+
 
             if (auditEntries == null || auditEntries.Count == 0)
                 return Task.CompletedTask;

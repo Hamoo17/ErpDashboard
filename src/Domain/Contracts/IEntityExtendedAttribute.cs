@@ -1,6 +1,5 @@
 ﻿#nullable enable
 using ErpDashboard.Domain.Enums;
-using System;
 
 namespace ErpDashboard.Domain.Contracts
 {

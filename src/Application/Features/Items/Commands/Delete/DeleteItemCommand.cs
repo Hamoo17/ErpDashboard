@@ -1,16 +1,9 @@
-﻿using AutoMapper;
-using ErpDashboard.Application.Features.Items.Commands.AddEdit;
-using ErpDashboard.Application.Interfaces.Repositories;
+﻿using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.Items.Commands.Delete
 {
@@ -18,7 +11,7 @@ namespace ErpDashboard.Application.Features.Items.Commands.Delete
     {
         public int Id { get; set; }
 
-}
+    }
     internal class DeleteItemHandler : IRequestHandler<DeleteItemCommand, Result<int>>
     {
         private readonly ICustomIUnitOfWork<int> _unitOfWork;

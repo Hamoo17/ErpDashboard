@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Interfaces.Services
+﻿namespace ErpDashboard.Application.Interfaces.Services
 {
     public interface IDateTimeService
     {

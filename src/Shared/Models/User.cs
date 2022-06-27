@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Shared.Models
+﻿namespace ErpDashboard.Shared.Models
 {
     public class User
     {

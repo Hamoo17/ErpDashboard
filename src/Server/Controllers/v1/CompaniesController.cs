@@ -1,20 +1,14 @@
 ﻿using ErpDashboard.Application.Features.Companies.GetAllCompanies;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using ErpDashboard.Infrastructure.Contexts;
-using ErpDashboard.Server.Reports;
-using System.IO;
-using System.Linq;
-using DevExpress.Compatibility.System.Web;
+using Microsoft.AspNetCore.Mvc;
 using X.Paymob.CashIn;
 using X.Paymob.CashIn.Models.Orders;
 using X.Paymob.CashIn.Models.Payment;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
-    
-  
+
+
     public class CompaniesController : BaseApiController<CompaniesController>
     {
         private readonly ERBSYSTEMContext _context;
@@ -33,7 +27,7 @@ namespace ErpDashboard.Server.Controllers.v1
         }
 
         [HttpGet("pay")]
-        
+
         public async Task<object> getrpt()
         {
             var amountCents = 1000; // 10 LE

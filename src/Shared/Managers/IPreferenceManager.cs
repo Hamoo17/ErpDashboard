@@ -1,6 +1,5 @@
 ﻿using ErpDashboard.Shared.Settings;
 using ErpDashboard.Shared.Wrapper;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Shared.Managers
 {

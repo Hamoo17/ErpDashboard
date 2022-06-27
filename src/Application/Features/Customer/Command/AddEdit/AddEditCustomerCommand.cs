@@ -4,16 +4,10 @@ using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
 {
-    public class AddEditCustomerCommand:IRequest<IResult<int>>
+    public class AddEditCustomerCommand : IRequest<IResult<int>>
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
@@ -47,19 +41,19 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
 
         public async Task<IResult<int>> Handle(AddEditCustomerCommand request, CancellationToken cancellationToken)
         {
-           if(request.Id==0)
+            if (request.Id == 0)
             {
-                var mappedcustomer=_Mapper.Map<TbCustomer>(request);
+                var mappedcustomer = _Mapper.Map<TbCustomer>(request);
                 mappedcustomer.UserId = 7;
-                mappedcustomer.ComId =6;
+                mappedcustomer.ComId = 6;
                 await _UnitOfWork.Repository<TbCustomer>().AddAsync(mappedcustomer);
                 await _UnitOfWork.Commit(cancellationToken);
-                return await Result<int>.SuccessAsync(mappedcustomer.Id,"Customer Add Successfuly");
+                return await Result<int>.SuccessAsync(mappedcustomer.Id, "Customer Add Successfuly");
             }
             else
             {
                 var Customer = await _UnitOfWork.Repository<TbCustomer>().GetByIdAsync(request.Id);
-               if(Customer!=null)
+                if (Customer != null)
                 {
                     await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(Customer, request.Id);
                     await _UnitOfWork.Commit(cancellationToken);

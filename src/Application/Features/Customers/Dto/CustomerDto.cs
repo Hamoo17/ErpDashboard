@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ErpDashboard.Application.Features.Customers.Dto
+﻿namespace ErpDashboard.Application.Features.Customers.Dto
 {
     public class CustomerDto
     {
@@ -12,12 +6,12 @@ namespace ErpDashboard.Application.Features.Customers.Dto
         public string CustCoupon { get; set; }
 
     }
-    public class CustomerPhone 
+    public class CustomerPhone
     {
-    
+
     }
-    public class CustomerAddress 
+    public class CustomerAddress
     {
-    
+
     }
 }

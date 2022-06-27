@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using System;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Toolbelt.Blazor;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Interceptors

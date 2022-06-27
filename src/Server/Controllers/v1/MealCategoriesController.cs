@@ -4,13 +4,11 @@ using ErpDashboard.Application.Features.MealsCategory.Queries.GetAll;
 using ErpDashboard.Application.Features.MealsCategory.Queries.GetById;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
-   
+
     public class MealCategoriesController : BaseApiController<MealCategoriesController>
     {
         /// <summary>
@@ -58,7 +56,7 @@ namespace ErpDashboard.Server.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var MealCategory = await _mediator.Send(new GetMealCategoryByIdQuery() { Id = id});
+            var MealCategory = await _mediator.Send(new GetMealCategoryByIdQuery() { Id = id });
             return Ok(MealCategory);
         }
     }

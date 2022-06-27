@@ -5,12 +5,6 @@ using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
 {
@@ -23,7 +17,7 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
 
         public List<ItemComponentDetailResponse> itemComponentDetailResponse { get; set; }
     }
-    internal class AddEditRecipeCommandHandler : IRequestHandler<AddEditRecipeCommand , Result<int>>
+    internal class AddEditRecipeCommandHandler : IRequestHandler<AddEditRecipeCommand, Result<int>>
     {
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly ICurrentUserService _currentUser;
@@ -42,7 +36,7 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
             {
                 return await Result<int>.FailAsync(_localizer["NO COMPANY WITH THIS ID"]);
             }
-            if(command.Id == 0)
+            if (command.Id == 0)
             {
                 var ItemRecipe = new TbItemComponentsHdr();
                 ItemRecipe.ComplexItem = command.ComplexItemId;
@@ -69,7 +63,7 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
                     ItemRecipe.QtyNeeded = command.QtyNeeded;
                     ItemRecipe.MainUnit = command.MainUnit.ToString();
 
-                    await _unitOfWork.Repository<TbItemComponentsHdr>().UpdateAsync(ItemRecipe , command.Id);
+                    await _unitOfWork.Repository<TbItemComponentsHdr>().UpdateAsync(ItemRecipe, command.Id);
                     await _unitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(_localizer["Recipy Updated"]);
 

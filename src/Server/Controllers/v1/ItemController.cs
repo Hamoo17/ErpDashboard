@@ -4,7 +4,6 @@ using ErpDashboard.Application.Features.Items.Quaries.GetAll;
 using ErpDashboard.Application.Features.Items.Quaries.GetById;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErpDashboard.Server.Controllers.v1

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace ErpDashboard.Application.Interfaces.Services
+﻿namespace ErpDashboard.Application.Interfaces.Services
 {
     public interface IExcelService
     {

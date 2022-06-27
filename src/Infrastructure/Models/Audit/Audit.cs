@@ -1,5 +1,4 @@
 ﻿using ErpDashboard.Domain.Contracts;
-using System;
 
 namespace ErpDashboard.Infrastructure.Models.Audit
 {

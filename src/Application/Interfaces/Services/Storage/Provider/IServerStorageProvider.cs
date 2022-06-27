@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace ErpDashboard.Application.Interfaces.Services.Storage.Provider
+﻿namespace ErpDashboard.Application.Interfaces.Services.Storage.Provider
 {
     public interface IStorageProvider
     {

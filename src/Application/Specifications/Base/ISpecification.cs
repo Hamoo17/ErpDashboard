@@ -1,6 +1,4 @@
 ﻿using ErpDashboard.Domain.Contracts;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace ErpDashboard.Application.Specifications.Base

@@ -1,6 +1,5 @@
 ﻿using ErpDashboard.Client.Extensions;
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Shared.Components
 {

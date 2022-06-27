@@ -7,11 +7,6 @@ using ErpDashboard.Client.Infrastructure.Managers.Misc.DocumentType;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Pages.Misc
 {

@@ -2,11 +2,6 @@
 using ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit;
 using ErpDashboard.Application.Features.ItemsDepartments.Queries.Dto;
 using ErpDashboard.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Mappings
 {
@@ -14,7 +9,7 @@ namespace ErpDashboard.Application.Mappings
     {
         public ItemDepartmentProfile()
         {
-            CreateMap<AddEditItemDepartmentCommand , TbDepartment>().ReverseMap();
+            CreateMap<AddEditItemDepartmentCommand, TbDepartment>().ReverseMap();
             CreateMap<GetItemDepartmentResponse, TbDepartment>().ReverseMap();
 
         }

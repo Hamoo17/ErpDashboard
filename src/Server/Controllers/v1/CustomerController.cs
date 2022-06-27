@@ -1,12 +1,6 @@
 ﻿using ErpDashboard.Application.Features.Customer.Command.AddEdit;
 using ErpDashboard.Application.Features.Customer.GetAllCustomers;
-using ErpDashboard.Application.Features.PlanCategory.Query.GetAll;
-using ErpDashboard.Application.Features.PlanDays.Command.AddEdit;
-using ErpDashboard.Shared.Constants.Permission;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Polly;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1
 {

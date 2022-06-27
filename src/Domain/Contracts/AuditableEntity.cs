@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Domain.Contracts
+﻿namespace ErpDashboard.Domain.Contracts
 {
     public abstract class AuditableEntity<TId> : IAuditableEntity<TId>
     {

@@ -1,5 +1,4 @@
 ﻿using ErpDashboard.Application.Interfaces.Chat;
-using System;
 
 namespace ErpDashboard.Application.Models.Chat
 {

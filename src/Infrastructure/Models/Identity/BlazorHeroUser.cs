@@ -2,8 +2,6 @@
 using ErpDashboard.Application.Models.Chat;
 using ErpDashboard.Domain.Contracts;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ErpDashboard.Infrastructure.Models.Identity

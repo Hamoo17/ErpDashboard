@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using static ErpDashboard.Application.Enums.ErpSystemEnums;
+﻿using static ErpDashboard.Application.Enums.ErpSystemEnums;
 
 #nullable disable
 

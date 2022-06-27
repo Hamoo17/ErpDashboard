@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Responses.Audit
+﻿namespace ErpDashboard.Application.Responses.Audit
 {
     public class AuditResponse
     {

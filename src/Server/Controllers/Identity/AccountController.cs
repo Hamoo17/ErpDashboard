@@ -3,7 +3,6 @@ using ErpDashboard.Application.Interfaces.Services.Account;
 using ErpDashboard.Application.Requests.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.Identity
 {

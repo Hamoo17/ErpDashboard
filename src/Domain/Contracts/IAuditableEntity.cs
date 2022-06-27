@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Domain.Contracts
+﻿namespace ErpDashboard.Domain.Contracts
 {
     public interface IAuditableEntity<TId> : IAuditableEntity, IEntity<TId>
     {

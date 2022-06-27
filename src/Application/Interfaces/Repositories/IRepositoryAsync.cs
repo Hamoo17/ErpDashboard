@@ -1,7 +1,4 @@
 ﻿using ErpDashboard.Domain.Contracts;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Interfaces.Repositories
 {
@@ -33,7 +30,7 @@ namespace ErpDashboard.Application.Interfaces.Repositories
 
         Task<T> AddAsync(T entity);
 
-        Task UpdateAsync(T entity,TId id);
+        Task UpdateAsync(T entity, TId id);
 
         Task DeleteAsync(T entity);
     }

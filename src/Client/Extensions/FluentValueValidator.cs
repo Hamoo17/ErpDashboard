@@ -1,7 +1,4 @@
 ﻿using FluentValidation;
-using System.Collections.Generic;
-using System;
-using System.Linq;
 
 namespace ErpDashboard.Client.Extensions
 {
@@ -10,13 +7,13 @@ namespace ErpDashboard.Client.Extensions
         public FluentValueValidator(Action<IRuleBuilderInitial<T, T>> rule)
         {
             rule(RuleFor(x => x));
-           
+
         }
-        
+
         private IEnumerable<string> ValidateValue(T arg)
         {
-            
-            if (arg== null)
+
+            if (arg == null)
             {
                 return new string[0];
             }

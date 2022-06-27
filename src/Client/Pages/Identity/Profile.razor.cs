@@ -5,9 +5,6 @@ using ErpDashboard.Shared.Constants.Storage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Pages.Identity
 {

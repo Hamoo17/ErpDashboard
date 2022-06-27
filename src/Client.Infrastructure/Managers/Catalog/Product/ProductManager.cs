@@ -4,9 +4,7 @@ using ErpDashboard.Application.Requests.Catalog;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Shared.ServerSideValidations;
 using ErpDashboard.Shared.Wrapper;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Catalog.Product
 {

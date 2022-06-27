@@ -4,8 +4,6 @@ using ErpDashboard.Shared.Constants.Storage;
 using ErpDashboard.Shared.Settings;
 using ErpDashboard.Shared.Wrapper;
 using Microsoft.Extensions.Localization;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Managers.Preferences
 {

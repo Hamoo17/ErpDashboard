@@ -1,7 +1,6 @@
 ﻿using ErpDashboard.Application.Requests.Identity;
 using ErpDashboard.Shared.Wrapper;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Identity.Authentication
 {

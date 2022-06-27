@@ -6,8 +6,6 @@ using ErpDashboard.Shared.Wrapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Services.Identity
 {

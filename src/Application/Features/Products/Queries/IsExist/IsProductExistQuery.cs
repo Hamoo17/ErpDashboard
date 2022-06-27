@@ -1,14 +1,6 @@
 ﻿using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Domain.Entities.Catalog;
-using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace ErpDashboard.Application.Features.Products.Queries.IsExist
 {

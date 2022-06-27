@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Interfaces.Services.Storage
+﻿namespace ErpDashboard.Application.Interfaces.Services.Storage
 {
     public interface ISyncServerStorageService
     {

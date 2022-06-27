@@ -1,10 +1,5 @@
 ﻿using DevExpress.XtraReports.UI;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using ErpDashboard.Infrastructure.Contexts;
-using ErpDashboard.Server.Reports;
-using DevExpress.DataAccess.ObjectBinding;
 
 namespace ErpDashboard.Server
 {
@@ -31,12 +26,12 @@ namespace ErpDashboard.Server
             var item = ReportFactory.Reports.FirstOrDefault(x => x.Name == url);
             using (MemoryStream ms = new MemoryStream())
             {
-                 
+
                 item.Report.SaveLayoutToXml(ms);
                 return ms.ToArray();
             }
         }
- 
+
         public override Dictionary<string, string> GetUrls()
         {
             // Get URLs and display names for all reports available in the storage.
@@ -65,7 +60,7 @@ namespace ErpDashboard.Server
             {
                 item.Report = report;
             }
-             
+
         }
 
 

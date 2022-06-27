@@ -6,7 +6,6 @@ using ErpDashboard.Shared.Constants.Application;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Pages.Catalog
 {
@@ -33,7 +32,7 @@ namespace ErpDashboard.Client.Pages.Catalog
             {
                 _snackBar.Add(response.Messages[0], Severity.Success);
                 MudDialog.Close();
-                
+
             }
             else
             {

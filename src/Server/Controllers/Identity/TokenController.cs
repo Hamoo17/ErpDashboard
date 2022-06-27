@@ -2,7 +2,6 @@
 using ErpDashboard.Application.Interfaces.Services.Identity;
 using ErpDashboard.Application.Requests.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.Identity
 {

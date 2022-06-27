@@ -1,12 +1,4 @@
-﻿using ErpDashboard.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
+﻿namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
 {
     public class GetAllCustomerViewModal
     {
@@ -23,8 +15,8 @@ namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
         public int Evalution { get; set; }
         public string Notes { get; set; }
         public bool Status { get; set; }
-        public string CustomerPhone  { get; set; }
-        public string  Adress { get; set; }
-        public string  Category { get; set; }
+        public string CustomerPhone { get; set; }
+        public string Adress { get; set; }
+        public string Category { get; set; }
     }
 }

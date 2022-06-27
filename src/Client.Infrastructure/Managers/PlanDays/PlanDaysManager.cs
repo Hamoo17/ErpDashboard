@@ -3,10 +3,7 @@ using ErpDashboard.Application.Features.PlanDays.Query.Dto;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Client.Infrastructure.Routes;
 using ErpDashboard.Shared.Wrapper;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.PlanDays
 {

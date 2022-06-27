@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace ErpDashboard.Application.Extensions
 {
@@ -18,7 +17,7 @@ namespace ErpDashboard.Application.Extensions
             var attributes = (Tips[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(Tips), false);
             return attributes.Length > 0 ? attributes[0].Tip : val.ToString();
         }
- 
+
     }
     public class Tips : Attribute
     {

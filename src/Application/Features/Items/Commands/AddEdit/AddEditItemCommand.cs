@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
 using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Interfaces.Services;
-using ErpDashboard.Application.Interfaces.Services.Identity;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace ErpDashboard.Application.Features.Items.Commands.AddEdit
 {
@@ -65,11 +59,11 @@ namespace ErpDashboard.Application.Features.Items.Commands.AddEdit
                 {
                     try
                     {
-                    var item = _mapper.Map<TbItem>(command);
-                    item.ComId = CompanyId;
-                    await _customIUnitOfWork.Repository<TbItem>().AddAsync(item);
-                    await _customIUnitOfWork.Commit(cancellationToken);
-                    return await Result<int>.SuccessAsync(item.Id, _localizer["Item Added"]);
+                        var item = _mapper.Map<TbItem>(command);
+                        item.ComId = CompanyId;
+                        await _customIUnitOfWork.Repository<TbItem>().AddAsync(item);
+                        await _customIUnitOfWork.Commit(cancellationToken);
+                        return await Result<int>.SuccessAsync(item.Id, _localizer["Item Added"]);
                     }
                     catch (DbUpdateException ex)
                     {

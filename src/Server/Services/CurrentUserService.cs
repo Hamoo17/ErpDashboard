@@ -1,9 +1,5 @@
 ﻿using ErpDashboard.Application.Interfaces.Services;
-using ErpDashboard.Infrastructure.Contexts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 
 namespace ErpDashboard.Server.Services
@@ -14,9 +10,9 @@ namespace ErpDashboard.Server.Services
         {
             UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             StringValues val = "";
-            httpContextAccessor.HttpContext?.Request.Headers.TryGetValue("Company",out val);
-          
-            if (int.TryParse(val,out var Commid))
+            httpContextAccessor.HttpContext?.Request.Headers.TryGetValue("Company", out val);
+
+            if (int.TryParse(val, out var Commid))
             {
                 CompanyID = Commid;
             }

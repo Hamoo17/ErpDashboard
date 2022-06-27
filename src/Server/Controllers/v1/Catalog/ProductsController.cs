@@ -7,7 +7,6 @@ using ErpDashboard.Application.Features.Products.Queries.IsExist;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1.Catalog
 {
@@ -83,11 +82,11 @@ namespace ErpDashboard.Server.Controllers.v1.Catalog
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Status 200 OK</returns>
-       
+
         [HttpGet("Exist/{name}")]
         public async Task<IActionResult> IsExist(string name)
         {
-            return Ok(await _mediator.Send(new IsProductExistQuery() { Name = name}));
+            return Ok(await _mediator.Send(new IsProductExistQuery() { Name = name }));
         }
     }
 }

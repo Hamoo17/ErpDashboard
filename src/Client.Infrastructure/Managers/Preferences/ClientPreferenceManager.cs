@@ -5,8 +5,6 @@ using ErpDashboard.Shared.Settings;
 using ErpDashboard.Shared.Wrapper;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Preferences
 {

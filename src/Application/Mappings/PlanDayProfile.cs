@@ -2,20 +2,15 @@
 using ErpDashboard.Application.Features.PlanDays.Command.AddEdit;
 using ErpDashboard.Application.Features.PlanDays.Query.Dto;
 using ErpDashboard.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Mappings
 {
-    public class PlanDayProfile:Profile
+    public class PlanDayProfile : Profile
     {
         public PlanDayProfile()
         {
-            CreateMap<AddEditPlanDaysCommand,TbPlanDay>().ReverseMap();
-            CreateMap<PlanDayDto,TbPlanDay>().ReverseMap();
+            CreateMap<AddEditPlanDaysCommand, TbPlanDay>().ReverseMap();
+            CreateMap<PlanDayDto, TbPlanDay>().ReverseMap();
         }
     }
 }

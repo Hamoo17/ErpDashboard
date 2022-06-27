@@ -2,9 +2,6 @@
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Repositories
 {
@@ -106,7 +103,7 @@ namespace ErpDashboard.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public Task UpdateAsync(T entity,TId id)
+        public Task UpdateAsync(T entity, TId id)
         {
             T exist = _dbContext.Set<T>().Find(id);
             _dbContext.Entry(exist).CurrentValues.SetValues(entity);

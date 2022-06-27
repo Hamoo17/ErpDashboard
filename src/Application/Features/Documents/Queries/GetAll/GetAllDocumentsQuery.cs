@@ -5,11 +5,7 @@ using ErpDashboard.Application.Specifications.Misc;
 using ErpDashboard.Domain.Entities.Misc;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.Documents.Queries.GetAll
 {

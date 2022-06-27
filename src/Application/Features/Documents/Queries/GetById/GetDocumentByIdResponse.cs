@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Features.Documents.Queries.GetById
+﻿namespace ErpDashboard.Application.Features.Documents.Queries.GetById
 {
     public class GetDocumentByIdResponse
     {

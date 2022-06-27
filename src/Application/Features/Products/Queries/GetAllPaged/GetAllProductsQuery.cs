@@ -4,12 +4,8 @@ using ErpDashboard.Application.Specifications.Catalog;
 using ErpDashboard.Domain.Entities.Catalog;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.Products.Queries.GetAllPaged
 {

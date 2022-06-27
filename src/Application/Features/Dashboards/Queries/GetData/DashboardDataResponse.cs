@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ErpDashboard.Application.Features.Dashboards.Queries.GetData
+﻿namespace ErpDashboard.Application.Features.Dashboards.Queries.GetData
 {
     public class DashboardDataResponse
     {

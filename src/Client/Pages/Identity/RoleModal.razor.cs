@@ -6,7 +6,6 @@ using ErpDashboard.Shared.Constants.Application;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using MudBlazor;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Pages.Identity
 {

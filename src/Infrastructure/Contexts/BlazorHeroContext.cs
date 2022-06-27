@@ -7,9 +7,6 @@ using ErpDashboard.Domain.Entities.Misc;
 using ErpDashboard.Infrastructure.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Contexts
 {

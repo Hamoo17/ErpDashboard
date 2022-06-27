@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
 using ErpDashboard.Application.Interfaces.Repositories;
+using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ErpDashboard.Application.Interfaces.Services;
+using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit
 {
@@ -44,7 +38,7 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit
             {
                 return await Result<int>.FailAsync(_localizer["NO COMPANY WITH THIS ID"]);
             }
-            var IsDeptExist= await _customIUnitOf.Repository<TbDepartment>().Entities.AnyAsync(c=>c.Name ==command.Name);
+            var IsDeptExist = await _customIUnitOf.Repository<TbDepartment>().Entities.AnyAsync(c => c.Name == command.Name);
             if (!IsDeptExist)
             {
                 if (command.Id == 0)

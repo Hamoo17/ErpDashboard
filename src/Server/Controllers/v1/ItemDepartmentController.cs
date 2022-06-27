@@ -1,16 +1,12 @@
-﻿using ErpDashboard.Shared.Constants.Permission;
-using ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit;
+﻿using ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit;
 using ErpDashboard.Application.Features.ItemsDepartments.Commands.Delete;
 using ErpDashboard.Application.Features.ItemsDepartments.Queries.GetAll;
 using ErpDashboard.Application.Features.ItemsDepartments.Queries.GetById;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
-  
+
     public class ItemDepartmentController : BaseApiController<ItemDepartmentController>
     {
         /// <summary>
@@ -22,7 +18,7 @@ namespace ErpDashboard.Server.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> Post(AddEditItemDepartmentCommand command)
         {
-            return Ok( await _mediator.Send(command));
+            return Ok(await _mediator.Send(command));
         }
         /// <summary>
         /// Delete item department
@@ -33,7 +29,7 @@ namespace ErpDashboard.Server.Controllers.v1
         [HttpDelete("id")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _mediator.Send( new DeleteItemDepartmentCommand { Id = id }));
+            return Ok(await _mediator.Send(new DeleteItemDepartmentCommand { Id = id }));
         }
         /// <summary>
         /// Get item department By Id

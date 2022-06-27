@@ -3,9 +3,6 @@ using ErpDashboard.Application.Specifications.Base;
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Shared.Wrapper;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Extensions
 {

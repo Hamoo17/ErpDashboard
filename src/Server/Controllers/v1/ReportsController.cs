@@ -1,11 +1,8 @@
-﻿using ErpDashboard.Application.Features.PlanDays.Query.GetAll;
-using ErpDashboard.Application.Reports;
-using Microsoft.AspNetCore.Http;
+﻿using ErpDashboard.Server.Reports;
 using Microsoft.AspNetCore.Mvc;
-using ErpDashboard.Server.Reports;
 namespace ErpDashboard.Server.Controllers.v1
 {
-  
+
     public class ReportsController : BaseApiController<ReportsController>
     {
         private protected Application.Reports.AllCustomersReport rptData;

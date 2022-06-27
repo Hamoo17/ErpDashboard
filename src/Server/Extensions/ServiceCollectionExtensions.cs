@@ -25,26 +25,18 @@ using ErpDashboard.Shared.Constants.Permission;
 using ErpDashboard.Shared.Wrapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Extensions
 {
@@ -126,7 +118,7 @@ namespace ErpDashboard.Server.Extensions
                         Url = new Uri("https://opensource.org/licenses/MIT")
                     }
                 });
-                
+
                 var localizer = await GetRegisteredServerLocalizerAsync<ServerCommonResources>(services);
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -177,10 +169,10 @@ namespace ErpDashboard.Server.Extensions
             this IServiceCollection services,
             IConfiguration configuration)
         {
-           return services
-                  .AddDbContext<BlazorHeroContext>(options => options.UseLazyLoadingProxies()
-                      .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))).AddDbContext<ERBSYSTEMContext>(o=> o.UseSqlServer(configuration.GetConnectionString("ErpConnection")))
-              .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
+            return services
+                   .AddDbContext<BlazorHeroContext>(options => options.UseLazyLoadingProxies()
+                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))).AddDbContext<ERBSYSTEMContext>(o => o.UseSqlServer(configuration.GetConnectionString("ErpConnection")))
+               .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
         }
 
         internal static IServiceCollection AddCurrentUserService(this IServiceCollection services)

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ErpDashboard.Shared.Wrapper
+﻿namespace ErpDashboard.Shared.Wrapper
 {
     public interface IResult
     {

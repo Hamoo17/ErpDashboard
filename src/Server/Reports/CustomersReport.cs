@@ -2,12 +2,12 @@
 {
     public partial class CustomersReport : DevExpress.XtraReports.UI.XtraReport
     {
-         
+
         public CustomersReport()
         {
             InitializeComponent();
         }
 
-        
+
     }
 }

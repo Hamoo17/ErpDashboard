@@ -1,9 +1,6 @@
 ﻿using ErpDashboard.Application.Responses.Audit;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Shared.Wrapper;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Audit
 {

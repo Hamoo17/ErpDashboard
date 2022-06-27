@@ -1,11 +1,6 @@
 ﻿using ErpDashboard.Application.Features.PlanCategory.Command.AddEdit;
 using ErpDashboard.Application.Features.PlanCategory.Query.Dto;
 using ErpDashboard.Shared.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.PlanCategory
 {

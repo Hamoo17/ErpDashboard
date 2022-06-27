@@ -1,25 +1,22 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
-using ErpDashboard.Application.Interfaces.Services;
-using ErpDashboard.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
 namespace ErpDashboard.Infrastructure.Contexts
 {
-    public partial class ERBSYSTEMContext :Logger
+    public partial class ERBSYSTEMContext : Logger
     {
         private protected ICurrentUserService _currentUser;
 
-        
+
         public ERBSYSTEMContext(DbContextOptions<ERBSYSTEMContext> options, ICurrentUserService currentUser)
-            : base(options,currentUser)
+            : base(options, currentUser)
         {
             _currentUser = currentUser;
         }
-         
+
         public virtual DbSet<MigrationHistory> MigrationHistories { get; set; }
         public virtual DbSet<TbAccount> TbAccounts { get; set; }
         public virtual DbSet<TbAlarmMessage> TbAlarmMessages { get; set; }
@@ -118,7 +115,7 @@ namespace ErpDashboard.Infrastructure.Contexts
         public virtual DbSet<TbSubscrbtionDetail> TbSubscrbtionDetails { get; set; }
         public virtual DbSet<TbSubscrbtionHeader> TbSubscrbtionHeaders { get; set; }
         public virtual DbSet<TbSubscribtionOpertaion> TbSubscribtionOpertaions { get; set; }
-      
+
         public virtual DbSet<TbThirdpart> TbThirdparts { get; set; }
         public virtual DbSet<TbTransactionDetail> TbTransactionDetails { get; set; }
         public virtual DbSet<TbTransactionHeader> TbTransactionHeaders { get; set; }
@@ -139,7 +136,7 @@ namespace ErpDashboard.Infrastructure.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.SetQueryFilterOnAllEntities<ISoftDeletable>(p => !p.IsDeleted);
+            // modelBuilder.SetQueryFilterOnAllEntities<ISoftDeletable>(p => !p.IsDeleted);
             modelBuilder.HasAnnotation("Relational:Collation", "Arabic_CI_AS");
 
             modelBuilder.Entity<MigrationHistory>(entity =>
@@ -298,7 +295,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                     .WithMany(p => p.TbAreas)
                     .HasForeignKey(d => d.DriverId)
                     .HasConstraintName("FK_dbo.TB_areas_dbo.tb_Drivers_driverID");
-                entity.HasQueryFilter(x=> _currentUser.CompanyID.HasValue? x.ComId == _currentUser.CompanyID : true);
+                entity.HasQueryFilter(x => _currentUser.CompanyID.HasValue ? x.ComId == _currentUser.CompanyID : true);
             });
 
             modelBuilder.Entity<TbBankTransHdr>(entity =>
@@ -944,7 +941,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                     .UseCollation("SQL_Latin1_General_CP1_CI_AS");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
-                
+
             });
 
             modelBuilder.Entity<TbCurrency>(entity =>
@@ -1062,7 +1059,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                     .WithMany(p => p.TbCustCardBalances)
                     .HasForeignKey(d => d.CustId)
                     .HasConstraintName("FK_dbo.Tb_Cust_card_balance_dbo.tb_Customers_cust_id");
-                
+
             });
 
             modelBuilder.Entity<TbCustomPrice>(entity =>

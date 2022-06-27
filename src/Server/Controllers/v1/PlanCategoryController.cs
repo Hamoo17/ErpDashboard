@@ -1,16 +1,13 @@
-﻿using ErpDashboard.Application.Features.Brands.Queries.GetAll;
-using ErpDashboard.Application.Features.PlanCategory.Command.AddEdit;
+﻿using ErpDashboard.Application.Features.PlanCategory.Command.AddEdit;
 using ErpDashboard.Application.Features.PlanCategory.Command.Delete;
 using ErpDashboard.Application.Features.PlanCategory.Query.GetAll;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
-  
+
     public class PlanCategoryController : BaseApiController<PlanCategoryController>
     {
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using ErpDashboard.Shared.Constants.Localization;
 using ErpDashboard.Shared.Settings;
-using System.Linq;
 
 namespace ErpDashboard.Server.Settings
 {

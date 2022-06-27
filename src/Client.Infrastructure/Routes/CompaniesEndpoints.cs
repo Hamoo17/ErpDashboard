@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ErpDashboard.Client.Infrastructure.Routes
+﻿namespace ErpDashboard.Client.Infrastructure.Routes
 {
     public class CompaniesEndpoints
     {

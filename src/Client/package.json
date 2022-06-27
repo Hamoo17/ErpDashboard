@@ -21,7 +21,7 @@
     "file-loader": "~2.0.0",
     "html-loader": "^0.5.5",
     "style-loader": "^1.0.0",
-    "webpack": "^4.46.0",
+    "webpack": "^5.73.0",
     "webpack-command": "^0.5.1",
     "webpack-nano": "^1.1.1"
   }

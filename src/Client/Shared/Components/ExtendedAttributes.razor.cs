@@ -1,6 +1,5 @@
 ﻿using ErpDashboard.Domain.Contracts;
 using Microsoft.AspNetCore.Components;
-using System;
 
 namespace ErpDashboard.Client.Shared.Components
 {
