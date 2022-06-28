@@ -1,6 +1,7 @@
 ﻿using ErpDashboard.Application.Features.Items.Commands.AddEdit;
 using ErpDashboard.Application.Features.Items.Commands.Delete;
 using ErpDashboard.Application.Features.Items.Quaries.GetAll;
+using ErpDashboard.Application.Features.Items.Quaries.GetAllComplexCompleteItems;
 using ErpDashboard.Application.Features.Items.Quaries.GetById;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
@@ -43,8 +44,8 @@ namespace ErpDashboard.Server.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var MealCategories = await _mediator.Send(new GetAllItemsQuery());
-            return Ok(MealCategories);
+            var Items = await _mediator.Send(new GetAllItemsQuery());
+            return Ok(Items);
         }
 
         /// <summary>
@@ -56,8 +57,20 @@ namespace ErpDashboard.Server.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var MealCategory = await _mediator.Send(new GetItemByIdQuery() { Id = id });
-            return Ok(MealCategory);
+            var Items = await _mediator.Send(new GetItemByIdQuery() { Id = id });
+            return Ok(Items);
+        }
+
+        /// <summary>
+        /// Get All Items (List of GetItemResponse)
+        /// </summary>
+        /// <returns>Status 200 OK</returns>
+        [Authorize(Policy = Permissions.Item.View)]
+        [HttpGet("GetAllComplete")]
+        public async Task<IActionResult> GetAllComplete()
+        {
+            var Items = await _mediator.Send(new GetAllComlexCompleteItemsQuery());
+            return Ok(Items);
         }
     }
 }

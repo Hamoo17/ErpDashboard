@@ -13,6 +13,8 @@ namespace ErpDashboard.Application.Mappings
             CreateMap<AddEditItemCommand, TbItem>().ReverseMap();
             CreateMap<GetItemResponse, TbItem>().ReverseMap();
             CreateMap<ItemComponentDetailResponse, TbItemComponentsLine>().ReverseMap();
+            CreateMap<ItemComponentHdrResponse, TbItemComponentsHdr>().ReverseMap();
+
 
 
         }

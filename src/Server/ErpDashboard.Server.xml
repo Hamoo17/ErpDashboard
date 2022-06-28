@@ -463,6 +463,12 @@
             <param name="id">Id To Get</param>
             <returns>Status 200 OK</returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemController.GetAllComplete">
+            <summary>
+            Get All Items (List of GetItemResponse)
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.Post(ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit.AddEditItemDepartmentCommand)">
             <summary>
             Create/Update Item Department
@@ -562,6 +568,13 @@
             Create/Update Item Recipe
             </summary>
             <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.RecipeController.GetById(System.Int32)">
+            <summary>
+            Get Items Recipy Details By Item Id (ItemComponentHdrResponse)
+            </summary>
+            <param name="ComplexItemId">Id To Get</param>
             <returns>Status 200 OK</returns>
         </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.SubscriptionController.GetAll(System.String)">

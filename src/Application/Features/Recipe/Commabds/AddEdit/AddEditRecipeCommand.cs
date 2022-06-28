@@ -5,6 +5,7 @@ using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
@@ -39,39 +40,48 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
             {
                 return await Result<int>.FailAsync(_localizer["NO COMPANY WITH THIS ID"]);
             }
-            if (command.Id == 0)
+            try
             {
-                var ItemRecipe = new TbItemComponentsHdr();
-                ItemRecipe.ComplexItem = command.ComplexItemId;
-                ItemRecipe.QtyNeeded = command.QtyNeeded;
-                ItemRecipe.MainUnit = command.MainUnit.ToString();
-             
-                var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
-                ItemRecipe.TbItemComponentsLines = Lines;
-                await _unitOfWork.Repository<TbItemComponentsHdr>().AddAsync(ItemRecipe);
-                await _unitOfWork.Commit(cancellationToken);
 
-                return await Result<int>.SuccessAsync(_localizer["Recipy Added"]);
-            }
-            else
-            {
-                var ItemRecipe = await _unitOfWork.Repository<TbItemComponentsHdr>().GetByIdAsync(command.Id);
-                if (ItemRecipe != null)
+                if (command.Id == 0)
                 {
+                    var ItemRecipe = new TbItemComponentsHdr();
                     ItemRecipe.ComplexItem = command.ComplexItemId;
                     ItemRecipe.QtyNeeded = command.QtyNeeded;
                     ItemRecipe.MainUnit = command.MainUnit.ToString();
+
                     var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
                     ItemRecipe.TbItemComponentsLines = Lines;
-                    await _unitOfWork.Repository<TbItemComponentsHdr>().UpdateAsync(ItemRecipe, command.Id);
+                    await _unitOfWork.Repository<TbItemComponentsHdr>().AddAsync(ItemRecipe);
                     await _unitOfWork.Commit(cancellationToken);
-                    return await Result<int>.SuccessAsync(_localizer["Recipy Updated"]);
 
+                    return await Result<int>.SuccessAsync(_localizer["Recipy Added"]);
                 }
                 else
                 {
-                    return await Result<int>.FailAsync(_localizer["Recipy Not Found"]);
+                    var ItemRecipe = await _unitOfWork.Repository<TbItemComponentsHdr>().GetByIdAsync(command.Id);
+                    if (ItemRecipe != null)
+                    {
+                        ItemRecipe.ComplexItem = command.ComplexItemId;
+                        ItemRecipe.QtyNeeded = command.QtyNeeded;
+                        ItemRecipe.MainUnit = command.MainUnit.ToString();
+                        var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
+                        ItemRecipe.TbItemComponentsLines = Lines;
+                        await _unitOfWork.Repository<TbItemComponentsHdr>().UpdateAsync(ItemRecipe, command.Id);
+                        await _unitOfWork.Commit(cancellationToken);
+                        return await Result<int>.SuccessAsync(_localizer["Recipy Updated"]);
+
+                    }
+                    else
+                    {
+                        return await Result<int>.FailAsync(_localizer["Recipy Not Found"]);
+                    }
                 }
+            }
+            catch (DbUpdateException ex)
+            {
+                var t = ex.InnerException.Message;
+                throw;
             }
         }
     }
