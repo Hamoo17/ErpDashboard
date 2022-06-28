@@ -28,7 +28,7 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.Delete.DeleteRecipeF
         public Task<Result<int>> Handle(DeleteRecipeFromItemCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
-            //var RecipeExistInMeal = _unitOfWork.Repository<TbMeal>().Entities.Any(x => x.TbMealsLines.Any(c=>c.));
+            //var RecipeExistInMeal = _unitOfWork.Repository<TbMeal>().Entities.Any(x => x.TbMealsLines.Any(c => c.));
         }
     }
 }
