@@ -49,7 +49,7 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
                     ItemRecipe.ComplexItem = command.ComplexItemId;
                     ItemRecipe.QtyNeeded = command.QtyNeeded;
                     ItemRecipe.MainUnit = command.MainUnit.ToString();
-
+                    ItemRecipe.ComId = _currentUser.CompanyID.Value;
                     var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
                     ItemRecipe.TbItemComponentsLines = Lines;
                     await _unitOfWork.Repository<TbItemComponentsHdr>().AddAsync(ItemRecipe);
@@ -65,6 +65,8 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
                         ItemRecipe.ComplexItem = command.ComplexItemId;
                         ItemRecipe.QtyNeeded = command.QtyNeeded;
                         ItemRecipe.MainUnit = command.MainUnit.ToString();
+                        ItemRecipe.ComId = _currentUser.CompanyID.Value;
+
                         var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
                         ItemRecipe.TbItemComponentsLines = Lines;
                         await _unitOfWork.Repository<TbItemComponentsHdr>().UpdateAsync(ItemRecipe, command.Id);
