@@ -15,8 +15,13 @@ namespace ErpDashboard.Server.Extensions
             {
                 Name = "Company",
                 In = ParameterLocation.Header,
-                Description = "Company Id",
-                Required = true
+                Required = false
+            });
+            operation.Parameters.Add(new OpenApiParameter
+            {
+                Name = "Actor",
+                In = ParameterLocation.Header,
+                Required = false
             });
         }
     }

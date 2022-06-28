@@ -50,8 +50,8 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
            if(request.Id==0)
             {
                 var mappedcustomer=_Mapper.Map<TbCustomer>(request);
-                mappedcustomer.UserId = 7;
-                mappedcustomer.ComId =6;
+                mappedcustomer.UserId = _currentUser.SystemUserId.Value;
+                mappedcustomer.ComId =_currentUser.CompanyID.Value;
                 await _UnitOfWork.Repository<TbCustomer>().AddAsync(mappedcustomer);
                 await _UnitOfWork.Commit(cancellationToken);
                 return await Result<int>.SuccessAsync(mappedcustomer.Id,"Customer Add Successfuly");

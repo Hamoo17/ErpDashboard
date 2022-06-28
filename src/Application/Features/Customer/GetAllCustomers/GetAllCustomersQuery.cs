@@ -39,8 +39,8 @@ namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
                 CustomerId = x.CustomerId,
                 CustomerName = x.CustomerName,
                 Email = x.Email,
-                CustomerPhone = String.Join('|', x.TbCustomersPhones.Where(p => !string.IsNullOrEmpty(p.Phone)).Select(x => x.Phone)),
-                Adress=x.TbCustomerAdresses.FirstOrDefault().Adress.Substring(0,3),
+               // CustomerPhone = String.Join('|', x.TbCustomersPhones.Where(p => !string.IsNullOrEmpty(p.Phone)).Select(x => x.Phone)),
+               // Adress=x.TbCustomerAdresses.FirstOrDefault().Adress.Substring(0,3),
                 Status = x.Status,Category=x.Category.CategoryName,RegDate=x.RegDate,
             }).ToList();
             return await  Result<List<GetAllCustomerViewModal>>.SuccessAsync(MappedCustomers);
