@@ -557,6 +557,13 @@
             </summary>
             <returns>Status 200 OK</returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.RecipeController.Post(ErpDashboard.Application.Features.Recipe.Commabds.AddEdit.AddEditRecipeCommand)">
+            <summary>
+            Create/Update Item Recipe
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.SubscriptionController.GetAll(System.String)">
             <summary>
             Get All Related Subscription By Phone Number

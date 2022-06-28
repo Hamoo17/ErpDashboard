@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class ItemController : BaseApiController<ItemController>
     {
         /// <summary>

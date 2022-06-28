@@ -1,4 +1,5 @@
-﻿using ErpDashboard.Application.Features.Recipe.Queries.Dto;
+﻿using AutoMapper;
+using ErpDashboard.Application.Features.Recipe.Queries.Dto;
 using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
@@ -22,11 +23,13 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly ICurrentUserService _currentUser;
         private readonly IStringLocalizer<AddEditRecipeCommand> _localizer;
-        public AddEditRecipeCommandHandler(ICustomIUnitOfWork<int> unitOfWork, ICurrentUserService currentUser, IStringLocalizer<AddEditRecipeCommand> localizer)
+        private readonly IMapper _Mapper;
+        public AddEditRecipeCommandHandler(ICustomIUnitOfWork<int> unitOfWork, ICurrentUserService currentUser, IStringLocalizer<AddEditRecipeCommand> localizer, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;
             _localizer = localizer;
+            _Mapper = mapper;
         }
 
         public async Task<Result<int>> Handle(AddEditRecipeCommand command, CancellationToken cancellationToken)
@@ -42,15 +45,11 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
                 ItemRecipe.ComplexItem = command.ComplexItemId;
                 ItemRecipe.QtyNeeded = command.QtyNeeded;
                 ItemRecipe.MainUnit = command.MainUnit.ToString();
-
+             
+                var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
+                ItemRecipe.TbItemComponentsLines = Lines;
                 await _unitOfWork.Repository<TbItemComponentsHdr>().AddAsync(ItemRecipe);
                 await _unitOfWork.Commit(cancellationToken);
-
-                var HdrId = ItemRecipe.Id;
-                foreach (var item in command.itemComponentDetailResponse)
-                {
-                    item.ItemComHdr = HdrId;
-                }
 
                 return await Result<int>.SuccessAsync(_localizer["Recipy Added"]);
             }
@@ -62,7 +61,8 @@ namespace ErpDashboard.Application.Features.Recipe.Commabds.AddEdit
                     ItemRecipe.ComplexItem = command.ComplexItemId;
                     ItemRecipe.QtyNeeded = command.QtyNeeded;
                     ItemRecipe.MainUnit = command.MainUnit.ToString();
-
+                    var Lines = _Mapper.Map<List<TbItemComponentsLine>>(command.itemComponentDetailResponse);
+                    ItemRecipe.TbItemComponentsLines = Lines;
                     await _unitOfWork.Repository<TbItemComponentsHdr>().UpdateAsync(ItemRecipe, command.Id);
                     await _unitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(_localizer["Recipy Updated"]);
