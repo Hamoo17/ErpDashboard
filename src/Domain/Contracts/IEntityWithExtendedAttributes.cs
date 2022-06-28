@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ErpDashboard.Domain.Contracts
+﻿namespace ErpDashboard.Domain.Contracts
 {
     public interface IEntityWithExtendedAttributes<TExtendedAttribute>
     {

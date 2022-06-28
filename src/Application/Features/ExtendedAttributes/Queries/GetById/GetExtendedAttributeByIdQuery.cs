@@ -3,9 +3,6 @@ using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetById
 {

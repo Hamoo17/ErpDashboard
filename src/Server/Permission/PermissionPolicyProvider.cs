@@ -1,8 +1,6 @@
 ﻿using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using System;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Permission
 {

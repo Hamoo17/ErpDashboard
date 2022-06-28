@@ -1,5 +1,4 @@
-﻿using ErpDashboard.Application.Interfaces.Serialization.Serializers;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Validators;
 
 namespace ErpDashboard.Application.Validators.Extensions

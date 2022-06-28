@@ -1,9 +1,6 @@
 ﻿using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
-using ErpDashboard.Application.Models;
-using ErpDashboard.Infrastructure.Contexts;
 using ErpDashboard.Server.Reports;
-using System.Collections.Generic;
 
 namespace ErpDashboard.Server
 {
@@ -31,19 +28,19 @@ namespace ErpDashboard.Server
                 Padding = new PaddingInfo(2, 2, 0, 96, System.Drawing.GraphicsUnit.Pixel)
             });
             report.Name = "TestReport";
-            
+
             report.Bands.Add(band);
             return report;
         }
-    
+
         static ReportFactory()
         {
-            Reports.Add(new ReportInfo() { DisplayName = "My Report", Name = "MyReport", Report = CreateReport()});
+            Reports.Add(new ReportInfo() { DisplayName = "My Report", Name = "MyReport", Report = CreateReport() });
             var rpt = new Sticker();
             rpt.RequestParameters = false;
-            Reports.Add(new ReportInfo() { DisplayName = "Test Repoer", Name = "TestReport", Report = rpt});
-            Reports.Add(new ReportInfo() { DisplayName = "Customers Repoert", Name = "CustomersReport", Report = new CustomersReport()});
-           
+            Reports.Add(new ReportInfo() { DisplayName = "Test Repoer", Name = "TestReport", Report = rpt });
+            Reports.Add(new ReportInfo() { DisplayName = "Customers Repoert", Name = "CustomersReport", Report = new CustomersReport() });
+
         }
     }
 }

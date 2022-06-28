@@ -6,8 +6,6 @@ using ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetAllByEntit
 using ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetById;
 using ErpDashboard.Domain.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.Utilities.ExtendedAttributes.Base
 {

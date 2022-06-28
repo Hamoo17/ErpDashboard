@@ -1,6 +1,5 @@
 ﻿using ErpDashboard.Application.Interfaces.Chat;
 using ErpDashboard.Application.Models.Chat;
-using System.Collections.Generic;
 
 namespace ErpDashboard.Application.Responses.Identity
 {

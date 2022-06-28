@@ -1,8 +1,6 @@
 ﻿using ErpDashboard.Application.Features.DocumentTypes.Commands.AddEdit;
 using ErpDashboard.Application.Features.DocumentTypes.Queries.GetAll;
 using ErpDashboard.Shared.Wrapper;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Misc.DocumentType
 {

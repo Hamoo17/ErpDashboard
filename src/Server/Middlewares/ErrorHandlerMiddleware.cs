@@ -1,11 +1,7 @@
 ﻿using ErpDashboard.Application.Exceptions;
 using ErpDashboard.Shared.Wrapper;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Middlewares
 {

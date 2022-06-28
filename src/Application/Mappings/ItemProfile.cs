@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using ErpDashboard.Application.Features.Items.Commands.AddEdit;
 using ErpDashboard.Application.Features.Items.Quaries.Dto;
+using ErpDashboard.Application.Features.Recipe.Queries.Dto;
 using ErpDashboard.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Mappings
 {
@@ -16,6 +12,10 @@ namespace ErpDashboard.Application.Mappings
         {
             CreateMap<AddEditItemCommand, TbItem>().ReverseMap();
             CreateMap<GetItemResponse, TbItem>().ReverseMap();
+            CreateMap<ItemComponentDetailResponse, TbItemComponentsLine>().ReverseMap();
+            CreateMap<ItemComponentHdrResponse, TbItemComponentsHdr>().ReverseMap();
+
+
 
         }
     }

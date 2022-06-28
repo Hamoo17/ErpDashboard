@@ -1,22 +1,15 @@
 ﻿using AutoMapper;
-using ErpDashboard.Application.Features.Brands.Commands.AddEdit;
 using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.PlanDays.Command.AddEdit
 {
-    public class AddEditPlanDaysCommand:IRequest<IResult<int>>
+    public class AddEditPlanDaysCommand : IRequest<IResult<int>>
     {
         public int Id { get; set; }
         [Required]
@@ -36,13 +29,13 @@ namespace ErpDashboard.Application.Features.PlanDays.Command.AddEdit
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;
             _mapper = mapper;
-            _localizer= localizer;
+            _localizer = localizer;
         }
         public async Task<IResult<int>> Handle(AddEditPlanDaysCommand request, CancellationToken cancellationToken)
         {
-            if(request.Id==0)
+            if (request.Id == 0)
             {
-                var planday =  _mapper.Map<TbPlanDay>(request);
+                var planday = _mapper.Map<TbPlanDay>(request);
                 planday.CompanyId = _currentUser.CompanyID.Value;
                 await _unitOfWork.Repository<TbPlanDay>().AddAsync(planday);
                 await _unitOfWork.Commit(cancellationToken);
@@ -51,14 +44,15 @@ namespace ErpDashboard.Application.Features.PlanDays.Command.AddEdit
             else
             {
                 var planday = await _unitOfWork.Repository<TbPlanDay>().GetByIdAsync(request.Id);
-                if(planday!=null)
+                if (planday != null)
                 {
                     planday.DayCount = request.DayCount;
                     planday.Name = request.Name ?? planday.Name;
-                    await _unitOfWork.Repository<TbPlanDay>().UpdateAsync(planday,request.Id);
+                    await _unitOfWork.Repository<TbPlanDay>().UpdateAsync(planday, request.Id);
                     await _unitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(planday.Id, "PlanDay Updated");
-                }else
+                }
+                else
                     return await Result<int>.FailAsync("PlanDay Not Exist");
             }
         }

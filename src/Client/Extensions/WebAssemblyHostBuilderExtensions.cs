@@ -11,13 +11,9 @@ using ErpDashboard.Shared.ServerSideValidations.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
-using System;
 using System.Globalization;
-using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Features.Documents.Queries.GetAll
+﻿namespace ErpDashboard.Application.Features.Documents.Queries.GetAll
 {
     public class GetAllDocumentsResponse
     {

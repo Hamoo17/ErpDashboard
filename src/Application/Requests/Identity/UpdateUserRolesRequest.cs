@@ -1,5 +1,4 @@
 ﻿using ErpDashboard.Application.Responses.Identity;
-using System.Collections.Generic;
 
 namespace ErpDashboard.Application.Requests.Identity
 {

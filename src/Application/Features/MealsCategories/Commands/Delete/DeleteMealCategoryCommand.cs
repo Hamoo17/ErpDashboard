@@ -1,14 +1,9 @@
 ﻿using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Models;
-using ErpDashboard.Domain.Entities.Catalog;
-using ErpDashboard.Shared.Constants.Application;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using Microsoft.Extensions.Localization;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace ErpDashboard.Application.Features.MealCategory.Commands.Delete
 {
@@ -29,7 +24,7 @@ namespace ErpDashboard.Application.Features.MealCategory.Commands.Delete
 
         public async Task<Result<int>> Handle(DeleteMealCategoryCommand command, CancellationToken cancellationToken)
         {
-            var isMealCatUsed = await _unitOfWork.Repository<TbMealsCategory>().Entities.AnyAsync(c=>c.Id == command.Id);
+            var isMealCatUsed = await _unitOfWork.Repository<TbMealsCategory>().Entities.AnyAsync(c => c.Id == command.Id);
             if (!isMealCatUsed)
             {
                 var MealCat = await _unitOfWork.Repository<TbMealsCategory>().GetByIdAsync(command.Id);

@@ -1,15 +1,9 @@
-﻿using ErpDashboard.Shared.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using ErpDashboard.Application.Features.ItemsDepartments.Queries.Dto;
-using MediatR;
-using System.Threading;
 using ErpDashboard.Application.Interfaces.Repositories;
-using AutoMapper;
 using ErpDashboard.Application.Models;
+using ErpDashboard.Shared.Wrapper;
+using MediatR;
 
 namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetById
 {
@@ -30,7 +24,7 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetById
         public async Task<Result<GetItemDepartmentResponse>> Handle(GetItemDepartmentByIdQuery request, CancellationToken cancellationToken)
         {
             var dept = await _unitOfWork.Repository<TbDepartment>().GetByIdAsync(request.id);
-            var MapedDept =  _mapper.Map<GetItemDepartmentResponse>(dept);
+            var MapedDept = _mapper.Map<GetItemDepartmentResponse>(dept);
             return await Result<GetItemDepartmentResponse>.SuccessAsync(MapedDept);
         }
     }

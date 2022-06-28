@@ -4,9 +4,6 @@ using ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetAll;
 using ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetAllByEntityId;
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Shared.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.ExtendedAttribute
 {

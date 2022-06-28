@@ -1,12 +1,7 @@
 ﻿using ErpDashboard.Shared.ServerSideValidations.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Shared.ServerSideValidations
 {
@@ -24,7 +19,7 @@ namespace ErpDashboard.Shared.ServerSideValidations
         public decimal Rate { get; set; }
         [Required]
         public int BrandId { get; set; }
-       
+
     }
     public class AddEditProductCommandValidator : AbstractValidator<AddEditProductCommand>
     {
@@ -33,7 +28,7 @@ namespace ErpDashboard.Shared.ServerSideValidations
         {
             RuleFor(request => request.Name)
                 .Must(x => !string.IsNullOrWhiteSpace(x)).WithMessage(x => localizer["Name is required!"])
-                .MustAsync(async (x,c) => { return await IsNameExist(x); }).WithMessage("Product Name Is Already Exist");
+                .MustAsync(async (x, c) => { return await IsNameExist(x); }).WithMessage("Product Name Is Already Exist");
             RuleFor(request => request.Barcode)
                 .Must(x => !string.IsNullOrWhiteSpace(x)).WithMessage(x => localizer["Barcode is required!"]);
             RuleFor(request => request.Description)
@@ -46,7 +41,7 @@ namespace ErpDashboard.Shared.ServerSideValidations
         }
         private async Task<bool> IsNameExist(string name)
         {
-            var result   = await _validationServices.isNameExist(name);
+            var result = await _validationServices.isNameExist(name);
             return !result;
         }
     }

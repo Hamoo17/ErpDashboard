@@ -1,9 +1,6 @@
 ﻿using ErpDashboard.Application.Enums;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ErpDashboard.Infrastructure.Models.Audit
 {

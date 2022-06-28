@@ -6,7 +6,6 @@ using ErpDashboard.Application.Features.Brands.Queries.GetById;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1.Catalog
 {

@@ -4,7 +4,6 @@ using ErpDashboard.Application.Features.PlanDays.Query.GetAll;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
@@ -42,7 +41,7 @@ namespace ErpDashboard.Server.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var PlanDays= await _mediator.Send(new GetAllPlanDayQuery());
+            var PlanDays = await _mediator.Send(new GetAllPlanDayQuery());
             return Ok(PlanDays);
         }
 

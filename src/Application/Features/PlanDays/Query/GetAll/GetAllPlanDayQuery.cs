@@ -4,13 +4,10 @@ using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.PlanDays.Query.GetAll
 {
-    public class GetAllPlanDayQuery:IRequest<IResult<List<PlanDayDto>>>
+    public class GetAllPlanDayQuery : IRequest<IResult<List<PlanDayDto>>>
     {
     }
 

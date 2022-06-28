@@ -1,9 +1,7 @@
 ﻿using ErpDashboard.Application.Requests.Identity;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Shared.Wrapper;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Identity.Account
 {

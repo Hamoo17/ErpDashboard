@@ -2,16 +2,10 @@
 using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
-using ErpDashboard.Domain.Entities.Catalog;
-using ErpDashboard.Shared.Constants.Application;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit
 {
@@ -61,8 +55,8 @@ namespace ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit
                 {
                     MealCat.EnName = command.Name ?? MealCat.EnName;
                     MealCat.Symbol = command.Symbol ?? command.Symbol;
-                    MealCat.Issnack = command.IsSnack ;
-                    await _unitOfWork.Repository<TbMealsCategory>().UpdateAsync(MealCat , MealCat.Id);
+                    MealCat.Issnack = command.IsSnack;
+                    await _unitOfWork.Repository<TbMealsCategory>().UpdateAsync(MealCat, MealCat.Id);
                     await _unitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(MealCat.Id, _localizer["Meal Category Updated"]);
                 }

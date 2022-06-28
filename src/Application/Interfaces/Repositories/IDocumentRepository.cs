@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace ErpDashboard.Application.Interfaces.Repositories
+﻿namespace ErpDashboard.Application.Interfaces.Repositories
 {
     public interface IDocumentRepository
     {

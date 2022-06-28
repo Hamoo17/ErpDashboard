@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ErpDashboard.Application.Enums.ErpSystemEnums;
+﻿using static ErpDashboard.Application.Enums.ErpSystemEnums;
 
 namespace ErpDashboard.Application.Features.Subscriptions.Queries.Dto
 {
@@ -20,6 +15,6 @@ namespace ErpDashboard.Application.Features.Subscriptions.Queries.Dto
         public int RemainingDays { get; set; }
         public int Duration { get; set; }
         public SubscriptionStatus Status { get; set; }
-        public string Company { get; set; } 
+        public string Company { get; set; }
     }
 }

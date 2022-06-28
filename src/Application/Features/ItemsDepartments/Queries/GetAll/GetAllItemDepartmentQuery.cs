@@ -4,12 +4,6 @@ using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetAll
 {
@@ -26,7 +20,7 @@ namespace ErpDashboard.Application.Features.ItemsDepartments.Queries.GetAll
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetAllItemDepartmentHandler(ICustomIUnitOfWork<int> unitOfWork , IMapper mapper)
+        public GetAllItemDepartmentHandler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper)
         {
 
             _unitOfWork = unitOfWork;

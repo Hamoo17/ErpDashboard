@@ -8,14 +8,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Services.Identity
 {
@@ -67,7 +63,7 @@ namespace ErpDashboard.Infrastructure.Services.Identity
             await _userManager.UpdateAsync(user);
 
             var token = await GenerateJwtAsync(user);
-            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, UserImageURL = user.ProfilePictureDataUrl,CompanyId = user.DefaultCompanyId,SystemUserId = user.SystemUserId };
+            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, UserImageURL = user.ProfilePictureDataUrl, CompanyId = user.DefaultCompanyId, SystemUserId = user.SystemUserId };
             return await Result<TokenResponse>.SuccessAsync(response);
         }
 
@@ -88,7 +84,7 @@ namespace ErpDashboard.Infrastructure.Services.Identity
             user.RefreshToken = GenerateRefreshToken();
             await _userManager.UpdateAsync(user);
 
-            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, RefreshTokenExpiryTime = user.RefreshTokenExpiryTime ,CompanyId = user.DefaultCompanyId, SystemUserId = user.SystemUserId };
+            var response = new TokenResponse { Token = token, RefreshToken = user.RefreshToken, RefreshTokenExpiryTime = user.RefreshTokenExpiryTime, CompanyId = user.DefaultCompanyId, SystemUserId = user.SystemUserId };
             return await Result<TokenResponse>.SuccessAsync(response);
         }
 
@@ -121,7 +117,7 @@ namespace ErpDashboard.Infrastructure.Services.Identity
                 new(ClaimTypes.MobilePhone, user.PhoneNumber ?? string.Empty),
                 new(ClaimTypes.Country, user.DefaultCompanyId.ToString() ?? string.Empty),
                 new(ClaimTypes.Actor, user.SystemUserId.ToString() ?? string.Empty)
-                
+
             }
             .Union(userClaims)
             .Union(roleClaims)

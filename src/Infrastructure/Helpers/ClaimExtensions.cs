@@ -2,11 +2,8 @@
 using ErpDashboard.Infrastructure.Models.Identity;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Helpers
 {

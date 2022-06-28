@@ -20,13 +20,13 @@ namespace ErpDashboard.Client.Extensions
            => claimsPrincipal.FindFirstValue(ClaimTypes.NameIdentifier);
         internal static int GetCompany(this ClaimsPrincipal claimsPrincipal)
         {
-           var data = claimsPrincipal.FindFirstValue(ClaimTypes.Country);
-            if (int.TryParse(data , out var com)) 
+            var data = claimsPrincipal.FindFirstValue(ClaimTypes.Country);
+            if (int.TryParse(data, out var com))
             {
                 return int.Parse(data);
             }
             return 0;
         }
-         
+
     }
 }

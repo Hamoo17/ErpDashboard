@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Responses.Identity
+﻿namespace ErpDashboard.Application.Responses.Identity
 {
     public partial class ChatHistoryResponse
     {

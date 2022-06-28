@@ -6,7 +6,6 @@ using ErpDashboard.Application.Features.DocumentTypes.Queries.GetById;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.Utilities.Misc
 {

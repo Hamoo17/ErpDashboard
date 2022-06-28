@@ -3,13 +3,8 @@ using ErpDashboard.Server.Hubs;
 using ErpDashboard.Server.Middlewares;
 using ErpDashboard.Shared.Constants.Application;
 using ErpDashboard.Shared.Constants.Localization;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System.Globalization;
-using System.Linq;
 
 namespace ErpDashboard.Server.Extensions
 {
@@ -36,7 +31,7 @@ namespace ErpDashboard.Server.Extensions
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", typeof(Program).Assembly.GetName().Name);
                 options.RoutePrefix = "swagger";
                 options.DisplayRequestDuration();
-              
+
             });
         }
 

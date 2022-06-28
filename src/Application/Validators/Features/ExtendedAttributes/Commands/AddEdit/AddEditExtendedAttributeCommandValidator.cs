@@ -3,7 +3,6 @@ using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Domain.Enums;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
-using System;
 
 namespace ErpDashboard.Application.Validators.Features.ExtendedAttributes.Commands.AddEdit
 {

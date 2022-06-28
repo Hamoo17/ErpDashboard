@@ -5,7 +5,6 @@ using ErpDashboard.Server.Controllers.Utilities.ExtendedAttributes.Base;
 using ErpDashboard.Shared.Constants.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Controllers.Utilities.ExtendedAttributes.Misc
 {

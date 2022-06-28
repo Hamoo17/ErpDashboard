@@ -9,8 +9,6 @@ using ErpDashboard.Infrastructure.Repositories;
 using ErpDashboard.Infrastructure.Services.Storage;
 using ErpDashboard.Infrastructure.Services.Storage.Provider;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 using System.Reflection;
 
 namespace ErpDashboard.Infrastructure.Extensions

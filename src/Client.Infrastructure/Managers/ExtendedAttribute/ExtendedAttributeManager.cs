@@ -5,11 +5,7 @@ using ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetAllByEntit
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Shared.Wrapper;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.ExtendedAttribute
 {

@@ -4,9 +4,7 @@ using ErpDashboard.Application.Features.Documents.Queries.GetById;
 using ErpDashboard.Application.Requests.Documents;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Shared.Wrapper;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Misc.Document
 {

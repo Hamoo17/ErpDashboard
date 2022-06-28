@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ErpDashboard.Application.Models;
-using ErpDashboard.Application.Features.MealsCategory.Queries.Dto;
+﻿using AutoMapper;
 using ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit;
-using AutoMapper;
+using ErpDashboard.Application.Features.MealsCategory.Queries.Dto;
+using ErpDashboard.Application.Models;
 
 namespace ErpDashboard.Application.Mappings
 {
@@ -14,8 +9,8 @@ namespace ErpDashboard.Application.Mappings
     {
         public MealCategoryProfile()
         {
-            CreateMap<GetMealCategoryResponse,TbMealsCategory>().ReverseMap();
-            CreateMap<AddEditMealsCategoryCommand,TbMealsCategory>().ReverseMap();
+            CreateMap<GetMealCategoryResponse, TbMealsCategory>().ReverseMap();
+            CreateMap<AddEditMealsCategoryCommand, TbMealsCategory>().ReverseMap();
         }
     }
 }

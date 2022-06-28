@@ -4,13 +4,7 @@ using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.PlanCategory.Command.AddEdit
 {
@@ -40,20 +34,20 @@ namespace ErpDashboard.Application.Features.PlanCategory.Command.AddEdit
 
         public async Task<IResult<int>> Handle(AddEditPlanCategoryCommand request, CancellationToken cancellationToken)
         {
-            if (request.Id == 0) 
+            if (request.Id == 0)
             {
                 var plancategory = _mapper.Map<TbPlanCategory>(request);
                 plancategory.ComId = _currentUser.CompanyID.Value;
                 plancategory.UserId = _currentUser.SystemUserId.Value;
-               await _unitOfWork.Repository<TbPlanCategory>().AddAsync(plancategory);
-               await  _unitOfWork.Commit(cancellationToken);
-                return await Result<int>.SuccessAsync(plancategory.Id,"Plan Category Added");
-               
+                await _unitOfWork.Repository<TbPlanCategory>().AddAsync(plancategory);
+                await _unitOfWork.Commit(cancellationToken);
+                return await Result<int>.SuccessAsync(plancategory.Id, "Plan Category Added");
+
             }
             else
             {
-                var plancategory= await _unitOfWork.Repository<TbPlanCategory>().GetByIdAsync(request.Id);
-                if(plancategory != null)
+                var plancategory = await _unitOfWork.Repository<TbPlanCategory>().GetByIdAsync(request.Id);
+                if (plancategory != null)
                 {
                     //update
                     plancategory.TypeName = request.TypeName ?? plancategory.TypeName;

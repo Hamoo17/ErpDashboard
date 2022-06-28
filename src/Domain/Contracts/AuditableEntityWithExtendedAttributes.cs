@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ErpDashboard.Domain.Contracts
+﻿namespace ErpDashboard.Domain.Contracts
 {
     public abstract class AuditableEntityWithExtendedAttributes<TId, TEntityId, TEntity, TExtendedAttribute>
         : AuditableEntity<TEntityId>, IEntityWithExtendedAttributes<TExtendedAttribute>

@@ -1,8 +1,6 @@
 ﻿using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Domain.Entities.Misc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Repositories
 {

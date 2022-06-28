@@ -8,12 +8,9 @@ using ErpDashboard.Shared.Constants.Storage;
 using ErpDashboard.Shared.Wrapper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Identity.Authentication
 {
@@ -60,7 +57,7 @@ namespace ErpDashboard.Client.Infrastructure.Managers.Identity.Authentication
                 }
                 ((BlazorHeroStateProvider)this._authenticationStateProvider).MarkUserAsAuthenticated(model.Email);
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                _httpClient.DefaultRequestHeaders.Add("Company",result.Data.CompanyId.ToString());
+                _httpClient.DefaultRequestHeaders.Add("Company", result.Data.CompanyId.ToString());
                 return await Result.SuccessAsync();
             }
             else

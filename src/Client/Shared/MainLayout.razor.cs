@@ -8,11 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
 using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Shared
 {
@@ -28,12 +24,12 @@ namespace ErpDashboard.Client.Shared
         private int _currentCompany { get; set; }
         private char FirstLetterOfName { get; set; }
         private string CompanyName { get; set; } = "";
-        private List<GetAllCompaniesDto>CompaniesList {get;set;}
+        private List<GetAllCompaniesDto> CompaniesList { get; set; }
         private async Task LoadDataAsync()
         {
             var state = await _stateProvider.GetAuthenticationStateAsync();
             var user = state.User;
-            
+
             if (user == null) return;
             if (user.Identity?.IsAuthenticated == true)
             {
@@ -50,7 +46,7 @@ namespace ErpDashboard.Client.Shared
                 {
                     ImageDataUrl = imageResponse.Data;
                 }
-              
+
                 var currentUserResult = await _userManager.GetAsync(CurrentUserId);
 
                 if (!currentUserResult.Succeeded || currentUserResult.Data == null)
@@ -69,7 +65,7 @@ namespace ErpDashboard.Client.Shared
         private MudTheme _currentTheme;
         private bool _drawerOpen = true;
         private bool _rightToLeft = false;
-        private async Task LoadCompanies() 
+        private async Task LoadCompanies()
         {
             var response = await companyManager.GetAllAsync();
             if (response.Succeeded)
@@ -90,7 +86,7 @@ namespace ErpDashboard.Client.Shared
                 }
             }
         }
-        private async Task SetCompany(int id) 
+        private async Task SetCompany(int id)
         {
             await _localStorage.SetItemAsync<int>("Company", id);
             _navigationManager.NavigateTo(_navigationManager.Uri, true);
@@ -213,7 +209,7 @@ namespace ErpDashboard.Client.Shared
 
         protected override async void OnAfterRender(bool firstRender)
         {
-            
+
             if (firstRender)
             {
                 var state = await _stateProvider.GetAuthenticationStateAsync();
@@ -221,10 +217,10 @@ namespace ErpDashboard.Client.Shared
                 var CurrentCompany = await _localStorage.GetItemAsync<int?>("Company");
                 if (CurrentCompany == null) _currentCompany = user.GetCompany(); else _currentCompany = CurrentCompany ?? 0;
 
-               
+
                 await LoadCompanies();
             }
-             
+
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace ErpDashboard.Shared.Constants.Permission
 {
@@ -127,6 +125,15 @@ namespace ErpDashboard.Shared.Constants.Permission
             public const string Delete = "Permissions.Item.Delete";
             public const string Export = "Permissions.Item.Export";
             public const string Search = "Permissions.Item.Search";
+        }
+        public static class Recipe
+        {
+            public const string View = "Permissions.Recipe.View";
+            public const string Create = "Permissions.Recipe.Create";
+            public const string Edit = "Permissions.Recipe.Edit";
+            public const string Delete = "Permissions.Recipe.Delete";
+            public const string Export = "Permissions.Recipe.Export";
+            public const string Search = "Permissions.Recipe.Search";
         }
         public static class Communication
         {

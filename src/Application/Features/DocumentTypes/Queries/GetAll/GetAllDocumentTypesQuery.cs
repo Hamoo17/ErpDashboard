@@ -5,10 +5,6 @@ using ErpDashboard.Shared.Constants.Application;
 using ErpDashboard.Shared.Wrapper;
 using LazyCache;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Application.Features.DocumentTypes.Queries.GetAll
 {

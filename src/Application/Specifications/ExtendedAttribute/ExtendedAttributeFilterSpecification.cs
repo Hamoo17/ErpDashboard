@@ -1,7 +1,6 @@
 ﻿using ErpDashboard.Application.Features.ExtendedAttributes.Queries.Export;
 using ErpDashboard.Application.Specifications.Base;
 using ErpDashboard.Domain.Contracts;
-using System;
 
 namespace ErpDashboard.Application.Specifications.ExtendedAttribute
 {

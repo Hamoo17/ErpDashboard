@@ -1,8 +1,6 @@
 ﻿using ErpDashboard.Application.Features.Dashboards.Queries.GetData;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Shared.Wrapper;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Dashboard
 {

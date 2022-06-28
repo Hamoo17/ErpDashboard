@@ -8,8 +8,6 @@ using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace ErpDashboard.Application.Extensions

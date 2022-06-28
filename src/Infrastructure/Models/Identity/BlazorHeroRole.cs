@@ -1,7 +1,5 @@
 ﻿using ErpDashboard.Domain.Contracts;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 
 namespace ErpDashboard.Infrastructure.Models.Identity
 {

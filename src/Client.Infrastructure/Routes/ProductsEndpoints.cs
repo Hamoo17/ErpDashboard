@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace ErpDashboard.Client.Infrastructure.Routes
+﻿namespace ErpDashboard.Client.Infrastructure.Routes
 {
     public static class ProductsEndpoints
     {

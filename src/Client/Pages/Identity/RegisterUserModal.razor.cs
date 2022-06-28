@@ -2,7 +2,6 @@
 using ErpDashboard.Application.Requests.Identity;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client.Pages.Identity
 {

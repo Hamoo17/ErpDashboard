@@ -3,11 +3,7 @@ using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Infrastructure.Contexts;
 using LazyCache;
-using System;
 using System.Collections;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Infrastructure.Repositories
 {

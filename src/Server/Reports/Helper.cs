@@ -1,10 +1,4 @@
-﻿using ErpDashboard.Application.Models;
-using System.Collections.Generic;
-using ErpDashboard.Infrastructure.Contexts;
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using ErpDashboard.Server.Extensions;
+﻿using ErpDashboard.Infrastructure.Contexts;
 
 namespace ErpDashboard.Server.Reports
 {
@@ -13,7 +7,7 @@ namespace ErpDashboard.Server.Reports
 
         public int Id { get; set; }
         public string CustomerName { get; set; }
-        private  ERBSYSTEMContext _context;
+        private ERBSYSTEMContext _context;
         public bool FirstRender = true;
         public AllCustomersReport()
         {
@@ -21,7 +15,7 @@ namespace ErpDashboard.Server.Reports
             CustomersList = GetAllCustomers();
 
         }
-        public AllCustomersReport(int id , string Name)
+        public AllCustomersReport(int id, string Name)
         {
             Id = id;
             CustomerName = Name;

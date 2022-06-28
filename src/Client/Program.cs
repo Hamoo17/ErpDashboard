@@ -3,10 +3,7 @@ using ErpDashboard.Client.Infrastructure.Managers.Preferences;
 using ErpDashboard.Client.Infrastructure.Settings;
 using ErpDashboard.Shared.Constants.Localization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Client
 {

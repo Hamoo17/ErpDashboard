@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace ErpDashboard.Application.Interfaces.Services.Storage
+﻿namespace ErpDashboard.Application.Interfaces.Services.Storage
 {
     public interface IServerStorageService
     {

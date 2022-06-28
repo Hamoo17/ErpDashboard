@@ -2,7 +2,6 @@
 using ErpDashboard.Application.Models.Chat;
 using ErpDashboard.Shared.Constants.Application;
 using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
 
 namespace ErpDashboard.Server.Hubs
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ErpDashboard.Application.Interfaces.Chat
+﻿namespace ErpDashboard.Application.Interfaces.Chat
 {
     public interface IChatHistory<TUser> where TUser : IChatUser
     {

@@ -10,8 +10,6 @@ using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.Web.ReportDesigner;
 using ErpDashboard.Server.Reports;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace ErpDashboard.Server.Controllers
@@ -33,17 +31,17 @@ namespace ErpDashboard.Server.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ViewerController : WebDocumentViewerController
     {
-       
+
         public ViewerController(IWebDocumentViewerMvcControllerService controllerService) : base(controllerService)
         {
-            
+
         }
         //public override Task<IActionResult> Invoke()
         //{
-          
+
         //    //var a = new DevExpress.XtraReports.Web.WebDocumentViewer.WebDocumentViewerClientSideModelGenerator(HttpContext.RequestServices)
         //    // .GetJsonModelScript(reportUrl, "/DXXRD");
-            
+
         //    //return new JavaScriptSerializer().Deserialize<object>(a);
 
         //   // return base.Invoke();
@@ -54,11 +52,11 @@ namespace ErpDashboard.Server.Controllers
     [Route("DXXQB")]
     public class CustomQueryBuilderController : QueryBuilderController
     {
-         
+
         public CustomQueryBuilderController(IQueryBuilderMvcControllerService controllerService) : base(controllerService) { }
         public override Task<IActionResult> Invoke()
         {
-      
+
             return base.Invoke();
         }
     }

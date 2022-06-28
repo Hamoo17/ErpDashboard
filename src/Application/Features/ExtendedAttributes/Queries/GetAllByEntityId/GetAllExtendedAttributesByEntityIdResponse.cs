@@ -1,7 +1,6 @@
 ﻿#nullable enable
 using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Domain.Enums;
-using System;
 
 namespace ErpDashboard.Application.Features.ExtendedAttributes.Queries.GetAllByEntityId
 {
