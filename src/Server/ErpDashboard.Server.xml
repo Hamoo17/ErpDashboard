@@ -417,7 +417,7 @@
             <param name="name"></param>
             <returns>Status 200 OK</returns>
         </member>
-        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll">
+        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Get All Customers
             </summary>

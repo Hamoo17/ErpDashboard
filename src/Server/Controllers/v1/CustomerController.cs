@@ -12,9 +12,9 @@ namespace ErpDashboard.Server.Controllers.v1
         /// <returns>Status 200 OK</returns>
         //[Authorize(Policy = Permissions.PlanCategory.View)]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int pageNumber, int pageSize, string searchString, string orderBy = null)
         {
-            var Customers = await _mediator.Send(new GetAllCustomersQuery());
+            var Customers = await _mediator.Send(new GetAllCustomersQuery(pageNumber,pageSize,searchString,orderBy));
             return Ok(Customers);
         }
         /// <summary>

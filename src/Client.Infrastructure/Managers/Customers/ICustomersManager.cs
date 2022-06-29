@@ -6,7 +6,7 @@ namespace ErpDashboard.Client.Infrastructure.Managers.Customers
 {
     public interface ICustomersManager : IManager
     {
-        Task<IResult<List<GetAllCustomerViewModal>>> GetAllAsync();
+        Task<PaginatedResult<GetAllCustomerViewModal>> GetAllAsync(GetAllCustomersQuery Request);
         Task<IResult<int>> SaveAsync(AddEditCustomerCommand Command);
     }
 }

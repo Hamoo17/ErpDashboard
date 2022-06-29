@@ -1,37 +1,64 @@
-﻿<EditForm Model="Model" OnInvalidSubmit="Save">
-	<MudDialog >
-		<TitleContent >
+﻿@using ErpDashboard.Application.Enums
+<EditForm Model="Model" OnInvalidSubmit="Save">
+	<MudDialog>
+		<TitleContent>
 			@if (Model.Id == 0)
 			{
 				<MudText Typo="Typo.h6">
-                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
-                        Add Customer
-                    </MudText>
-			}else
+					<MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+					Add Customer
+				</MudText>
+			}
+			else
 			{
 				<MudText Typo="Typo.h6">
-                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
-                      EditCustomer
-                    </MudText>
+					<MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+					EditCustomer
+				</MudText>
 			}
 		</TitleContent>
-		<DialogContent >
-			 <MudGrid>
+		<DialogContent>
+			<MudGrid>
 				<MudItem xs="12" md="6">
-                    <MudTextField For="@(() => Model.CustomerName)" @bind-Value="Model.CustomerName" Label="Customer Name" />
-                </MudItem>
+					<MudTextField For="@(() => Model.CustomerName)" @bind-Value="Model.CustomerName" Label="Customer Name" Variant="Variant.Outlined" />
+				</MudItem>
 				<MudItem xs="12" md="6">
-                    <MudTextField   For="@(() => Model.CustomerName)" @bind-Value="Model.CustomerName" Label="Name" />
-                </MudItem>
-                <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => Model.Email)" @bind-Value="Model.Email" Label="Days Count" />
-                </MudItem>
+					<MudTextField For="@(() => Model.CustomerId)" @bind-Value="Model.CategoryId" Label="customer Category" Variant="Variant.Outlined" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudSelect T="string"For="@(() => Model.RegType)"@bind-Value="Model.RegType"Variant="Variant.Outlined" Label="Regestration Type">
+						<MudSelectItem Value="@("Branch")">Branch</MudSelectItem>
+						<MudSelectItem Value="@("Web Site")">Web</MudSelectItem>
+						<MudSelectItem Value="@("Mobile Application")"></MudSelectItem>
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField For="@(() => Model.BirthDate)" @bind-Value="Model.BirthDate" Label="Birth Date" Variant="Variant.Outlined" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField For="@(() => Model.Email)" @bind-Value="Model.Email" Label="Email" Variant="Variant.Outlined" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField For="@(() => Model.Weight)" @bind-Value="Model.Weight" Label="Weight" Variant="Variant.Outlined" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField For="@(() => Model.Height)" @bind-Value="Model.Height" Label="Height" Variant="Variant.Outlined" />
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudSelect For="@(()=>Model.CustomerType)"Variant="Variant.Outlined"Label="Customer Type" @bind-Value="Model.CustomerType">
+						<MudSelectItem Value="@ErpSystemEnums.Customer_Type.Customer">Customer</MudSelectItem>
+						<MudSelectItem Value="@ErpSystemEnums.Customer_Type.Sponser">Sponser</MudSelectItem>
+					</MudSelect>
+				</MudItem>
+				<MudItem xs="12" md="6">
+					<MudTextField For="@(() => Model.Notes)" @bind-Value="Model.Notes" Label="Notes" Variant="Variant.Outlined" />
+				</MudItem>
 
-			 </MudGrid>
+			</MudGrid>
 		</DialogContent>
 		<DialogActions>
-			 <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
-			 <MudButton DisableElevation Variant="Variant.Filled" OnClick="Save" ButtonType="ButtonType.Submit"  Color="Color.Secondary">@(Model.Id == 0?"Add":"Save")</MudButton>
+			<MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+			<MudButton DisableElevation Variant="Variant.Filled" OnClick="Save" ButtonType="ButtonType.Submit" Color="Color.Secondary">@(Model.Id == 0?"Add":"Save")</MudButton>
 		</DialogActions>
 	</MudDialog>
 </EditForm>

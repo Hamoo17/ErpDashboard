@@ -1,8 +1,10 @@
 ﻿using ErpDashboard.Application.Features.Customer.Command.AddEdit;
 using ErpDashboard.Application.Features.Customer.GetAllCustomers;
+using ErpDashboard.Application.Features.Products.Queries.GetAllPaged;
 using ErpDashboard.Client.Infrastructure.Extensions;
 using ErpDashboard.Client.Infrastructure.Routes;
 using ErpDashboard.Shared.Wrapper;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace ErpDashboard.Client.Infrastructure.Managers.Customers
@@ -16,10 +18,10 @@ namespace ErpDashboard.Client.Infrastructure.Managers.Customers
             _HttpClient = httpClient;
         }
 
-        public async Task<IResult<List<GetAllCustomerViewModal>>> GetAllAsync()
+		public async Task<PaginatedResult<GetAllCustomerViewModal>> GetAllAsync(GetAllCustomersQuery request)
         {
-            var Response = await _HttpClient.GetAsync(CustomersEndpoint.GetAll);
-            return await Response.ToResult<List<GetAllCustomerViewModal>>();
+            var response = await _HttpClient.GetAsync(CustomersEndpoint.GetAll(request.PageNumber, request.PageSize, request.SearchString, request.OrderBy));
+            return await response.ToPaginatedResult<GetAllCustomerViewModal>();
         }
 
         public async Task<IResult<int>> SaveAsync(AddEditCustomerCommand Command)
