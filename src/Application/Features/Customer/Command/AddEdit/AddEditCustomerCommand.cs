@@ -19,8 +19,7 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
-        public DateTime RegDate { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string Email { get; set; }
         public string Weight { get; set; }
         public string Height { get; set; }
@@ -28,8 +27,6 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
         public int Evalution { get; set; }
         public string Notes { get; set; }
         public bool Status { get; set; }
-        public int ComId { get; set; }
-        public int UserId { get; set; }
         public int CategoryId { get; set; }
         public string RegType { get; set; }
     }
@@ -53,6 +50,8 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
                 var mappedcustomer=_Mapper.Map<TbCustomer>(request);
                 mappedcustomer.UserId = _currentUser.SystemUserId.Value;
                 mappedcustomer.ComId =_currentUser.CompanyID.Value;
+                mappedcustomer.RegDate = DateTime.Now.Date;
+                mappedcustomer.CustomerId = await _UnitOfWork.Repository<TbCustomer>().GenerateIdentity(x => x.ComId,x=> x.CustomerId);
                 await _UnitOfWork.Repository<TbCustomer>().AddAsync(mappedcustomer);
                 await _UnitOfWork.Commit(cancellationToken);
                 return await Result<int>.SuccessAsync(mappedcustomer.Id,"Customer Add Successfuly");
@@ -60,12 +59,24 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
             else
             {
                 var Customer = await _UnitOfWork.Repository<TbCustomer>().GetByIdAsync(request.Id);
-               TbCustomer cus=_Mapper.Map<TbCustomer>(request);
-               if(Customer!=null)
+                
+                if (Customer!=null)
                 {
-                    await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(cus , request.Id);
+                    
+                    Customer.CustomerName = request.CustomerName ?? Customer.CustomerName;
+                    Customer.BirthDate = request.BirthDate ?? Customer.BirthDate;
+                    Customer.CategoryId = request.CategoryId;
+                    Customer.CustomerType = request.CustomerType;
+                    Customer.Email = request.Email ?? Customer.Email;
+                    Customer.Height = request.Height ?? Customer.Height;
+                    Customer.Weight = request.Weight ?? Customer.Weight;
+                    Customer.Evalution = request.Evalution;
+                    Customer.Status = request.Status;
+                    Customer.Notes = request.Notes ?? Customer.Notes;
+
+                    await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(Customer, request.Id);
                     await _UnitOfWork.Commit(cancellationToken);
-                    return await Result<int>.SuccessAsync(Customer.Id, "Customer Update Successfuly");
+                    return await Result<int>.SuccessAsync(Customer.Id, "Customer Update Successfuly"); // join whatsapp
                 }
                 else
                 {

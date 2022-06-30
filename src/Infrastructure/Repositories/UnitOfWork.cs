@@ -108,7 +108,7 @@ namespace ErpDashboard.Infrastructure.Repositories
             {
                 var repositoryType = typeof(CustomRepositoryAsync<,>);
 
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity), typeof(TId)), _dbContext);
+                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity), typeof(TId)), _dbContext, _currentUserService);
 
                 _repositories.Add(type, repositoryInstance);
             }

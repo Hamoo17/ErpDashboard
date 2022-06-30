@@ -11,11 +11,11 @@
 	}
 </style>
 
-<MudAppBar Style="position:sticky;top:64px;z-index:9999;background-color:white!important" Color="Color.Transparent" Fixed="false" Class="mb-4">
+<MudAppBar Style="position:sticky;top:64px;background-color:white!important" Color="Color.Transparent" Fixed="false" Class="mb-4">
 	<MudIcon Size=Size.Large  Color=Color.Tertiary Class="mr-4" Icon="@Icons.Material.Filled.AccountCircle" ></MudIcon>
 	<HeroTitle  Title=Customers ></HeroTitle>
 	<MudSpacer></MudSpacer>
-	<MudFab StartIcon="@Icons.Filled.Add" Label="Add New Customer" Color=Color.Success/>
+	<MudFab StartIcon="@Icons.Filled.Add" Label="Add New Customer" Color=Color.Success OnClick="(() => InvokeModal(0))"/>
 	</MudAppBar>
 
 	<MudTable Items="@Customers" @ref="_table" Hover="true" Breakpoint="Breakpoint.Sm"  ServerData="@(new Func<TableState, Task<TableData<GetAllCustomerViewModal>>>(ServerReload))" Loading=@_Loading  LoadingProgressColor=Color.Success Dense=true Class="mt-4">

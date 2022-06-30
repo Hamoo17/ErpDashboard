@@ -2,7 +2,7 @@
 @using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomerCategory
 @using ErpDashboard.Client.Infrastructure.Managers.Customers
 @inject ICustomersManager _ICustomerManager
-<MudSelect T="int" @bind-Value="MyValue"  Label="Customer category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+<MudSelect T="int" @bind-Value="MyValue" ToStringFunc="@converter()"  Label="Customer category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
   @if (CustomerCategoryList != null)
   {
 	  foreach (var Cat in CustomerCategoryList)
@@ -13,8 +13,12 @@
 </MudSelect>
 
 @code {
-
 	private List<GetAllCustomerCategoryViewModel> CustomerCategoryList { get; set; }=new();
+	Func<int, string> converter()
+	{
+		return x => CustomerCategoryList.FirstOrDefault(c => c.Id == x).CategoryName;
+	}
+
 
 	protected override async Task OnInitializedAsync()
 	{
