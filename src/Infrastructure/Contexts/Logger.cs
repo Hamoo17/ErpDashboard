@@ -128,6 +128,19 @@ namespace ErpDashboard.Infrastructure.Contexts
                         var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
                         var result = @params[0].Value ?? 0;
                         property.SetValue(entry.Entity, (int)result + 1);
+					}
+					else if (CompanyAttr != null && string.IsNullOrEmpty(CompanyIdFieldName))
+					{
+                        var propName = property.Name;
+                        var tableName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetTableName();
+                        SqlParameter[] @params =
+                            {
+                                 new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output}
+                            };
+                        var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName})";
+                        var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
+                        var result = @params[0].Value ?? 0;
+                        property.SetValue(entry.Entity, (int)result + 1);
                     }
 
                 }

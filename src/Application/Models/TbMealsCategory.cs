@@ -1,5 +1,7 @@
 ﻿#nullable disable
 
+using ErpDashboard.Shared.CustomAttribute;
+
 namespace ErpDashboard.Application.Models
 {
     public partial class TbMealsCategory
@@ -12,9 +14,11 @@ namespace ErpDashboard.Application.Models
         }
 
         public int Id { get; set; }
+		[CompanyIdentity]
         public int? MealCategoryId { get; set; }
         public string EnName { get; set; }
         public string Notes { get; set; }
+		[CompanyId]
         public int? ComId { get; set; }
         public int? UserId { get; set; }
         public bool? Active { get; set; }

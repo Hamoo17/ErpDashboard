@@ -13,7 +13,7 @@ namespace ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit
     {
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string EnName { get; set; }
         [Required]
         public string Symbol { get; set; }
         public bool IsSnack { get; set; }
@@ -53,7 +53,7 @@ namespace ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit
                 var MealCat = await _unitOfWork.Repository<TbMealsCategory>().GetByIdAsync(command.Id);
                 if (MealCat != null)
                 {
-                    MealCat.EnName = command.Name ?? MealCat.EnName;
+                    MealCat.EnName = command.EnName ?? MealCat.EnName;
                     MealCat.Symbol = command.Symbol ?? command.Symbol;
                     MealCat.Issnack = command.IsSnack;
                     await _unitOfWork.Repository<TbMealsCategory>().UpdateAsync(MealCat, MealCat.Id);
