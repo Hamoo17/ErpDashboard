@@ -102,7 +102,6 @@ namespace ErpDashboard.Infrastructure.Contexts
                     CompanyIdAttribute companyIdAttr = attr as CompanyIdAttribute;
                     if (companyIdAttr != null)
                     {
-                        
                         CompanyIdFieldName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetProperty(property.Name).GetColumnName();
                         property.SetValue(entry.Entity, _currentUser.CompanyID);
                     }
@@ -115,7 +114,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                 foreach (object attr in attrs)
                 {
                     CompanyIdentityAttribute CompanyAttr = attr as CompanyIdentityAttribute;
-                    if (CompanyAttr != null && !string.IsNullOrEmpty(CompanyIdFieldName))
+                    if (CompanyAttr != null)
                     {
 
                         var propName = property.Name;
@@ -124,25 +123,12 @@ namespace ErpDashboard.Infrastructure.Contexts
                             {
                                  new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output}
                             };
-                        var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName} WHERE {CompanyIdFieldName}={_currentUser.CompanyID})";
+                        var CompanyCondition = string.IsNullOrEmpty(CompanyIdFieldName) ? string.Empty : $"WHERE {CompanyIdFieldName}={_currentUser.CompanyID}";
+                        var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName} {CompanyCondition})";
                         var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
                         var result = @params[0].Value ?? 0;
                         property.SetValue(entry.Entity, (int)result + 1);
 					}
-					else if (CompanyAttr != null && string.IsNullOrEmpty(CompanyIdFieldName))
-					{
-                        var propName = property.Name;
-                        var tableName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetTableName();
-                        SqlParameter[] @params =
-                            {
-                                 new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output}
-                            };
-                        var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName})";
-                        var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
-                        var result = @params[0].Value ?? 0;
-                        property.SetValue(entry.Entity, (int)result + 1);
-                    }
-
                 }
             }
         }
