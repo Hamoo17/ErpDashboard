@@ -10,7 +10,7 @@ namespace ErpDashboard.Application.Mappings
         public PlanCategoryProfile()
         {
             CreateMap<AddEditPlanCategoryCommand, TbPlanCategory>().ReverseMap();
-            CreateMap<PlanCategoryDto, TbPlanCategory>().ReverseMap();
+            CreateMap<customercategoryviewmodel, TbPlanCategory>().ReverseMap();
         }
     }
 }

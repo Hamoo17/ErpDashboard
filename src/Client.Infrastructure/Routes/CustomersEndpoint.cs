@@ -17,6 +17,6 @@
 
         }//= "api/v1/Customer";
         public static string Save = "api/v1/Customer";
-
+        public static string GetCustomerCategory = "api/v1/Customer/GetAllCustomerCatrgories";
     }
 }

@@ -60,9 +60,10 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
             else
             {
                 var Customer = await _UnitOfWork.Repository<TbCustomer>().GetByIdAsync(request.Id);
+               TbCustomer cus=_Mapper.Map<TbCustomer>(request);
                if(Customer!=null)
                 {
-                    await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(Customer, request.Id);
+                    await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(cus , request.Id);
                     await _UnitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(Customer.Id, "Customer Update Successfuly");
                 }

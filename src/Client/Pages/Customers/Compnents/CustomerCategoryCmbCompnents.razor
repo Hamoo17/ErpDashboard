@@ -1,0 +1,59 @@
+﻿
+@using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomerCategory
+@using ErpDashboard.Client.Infrastructure.Managers.Customers
+@inject ICustomersManager _ICustomerManager
+<MudSelect T="int" @bind-Value="MyValue"  Label="Customer category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+  @if (CustomerCategoryList != null)
+  {
+	  foreach (var Cat in CustomerCategoryList)
+	  {
+		   <MudSelectItem Value="@Cat.Id">@Cat.CategoryName</MudSelectItem>
+	  }
+  }
+</MudSelect>
+
+@code {
+
+	private List<GetAllCustomerCategoryViewModel> CustomerCategoryList { get; set; }=new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadData();
+	}
+
+	private async Task LoadData()
+	{
+		var response = await _ICustomerManager.GetAllCustomerCategoryAsync();
+
+		if (response.Succeeded)
+		{
+			CustomerCategoryList = response.Data;
+		}
+		else
+		{
+			foreach (var msg in response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+
+		}
+	}
+
+
+	private int _value;
+
+	[Parameter]
+	public int MyValue
+	{
+		get => _value;
+		set
+		{
+			if (_value == value ) return;
+			_value = value;
+			MyValueChanged.InvokeAsync(value);
+		}
+	}
+
+	[Parameter]
+	public EventCallback<int> MyValueChanged { get; set; }
+}

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ErpDashboard.Application.Features.PlanCategory.Query.GetAll
 {
-    public class GetAllPlanCategoryQuery : IRequest<Result<List<PlanCategoryDto>>>
+    public class GetAllPlanCategoryQuery : IRequest<Result<List<customercategoryviewmodel>>>
     {
         public GetAllPlanCategoryQuery()
         {
@@ -15,7 +15,7 @@ namespace ErpDashboard.Application.Features.PlanCategory.Query.GetAll
         }
     }
 
-    internal class GetAllPlanCategoryQueryHandler : IRequestHandler<GetAllPlanCategoryQuery, Result<List<PlanCategoryDto>>>
+    internal class GetAllPlanCategoryQueryHandler : IRequestHandler<GetAllPlanCategoryQuery, Result<List<customercategoryviewmodel>>>
     {
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
@@ -26,11 +26,11 @@ namespace ErpDashboard.Application.Features.PlanCategory.Query.GetAll
             _mapper = mapper;
         }
 
-        public async Task<Result<List<PlanCategoryDto>>> Handle(GetAllPlanCategoryQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<customercategoryviewmodel>>> Handle(GetAllPlanCategoryQuery request, CancellationToken cancellationToken)
         {
             var PlanCategories = await _unitOfWork.Repository<TbPlanCategory>().GetAllAsync();
-            var MappedCategiries = _mapper.Map<List<PlanCategoryDto>>(PlanCategories);
-            return await Result<List<PlanCategoryDto>>.SuccessAsync(MappedCategiries);
+            var MappedCategiries = _mapper.Map<List<customercategoryviewmodel>>(PlanCategories);
+            return await Result<List<customercategoryviewmodel>>.SuccessAsync(MappedCategiries);
         }
     }
 }

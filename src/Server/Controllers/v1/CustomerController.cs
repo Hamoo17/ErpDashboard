@@ -1,5 +1,6 @@
 ﻿using ErpDashboard.Application.Features.Customer.Command.AddEdit;
 using ErpDashboard.Application.Features.Customer.GetAllCustomers;
+using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomerCategory;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErpDashboard.Server.Controllers.v1
@@ -28,5 +29,17 @@ namespace ErpDashboard.Server.Controllers.v1
         {
             return Ok(await _mediator.Send(command));
         }
+
+        /// Get All CustomerCategories
+        /// </summary>
+        /// <returns>Status 200 OK</returns>
+        //[Authorize(Policy = Permissions.PlanCategory.View)]
+        [HttpGet("GetAllCustomerCatrgories")]
+        public async Task<IActionResult> GetAllCustomerCatrgories()
+        {
+            var Customers = await _mediator.Send(new GetAllCustomerCategoryQuery());
+            return Ok(Customers);
+        }
+
     }
 }
