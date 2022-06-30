@@ -1,6 +1,7 @@
 ﻿using ErpDashboard.Application.Enums;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
+using ErpDashboard.Domain.Contracts;
 using ErpDashboard.Shared.CustomAttribute;
 using ErpDashboard.Shared.Wrapper;
 using Microsoft.Data.SqlClient;
@@ -93,43 +94,34 @@ namespace ErpDashboard.Infrastructure.Contexts
         private void SetCompanyIdentity(EntityEntry entry) 
         {
             string CompanyIdFieldName = "";
-            foreach (var property in entry.Entity.GetType().GetProperties())
-            {
-                object[] attrs = property.GetCustomAttributes(true);
-
-                foreach (object attr in attrs)
-                {
-                    CompanyIdAttribute companyIdAttr = attr as CompanyIdAttribute;
-                    if (companyIdAttr != null)
-                    {
-                        CompanyIdFieldName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetProperty(property.Name).GetColumnName();
-                        property.SetValue(entry.Entity, _currentUser.CompanyID);
-                    }
-                }
-            }
-
-			foreach (var property in entry.Entity.GetType().GetProperties())
+               var propertiesWithAttribute = entry.Entity.GetType().GetProperties()
+                .Select(pi => new { Property = pi, Attribute = pi.GetCustomAttributes(typeof(CompanyIdAttribute), true).FirstOrDefault() as CompanyIdAttribute })
+                .Where(x => x.Attribute != null)
+                .ToList();
+			if (propertiesWithAttribute.Count > 0)
 			{
-                object[] attrs = property.GetCustomAttributes(true);
-                foreach (object attr in attrs)
-                {
-                    CompanyIdentityAttribute CompanyAttr = attr as CompanyIdentityAttribute;
-                    if (CompanyAttr != null)
-                    {
-
-                        var propName = property.Name;
-                        var tableName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetTableName();
-                        SqlParameter[] @params =
-                            {
+               CompanyIdFieldName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetProperty(propertiesWithAttribute[0].Property.Name).GetColumnName();
+                propertiesWithAttribute[0].Property.SetValue(entry.Entity, _currentUser.CompanyID);
+            }
+            var propertiesWithAttributeCompanyIdentity = entry.Entity.GetType().GetProperties()
+                 .Select(pi => new { Property = pi, Attribute = pi.GetCustomAttributes(typeof(CompanyIdentityAttribute), true).FirstOrDefault() as CompanyIdentityAttribute })
+                 .Where(x => x.Attribute != null)
+                 .ToList();
+			if (propertiesWithAttributeCompanyIdentity.Count > 0)
+			{
+               var property = propertiesWithAttributeCompanyIdentity[0].Property;
+                    var propName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetProperty(property.Name).GetColumnName();
+                var tableName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetTableName();
+                    SqlParameter[] @params =
+                        {
                                  new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output}
                             };
-                        var CompanyCondition = string.IsNullOrEmpty(CompanyIdFieldName) ? string.Empty : $"WHERE {CompanyIdFieldName}={_currentUser.CompanyID}";
-                        var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName} {CompanyCondition})";
-                        var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
-                        var result = @params[0].Value ?? 0;
-                        property.SetValue(entry.Entity, (int)result + 1);
-					}
-                }
+                    var CompanyCondition = string.IsNullOrEmpty(CompanyIdFieldName) ? string.Empty : $"WHERE {CompanyIdFieldName}={_currentUser.CompanyID}";
+                    var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName} {CompanyCondition})";
+                    var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
+                    var result = @params[0].Value ?? 0;
+                    property.SetValue(entry.Entity, (int)result + 1);
+                
             }
         }
         public virtual async Task<int> SaveChangesAsync(int? userId = null, int? commId = null, CancellationToken cancellationToken = new())
