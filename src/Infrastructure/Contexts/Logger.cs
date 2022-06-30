@@ -1,9 +1,13 @@
 ﻿using ErpDashboard.Application.Enums;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
+using ErpDashboard.Shared.CustomAttribute;
+using ErpDashboard.Shared.Wrapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace ErpDashboard.Infrastructure.Contexts
 {
@@ -35,7 +39,10 @@ namespace ErpDashboard.Infrastructure.Contexts
 
                 var EntityProperties = entry.Entity.GetType().GetProperties();
 
-
+				if (entry.State == EntityState.Added)
+				{
+                    SetCompanyIdentity(entry);
+                }
                 foreach (var property in entry.Properties)
                 {
 
@@ -56,6 +63,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                         case EntityState.Added:
                             auditEntry.AuditType = AuditType.Create;
                             auditEntry.NewValues[propertyName] = property.CurrentValue;
+
                             break;
 
                         case EntityState.Deleted:
@@ -82,7 +90,49 @@ namespace ErpDashboard.Infrastructure.Contexts
             }
             return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
         }
+        private void SetCompanyIdentity(EntityEntry entry) 
+        {
+            string CompanyIdFieldName = "";
+            foreach (var property in entry.Entity.GetType().GetProperties())
+            {
+                object[] attrs = property.GetCustomAttributes(true);
 
+                foreach (object attr in attrs)
+                {
+                    CompanyIdAttribute companyIdAttr = attr as CompanyIdAttribute;
+                    if (companyIdAttr != null)
+                    {
+                        
+                        CompanyIdFieldName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetProperty(property.Name).GetColumnName();
+                        property.SetValue(entry.Entity, _currentUser.CompanyID);
+                    }
+                }
+            }
+
+			foreach (var property in entry.Entity.GetType().GetProperties())
+			{
+                object[] attrs = property.GetCustomAttributes(true);
+                foreach (object attr in attrs)
+                {
+                    CompanyIdentityAttribute CompanyAttr = attr as CompanyIdentityAttribute;
+                    if (CompanyAttr != null && !string.IsNullOrEmpty(CompanyIdFieldName))
+                    {
+
+                        var propName = property.Name;
+                        var tableName = entry.Context.Model.FindEntityType(entry.Entity.GetType()).GetTableName();
+                        SqlParameter[] @params =
+                            {
+                                 new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output}
+                            };
+                        var qry = $"set @returnVal =(SELECT ISNULL(MAX({propName}),0) FROM {tableName} WHERE {CompanyIdFieldName}={_currentUser.CompanyID})";
+                        var count = entry.Context.Database.ExecuteSqlRaw(qry, @params);
+                        var result = @params[0].Value ?? 0;
+                        property.SetValue(entry.Entity, (int)result + 1);
+                    }
+
+                }
+            }
+        }
         public virtual async Task<int> SaveChangesAsync(int? userId = null, int? commId = null, CancellationToken cancellationToken = new())
         {
             var auditEntries = OnBeforeSaveChanges(_currentUser.SystemUserId, _currentUser.CompanyID);

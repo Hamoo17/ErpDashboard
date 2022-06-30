@@ -2,6 +2,7 @@
 @using Client.Infrastructure.Managers.Customers;
 @using ErpDashboard.Application.Features.Customer.Command.AddEdit
 @using ErpDashboard.Application.Features.Customer.GetAllCustomers;
+@using ErpDashboard.Client.Pages.PlanCategory.Compnents
 @inject ICustomersManager _CustomerManager;
 
 
@@ -18,15 +19,18 @@
 	<h1>@SelectedCategory.ToString()</h1>
 	<MudFab StartIcon="@Icons.Filled.Add" Label="Add New Customer" Color=Color.Success/>
 	</MudAppBar>
-	<ErpDashboard.Client.Pages.PlanCategory.Compnents.PlanCategoryComboBoxCombonent @bind-Myvalue = "SelectedCategory">
+	<div style="width:300px;">
+	<PlanCategoryComboBoxCombonent @bind-MyValue="SelectedCategory">
 
-	</ErpDashboard.Client.Pages.PlanCategory.Compnents.PlanCategoryComboBoxCombonent>
+	</PlanCategoryComboBoxCombonent>
+	</div>
+
 @if (Customers != null)
 {
 	<MudTable Items="@Customers" Hover="true" Breakpoint="Breakpoint.Sm" Loading=@_Loading  LoadingProgressColor=Color.Success Dense=true Class="mt-4">
 		<HeaderContent>
 			<MudTh>Avatar</MudTh>
-			<MudTh Class="mySize">ID</MudTh>
+			<MudTh Class="mySize">IDD</MudTh>
 			<MudTh>Name</MudTh>
 			<MudTh> Phones</MudTh>
 			<MudTh> Adress</MudTh>

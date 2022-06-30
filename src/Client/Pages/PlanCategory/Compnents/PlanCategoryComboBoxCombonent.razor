@@ -2,7 +2,7 @@
 @using ErpDashboard.Client.Infrastructure.Managers.PlanCategory
 @using ErpDashboard.Application.Features.PlanCategory.Query.Dto
 @inject IPlanCtegoryManager _PlanCategoryManager 
-<MudSelect T="int" @bind-Value="MyValue"  Label="Plan category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+<MudSelect T="int" @bind-Value="MyValue" Immediate="false" Label="Plan category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
   @if (PlanCategoryList != null)
   {
 	  foreach (var Cat in PlanCategoryList)
