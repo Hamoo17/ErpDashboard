@@ -1140,7 +1140,7 @@ namespace ErpDashboard.Infrastructure.Contexts
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.Weight).UseCollation("SQL_Latin1_General_CP1_CI_AS");
-
+               
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.TbCustomers)
                     .HasForeignKey(d => d.CategoryId)

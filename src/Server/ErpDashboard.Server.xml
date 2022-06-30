@@ -417,7 +417,7 @@
             <param name="name"></param>
             <returns>Status 200 OK</returns>
         </member>
-        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll">
+        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Get All Customers
             </summary>
@@ -430,6 +430,7 @@
             <param name="command"></param>
             <returns>Status 200 OK</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAllCustomerCatrgories" -->
         <member name="M:ErpDashboard.Server.Controllers.v1.DashboardController.GetDataAsync">
             <summary>
             Get Dashboard Data
@@ -461,6 +462,12 @@
             Get Items By Id (GetItemResponse)
             </summary>
             <param name="id">Id To Get</param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.ItemController.GetAllComplete">
+            <summary>
+            Get All Items (List of GetItemResponse)
+            </summary>
             <returns>Status 200 OK</returns>
         </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.ItemDepartmentController.Post(ErpDashboard.Application.Features.ItemsDepartments.Commands.AddEdit.AddEditItemDepartmentCommand)">
@@ -555,6 +562,20 @@
             <summary>
             Get All PlanDay
             </summary>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.RecipeController.Post(ErpDashboard.Application.Features.Recipe.Commabds.AddEdit.AddEditRecipeCommand)">
+            <summary>
+            Create/Update Item Recipe
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.RecipeController.GetById(System.Int32)">
+            <summary>
+            Get Items Recipy Details By Item Id (ItemComponentHdrResponse)
+            </summary>
+            <param name="ComplexItemId">Id To Get</param>
             <returns>Status 200 OK</returns>
         </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.SubscriptionController.GetAll(System.String)">

@@ -22,10 +22,10 @@ namespace ErpDashboard.Client.Infrastructure.Managers.PlanCategory
             return await Response.ToResult<int>();
         }
 
-        public async Task<IResult<List<PlanCategoryDto>>> GetAllAsync()
+        public async Task<IResult<List<customercategoryviewmodel>>> GetAllAsync()
         {
             var Response = await _httpClient.GetAsync(PlanCategoryEndPoints.GetAll);
-            return await Response.ToResult<List<PlanCategoryDto>>();
+            return await Response.ToResult<List<customercategoryviewmodel>>();
         }
 
         public async Task<IResult<int>> SaveAsync(AddEditPlanCategoryCommand Command)

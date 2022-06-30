@@ -8,6 +8,6 @@ namespace ErpDashboard.Client.Infrastructure.Managers.PlanCategory
     {
         Task<IResult<int>> SaveAsync(AddEditPlanCategoryCommand Command);
         Task<IResult<int>> DeleteAsync(int id);
-        Task<IResult<List<PlanCategoryDto>>> GetAllAsync();
+        Task<IResult<List<customercategoryviewmodel>>> GetAllAsync();
     }
 }

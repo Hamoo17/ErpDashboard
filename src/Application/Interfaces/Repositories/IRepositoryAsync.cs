@@ -33,6 +33,7 @@ namespace ErpDashboard.Application.Interfaces.Repositories
         Task UpdateAsync(T entity, TId id);
 
         Task DeleteAsync(T entity);
+        Task<int> GenerateIdentity(Func<T,int> CompanyField , Func<T,int> TargetFieldSelector);
     }
 
 }

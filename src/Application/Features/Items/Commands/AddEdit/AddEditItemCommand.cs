@@ -51,6 +51,7 @@ namespace ErpDashboard.Application.Features.Items.Commands.AddEdit
             if (!CompanyId.HasValue)
             {
                 return await Result<int>.FailAsync(_localizer["NO COMPANY WITH THIS ID"]);
+                // => 1 - QeryFilter ::: Active ||| SaveChanges => Deleted | SoftDelete 
             }
             var ItemNameExist = await _customIUnitOfWork.Repository<TbItem>().Entities.AnyAsync(c => c.ItemEnName == command.ItemEnName);
             if (!ItemNameExist)

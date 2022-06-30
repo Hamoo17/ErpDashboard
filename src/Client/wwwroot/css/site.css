@@ -25,7 +25,9 @@ app {
     display: flex;
     align-items: center;
 }
-
+.myFont {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; 
+}
 .main {
     flex: 1;
 }

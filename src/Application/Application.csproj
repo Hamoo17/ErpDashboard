@@ -25,7 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Actions\" />
-    <Folder Include="Features\Recipe\Commabds\Delete\" />
     <Folder Include="Features\Subscriptions\" />
     <Folder Include="Features\Subscriptions\Commands\" />
     <Folder Include="Features\Subscriptions\Queries\GetSubscriptionBySid\" />

@@ -1,5 +1,7 @@
 ﻿#nullable disable
 
+using static ErpDashboard.Application.Enums.ErpSystemEnums;
+
 namespace ErpDashboard.Application.Models
 {
     public partial class TbCustomer
@@ -30,7 +32,7 @@ namespace ErpDashboard.Application.Models
         public string Weight { get; set; }
         public string Height { get; set; }
         public string CustomerAccount { get; set; }
-        public int CustomerType { get; set; }
+        public Customer_Type CustomerType { get; set; }
         public int Evalution { get; set; }
         public string Notes { get; set; }
         public bool Status { get; set; }

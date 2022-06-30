@@ -1,6 +1,6 @@
 ﻿namespace ErpDashboard.Application.Features.PlanCategory.Query.Dto
 {
-    public class PlanCategoryDto
+    public class customercategoryviewmodel
     {
         public int Id { get; set; }
         public string TypeName { get; set; }

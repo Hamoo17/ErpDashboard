@@ -1,4 +1,6 @@
-﻿namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
+﻿using static ErpDashboard.Application.Enums.ErpSystemEnums;
+
+namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
 {
     public class GetAllCustomerViewModal
     {
@@ -11,12 +13,15 @@
         public string Email { get; set; }
         public string Weight { get; set; }
         public string Height { get; set; }
-        public int CustomerType { get; set; }
+        public Customer_Type CustomerType { get; set; }
         public int Evalution { get; set; }
         public string Notes { get; set; }
         public bool Status { get; set; }
         public string CustomerPhone { get; set; }
         public string Adress { get; set; }
         public string Category { get; set; }
+        public string RegType { get; set; }
+        public int CategoryId { get; set; }
+
     }
 }
