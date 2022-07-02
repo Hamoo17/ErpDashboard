@@ -417,6 +417,26 @@
             <param name="name"></param>
             <returns>Status 200 OK</returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CategoryController.Post(ErpDashboard.Application.Features.Categories.Command.AddEdit.AddEditCategoryCommand)">
+            <summary>
+            Create/Update a  Category
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CategoryController.Delete(System.Int32)">
+            <summary>
+            Delete  Category
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CategoryController.GetAll">
+            <summary>
+            Get All Items (List of CategoryResponse)
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Get All Customers
