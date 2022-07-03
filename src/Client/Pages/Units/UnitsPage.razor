@@ -1,0 +1,56 @@
+﻿@page "/Units"
+@using ErpDashboard.Client.Infrastructure.Managers.Units
+@using ErpDashboard.Application.Features.Units.Queries.Dto
+@inject IUnitsManager _UnitManager
+
+<HeroTitle Title="Units" Description="Manage Items Units" />
+@if (UnitResponses != null)
+{
+	<MudTable Items="@UnitResponses" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Default Qty</MudTh>
+        <MudSpacer/>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Sign">@context.EnName\</MudTd>
+        <MudTd DataLabel="Name">@context.DefQty</MudTd>
+		<MudSpacer/>
+		<MudTd>		
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+		</MudTd>
+
+   </RowTemplate>
+	</MudTable>
+}else
+{
+	<h1>Loading...</h1>
+}
+
+
+@code {
+    List<UnitResponse> UnitResponses ;
+    protected override async void OnInitialized()
+    {
+        await GetUnitsData();
+    }
+    private async Task GetUnitsData()
+    {
+        var Response = await _UnitManager.GetAllAsync();
+        if (Response.Succeeded)
+        {
+            UnitResponses = Response.Data;
+        }
+        else
+        {
+            foreach(var msg in Response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+        }
+    }
+}
