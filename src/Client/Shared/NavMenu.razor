@@ -57,8 +57,16 @@
 	@if (_canViewUnits)
 	{
 		<MudNavLink Href="/Units" Icon="@Icons.Material.Outlined.Dashboard">
-			Units
+			@_localizer["Units"]
 		</MudNavLink>
+
+	}
+	@if (_canViewMealsCategories)
+	{
+		<MudNavLink Href="/MealsCategories" Icon="@Icons.Material.Outlined.Dashboard">
+			@_localizer["Meals Categories"]
+		</MudNavLink>
+
 	}
 
 	<MudListSubheader Class="mt-2 mb-n2">@_localizer["Personal"]</MudListSubheader>
@@ -151,6 +159,7 @@
 	private bool _canViewPlanCategory;
 	private bool _canViewPlanDays;
 	private bool _canViewUnits;
+	private bool _canViewMealsCategories;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -168,6 +177,7 @@
 		_canViewPlanCategory = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.PlanCategory.View)).Succeeded;
 		_canViewPlanDays = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.planday.View)).Succeeded;
 		_canViewUnits = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Units.View)).Succeeded;
+		_canViewMealsCategories = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.MealCategories.View)).Succeeded;
 
 
 	}
