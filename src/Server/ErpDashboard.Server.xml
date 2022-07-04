@@ -417,6 +417,26 @@
             <param name="name"></param>
             <returns>Status 200 OK</returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CategoryController.Post(ErpDashboard.Application.Features.Categories.Command.AddEdit.AddEditCategoryCommand)">
+            <summary>
+            Create/Update a  Category
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CategoryController.Delete(System.Int32)">
+            <summary>
+            Delete  Category
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.CategoryController.GetAll">
+            <summary>
+            Get All Items (List of CategoryResponse)
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAll(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Get All Customers
@@ -583,6 +603,33 @@
             Get All Related Subscription By Phone Number
             </summary>
             <param name="phone"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.UnitsController.Post(ErpDashboard.Application.Features.Units.Commands.AddEdit.AddEditUnitsCommand)">
+            <summary>
+            Create/Update Unit (AddEditUnitsCommand)
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.UnitsController.Delete(System.Int32)">
+            <summary>
+            Delete Unit
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.UnitsController.GetAll">
+            <summary>
+            Get All Units (List of UnitResponse)
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.UnitsController.GetById(System.Int32)">
+            <summary>
+            Get Units By Id (UnitResponse)
+            </summary>
+            <param name="id">Id To Get</param>
             <returns>Status 200 OK</returns>
         </member>
         <member name="F:ErpDashboard.Server.Reports.CustomersReport.components">

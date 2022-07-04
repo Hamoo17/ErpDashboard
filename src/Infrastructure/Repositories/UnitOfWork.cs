@@ -118,12 +118,12 @@ namespace ErpDashboard.Infrastructure.Repositories
 
         public async Task<int> Commit(CancellationToken cancellationToken)
         {
-            return await _dbContext.SaveChangesAsync(cancellationToken);
+            return await _dbContext.SaveChangesAsync(_currentUserService.SystemUserId,_currentUserService.CompanyID, cancellationToken);
         }
 
         public async Task<int> CommitAndRemoveCache(CancellationToken cancellationToken, params string[] cacheKeys)
         {
-            var result = await _dbContext.SaveChangesAsync(cancellationToken);
+            var result = await _dbContext.SaveChangesAsync(_currentUserService.SystemUserId, _currentUserService.CompanyID,cancellationToken);
             foreach (var cacheKey in cacheKeys)
             {
                 _cache.Remove(cacheKey);

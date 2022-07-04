@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ErpDashboard.Application.Features.Categories.Queries.GetAll;
 using ErpDashboard.Application.Features.Items.Commands.AddEdit;
 using ErpDashboard.Application.Features.Items.Quaries.Dto;
 using ErpDashboard.Application.Features.Recipe.Queries.Dto;
@@ -14,6 +15,8 @@ namespace ErpDashboard.Application.Mappings
             CreateMap<GetItemResponse, TbItem>().ReverseMap();
             CreateMap<ItemComponentDetailResponse, TbItemComponentsLine>().ReverseMap();
             CreateMap<ItemComponentHdrResponse, TbItemComponentsHdr>().ReverseMap();
+            CreateMap<CategoryResponse, TbCategory>().ReverseMap();
+
 
 
 

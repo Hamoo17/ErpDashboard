@@ -52,6 +52,23 @@
 		</MudNavLink>
 
 	}
+
+	<MudListSubheader Class="mt-2 mb-n2">@_localizer["Items Manager"]</MudListSubheader>
+	@if (_canViewUnits)
+	{
+		<MudNavLink Href="/Units" Icon="@Icons.Material.Outlined.Dashboard">
+			@_localizer["Units"]
+		</MudNavLink>
+
+	}
+	@if (_canViewMealsCategories)
+	{
+		<MudNavLink Href="/MealsCategories" Icon="@Icons.Material.Outlined.Dashboard">
+			@_localizer["Meals Categories"]
+		</MudNavLink>
+
+	}
+
 	<MudListSubheader Class="mt-2 mb-n2">@_localizer["Personal"]</MudListSubheader>
 	@if (_canViewDashboards)
 	{
@@ -141,6 +158,8 @@
 	private bool _canViewBrands;
 	private bool _canViewPlanCategory;
 	private bool _canViewPlanDays;
+	private bool _canViewUnits;
+	private bool _canViewMealsCategories;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -148,7 +167,7 @@
 		_canViewHangfire = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Hangfire.View)).Succeeded;
 		_canViewDashboards = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Dashboards.View)).Succeeded;
 		_canViewDocuments = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Documents.View)).Succeeded;
-		_canViewDocumentTypes = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.DocumentTypes.View)).Succeeded;
+		_canViewDocumentTypes = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser,Permissions.DocumentTypes.View)).Succeeded;
 		_canViewAuditTrails = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.AuditTrails.View)).Succeeded;
 		_canViewRoles = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Roles.View)).Succeeded;
 		_canViewUsers = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Users.View)).Succeeded;
@@ -157,6 +176,9 @@
 		_canViewBrands = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Brands.View)).Succeeded;
 		_canViewPlanCategory = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.PlanCategory.View)).Succeeded;
 		_canViewPlanDays = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.planday.View)).Succeeded;
+		_canViewUnits = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.Units.View)).Succeeded;
+		_canViewMealsCategories = (await _authorizationService.AuthorizeAsync(_authenticationStateProviderUser, Permissions.MealCategories.View)).Succeeded;
+
 
 	}
 }

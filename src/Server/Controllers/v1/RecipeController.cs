@@ -15,7 +15,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Status 200 OK</returns>
-        //[Authorize(Policy = Permissions.Recipe.Create)]
+        [Authorize(Policy = Permissions.Recipe.Create)]
         [HttpPost]
         public async Task<IActionResult> Post(AddEditRecipeCommand command)
         {
@@ -26,7 +26,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// </summary>
         /// <param name="ComplexItemId">Id To Get</param>
         /// <returns>Status 200 OK</returns>
-        //[Authorize(Policy = Permissions.Recipe.View)]
+        [Authorize(Policy = Permissions.Recipe.View)]
         [HttpGet("{ComplexItemId}")]
         public async Task<IActionResult> GetById(int ComplexItemId)
         {

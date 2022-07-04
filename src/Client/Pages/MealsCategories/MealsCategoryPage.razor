@@ -1,0 +1,63 @@
+﻿@page "/MealsCategories"
+@using ErpDashboard.Client.Infrastructure.Managers.MealsCategories
+@using ErpDashboard.Application.Features.MealsCategory.Queries.Dto
+@inject IMealsCategoriesManager _MealsCategoryManager
+
+<HeroTitle Title="Units" Description="Manage Items Units" />
+@if (mealCategoryResponses != null)
+{
+	<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Default Qty</MudTh>
+        <MudSpacer/>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Sign">@context.Name\</MudTd>
+        <MudTd DataLabel="Name">@context.Symbol</MudTd>
+        <MudTd DataLabel="Name">@context.IsSnack</MudTd>
+
+		<MudSpacer/>
+		<MudTd>		
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+		</MudTd>
+
+   </RowTemplate>
+	</MudTable>
+}else
+{
+	<h1>Loading...</h1>
+}
+
+
+@code {
+
+    public List<GetMealCategoryResponse> mealCategoryResponses { get; set; }
+
+    protected override async void OnInitialized()
+    {
+        await GetMealsCategoriesData();
+    }
+
+    async Task GetMealsCategoriesData()
+    {
+        var response = await _MealsCategoryManager.GetAllAsync();
+        if (response.Succeeded)
+        {
+            mealCategoryResponses = response.Data;
+            StateHasChanged();
+        }
+        else
+        {
+            foreach(var msg in response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			} 
+        }
+    }
+
+}

@@ -1,5 +1,7 @@
 ﻿#nullable disable
 
+using ErpDashboard.Shared.CustomAttribute;
+
 namespace ErpDashboard.Application.Models
 {
     public partial class TbItem
@@ -15,6 +17,7 @@ namespace ErpDashboard.Application.Models
         }
 
         public int Id { get; set; }
+		[CompanyIdentity]
         public int? ItemId { get; set; }
         public string ItemId2 { get; set; }
         public string ItemEnName { get; set; }
@@ -40,6 +43,7 @@ namespace ErpDashboard.Application.Models
         public decimal? MinRequestUnit3 { get; set; }
         public decimal? MaxRequestUnit3 { get; set; }
         public int? ItemPricesId { get; set; }
+		[CompanyId]
         public int? ComId { get; set; }
         public bool? ItemActive { get; set; }
         public bool? ExpireFlag { get; set; }
