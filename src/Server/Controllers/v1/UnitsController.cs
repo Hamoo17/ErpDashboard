@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ErpDashboard.Server.Controllers.v1
 {
-    [ApiController]
+     
     public class UnitsController : BaseApiController<UnitsController>
     {
         /// <summary>
@@ -18,7 +18,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// </summary>
         /// <param name="command"></param>
         /// <returns>Status 200 OK</returns>
-        //[Authorize(Policy = Permissions.Units.Create)]
+        [Authorize(Policy = Permissions.Units.Create)]
         [HttpPost]
         public async Task<IActionResult> Post(AddEditUnitsCommand command)
         {
@@ -39,7 +39,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// Get All Units (List of UnitResponse)
         /// </summary>
         /// <returns>Status 200 OK</returns>
-        //[Authorize(Policy = Permissions.Units.View)]
+        [Authorize(Policy = Permissions.Units.View)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -52,7 +52,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// </summary>
         /// <param name="id">Id To Get</param>
         /// <returns>Status 200 OK</returns>
-        //[Authorize(Policy = Permissions.Units.View)]
+        [Authorize(Policy = Permissions.Units.View)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

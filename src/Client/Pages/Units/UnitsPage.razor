@@ -4,6 +4,7 @@
 @inject IUnitsManager _UnitManager
 
 <HeroTitle Title="Units" Description="Manage Items Units" />
+<ErpDashboard.Client.Pages.PlanCategory.Compnents.PlanCategoryComboBoxCombonent></ErpDashboard.Client.Pages.PlanCategory.Compnents.PlanCategoryComboBoxCombonent>
 @if (UnitResponses != null)
 {
 	<MudTable Items="@UnitResponses" Hover="true" Breakpoint="Breakpoint.Sm">
@@ -33,7 +34,8 @@
 
 
 @code {
-    List<UnitResponse> UnitResponses ;
+    
+    public  List<UnitResponse> UnitResponses { get; set; }
     protected override async void OnInitialized()
     {
         await GetUnitsData();
@@ -44,6 +46,7 @@
         if (Response.Succeeded)
         {
             UnitResponses = Response.Data;
+           StateHasChanged();
         }
         else
         {
