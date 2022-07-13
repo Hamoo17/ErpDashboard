@@ -10,7 +10,7 @@ namespace ErpDashboard.Client.Pages.Customers
         [Parameter] public AddEditCustomerCommand Model { get; set; } = new();
         [Inject] public ICustomersManager _CustomerManager { get; set; }
         [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-
+        
         private async Task Save()
         {
             Model.Notes = Model.Notes ?? string.Empty;

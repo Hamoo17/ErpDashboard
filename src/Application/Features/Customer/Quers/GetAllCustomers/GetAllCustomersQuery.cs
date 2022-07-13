@@ -68,6 +68,7 @@ namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
                 CustomerType=x.CustomerType,
                 CategoryId=x.CategoryId,
                 RegType=x.RegType,
+                customerAdresses=x.TbCustomerAdresses.ToList()
             }).OrderBy(ordering).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             return Customers;
         }

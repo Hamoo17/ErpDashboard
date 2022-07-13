@@ -29,6 +29,7 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
         public bool Status { get; set; }
         public int CategoryId { get; set; }
         public string RegType { get; set; }
+        public List<TbCustomerAdress> customerAdresses { get; set; }
     }
     internal class AddEditCustomerCommandHandler : IRequestHandler<AddEditCustomerCommand, IResult<int>>
     {
