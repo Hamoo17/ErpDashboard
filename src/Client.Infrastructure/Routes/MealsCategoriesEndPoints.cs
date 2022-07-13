@@ -8,9 +8,9 @@ namespace ErpDashboard.Client.Infrastructure.Routes
 {
     public class MealsCategoriesEndPoints
     {
-        public static string GetAll = "api/V1/MealsCategories";
-        public static string Save = "api/V1/MealsCategories";
-        public static string GetById(int id) => $"api/V1/MealsCategories/{id}";
-        public static string Delete(int id) => $"api/V1/MealsCategories/{id}";
+        public static string GetAll = "api/V1/MealCategories";
+        public static string Save = "api/V1/MealCategories";
+        public static string GetById(int id) => $"api/V1/MealCategories/{id}";
+        public static string Delete(int id) => $"api/V1/MealCategories/{id}";
     }
 }
