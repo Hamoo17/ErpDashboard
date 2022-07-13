@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ErpDashboard.Application.Models;
+using ErpDashboard.Shared.CustomAttribute;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Reflection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ErpDashboard.Infrastructure.Extensions
 {
@@ -13,28 +16,54 @@ namespace ErpDashboard.Infrastructure.Extensions
         .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
                         .Single(t => t.IsGenericMethod && t.Name == nameof(SetQueryFilter));
 
+        //public static void SetQueryFilterOnAllEntities<TEntityInterface>(
+        //    this ModelBuilder builder,
+        //    Expression<Func<TEntityInterface, bool>> filterExpression)
+        //{
+        //    foreach (var type in builder.Model.GetEntityTypes()
+        //        .Where(t => t.BaseType == null)
+        //        .Select(t => t.ClrType)
+        //        .Where(t => typeof(TEntityInterface).IsAssignableFrom(t)))
+        //    {
+        //        builder.SetEntityQueryFilter(
+        //            type,
+        //            filterExpression);
+        //    }
+        //}
+
         public static void SetQueryFilterOnAllEntities<TEntityInterface>(
-            this ModelBuilder builder,
-            Expression<Func<TEntityInterface, bool>> filterExpression)
+    this ModelBuilder builder,
+    int? CompanyId)
         {
-            foreach (var type in builder.Model.GetEntityTypes()
-                .Where(t => t.BaseType == null)
-                .Select(t => t.ClrType)
-                .Where(t => typeof(TEntityInterface).IsAssignableFrom(t)))
+            if (CompanyId.HasValue)
             {
-                builder.SetEntityQueryFilter(
-                    type,
-                    filterExpression);
+                var AllCls = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes().SelectMany(a => a.GetProperties()).Where(t => t.IsDefined(typeof(CompanyIdAttribute)))).Select(x => new { propName = x.Name, EntityName = x.DeclaringType.AssemblyQualifiedName,propType = x.PropertyType }).ToList();
+
+                foreach (var cls in AllCls)
+                {
+                    Type t = Type.GetType(cls.EntityName);
+                    var parameter = Expression.Parameter(t, "t");
+                    var propertyExpression = Expression.PropertyOrField(parameter, cls.propName);
+                    var constant = Expression.Constant(CompanyId.Value, cls.propType);
+                    var equalExpression = Expression.Equal(propertyExpression, constant);
+                    var lambda = Expression.Lambda(Expression.GetFuncType(t, typeof(bool)),equalExpression, parameter);
+                    builder.Entity(t).HasQueryFilter(lambda);
+                    //builder.SetEntityQueryFilter<CompanyIdAttribute>(
+                    //t,
+                    //    lambda);
+                }
             }
+
         }
 
         static void SetEntityQueryFilter<TEntityInterface>(
             this ModelBuilder builder,
             Type entityType,
-            Expression<Func<TEntityInterface, bool>> filterExpression)
+            Expression filterExpression)
         {
             SetQueryFilterMethod
-                .MakeGenericMethod(entityType, typeof(TEntityInterface))
+                .MakeGenericMethod(entityType, entityType)
                .Invoke(null, new object[] { builder, filterExpression });
         }
 
@@ -46,8 +75,9 @@ namespace ErpDashboard.Infrastructure.Extensions
         {
             var concreteExpression = filterExpression
                 .Convert<TEntityInterface, TEntity>();
-            builder.Entity<TEntity>()
-                .AppendQueryFilter(concreteExpression);
+            //builder.Entity<TEntity>()
+            //    .AppendQueryFilter(concreteExpression);
+            builder.Entity<TEntity>().HasQueryFilter(filterExpression);
         }
 
         // CREDIT: This comment by magiak on GitHub https://github.com/dotnet/efcore/issues/10275#issuecomment-785916356
@@ -66,7 +96,7 @@ namespace ErpDashboard.Infrastructure.Extensions
                     currentQueryFilter.Parameters.Single(), parameterType, currentQueryFilter.Body);
                 expressionFilter = Expression.AndAlso(currentExpressionFilter, expressionFilter);
             }
-
+            
             var lambdaExpression = Expression.Lambda(expressionFilter, parameterType);
             entityTypeBuilder.HasQueryFilter(lambdaExpression);
         }
@@ -96,6 +126,7 @@ namespace ErpDashboard.Infrastructure.Extensions
 
             protected override Expression VisitLambda<T>(Expression<T> node)
             {
+               
                 _parameters = VisitAndConvert(node.Parameters, "VisitLambda");
                 return Expression.Lambda(Visit(node.Body), _parameters);
             }

@@ -171,14 +171,17 @@ namespace ErpDashboard.Server.Extensions
         {
             return services
                    .AddDbContext<BlazorHeroContext>(options => options.UseLazyLoadingProxies()
-                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))).AddDbContext<ERBSYSTEMContext>(o => o.UseSqlServer(configuration.GetConnectionString("ErpConnection")))
+                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection")))
+                   .AddDbContext<ERBSYSTEMContext>(o => o.UseLazyLoadingProxies() 
+                   
+                   .UseSqlServer(configuration.GetConnectionString("ErpConnection")))
                .AddTransient<IDatabaseSeeder, DatabaseSeeder>();
         }
 
         internal static IServiceCollection AddCurrentUserService(this IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddTransient<ICurrentUserService, CurrentUserService>();
             return services;
         }
 
