@@ -19,7 +19,7 @@
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.EnName</MudTd>
         <MudTd DataLabel="Name">@context.Symbol</MudTd>
-        <MudTd DataLabel="Name">@context.IsSnack</MudTd>
+        <MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/>
 
 		<MudSpacer/>
 		<MudTd>		

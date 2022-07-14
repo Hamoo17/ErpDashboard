@@ -372,6 +372,20 @@
             <param name="searchString"></param>
             <returns></returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.Catalog.MealsTypesController.Post(ErpDashboard.Application.Features.MealsTypes.Commands.AddEdit.AddEditMealsTypesCommand)">
+            <summary>
+            Create/Update Meals Types (AddEditMealsTypesCommand)
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.Catalog.MealsTypesController.Delete(System.Int32)">
+            <summary>
+            Delete a Meal Type
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.Catalog.ProductsController.GetAll(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Get All Products
