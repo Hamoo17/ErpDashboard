@@ -29,7 +29,7 @@ namespace ErpDashboard.Application.Features.MealsTypes.Commands.Delete
 
         public async Task<Result<int>> Handle(DeleteMealsTypesCommand command, CancellationToken cancellationToken)
         {
-            var TypeUsed = await _unitOfWork.Repository<TbMealsType>().Entities.AnyAsync(c=>c.Id == command.Id);
+            var TypeUsed = await _unitOfWork.Repository<TbManyTypeMeal>().Entities.AnyAsync(c => c.TypeId == command.Id);
             if (!TypeUsed)
             {
                 var ItemToDelete = await _unitOfWork.Repository<TbMealsType>().GetByIdAsync(command.Id);

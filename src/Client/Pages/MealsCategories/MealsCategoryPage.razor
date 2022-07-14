@@ -12,7 +12,6 @@
         <MudTh>Category Name</MudTh>
         <MudTh>Symbol</MudTh>
         <MudTh>IsSnack</MudTh>
-        <MudSpacer/>
         <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -20,8 +19,6 @@
         <MudTd DataLabel="Sign">@context.EnName</MudTd>
         <MudTd DataLabel="Name">@context.Symbol</MudTd>
         <MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/>
-
-		<MudSpacer/>
 		<MudTd>		
 			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
 			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
