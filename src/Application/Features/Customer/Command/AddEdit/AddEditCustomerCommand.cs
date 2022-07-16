@@ -77,7 +77,10 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
                     Customer.Evalution = request.Evalution;
                     Customer.Status = request.Status;
                     Customer.Notes = request.Notes ?? Customer.Notes;
-
+                    var MappedPhones = _Mapper.Map<List<TbCustomersPhone>>(request.customerPhons);
+                    Customer.TbCustomersPhones = MappedPhones;
+                    var MappedAddresses = _Mapper.Map<List<TbCustomerAdress>>(request.customerAdresses);
+                    Customer.TbCustomerAdresses = MappedAddresses;
                     await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(Customer, request.Id);
                     await _UnitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(Customer.Id, "Customer Update Successfuly"); // join whatsapp

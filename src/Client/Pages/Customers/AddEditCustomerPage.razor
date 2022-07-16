@@ -1,8 +1,15 @@
 ﻿@using ErpDashboard.Application.Enums
 @using ErpDashboard.Client.Pages.Customers.Compnents
+@using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers;
+
+
+
 <EditForm Model="Model" OnInvalidSubmit="Save">
-	<MudDialog>
+	
+	<MudDialog >
+
 		<TitleContent>
+			<PageTitle style="background-color:whitesmoke"></PageTitle>
 			@if (Model.Id == 0)
 			{
 				<MudText Typo="Typo.h6">
@@ -13,12 +20,13 @@
 			else
 			{
 				<MudText Typo="Typo.h6">
-					<MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1" />
+					<MudIcon Icon="@Icons.Material.Filled.Edit" Class="mr-3 mb-n1" />
 					EditCustomer
 				</MudText>
 			}
 		</TitleContent>
 		<DialogContent>
+			<MudContainer Style="overflow-y:scroll; max-height:80vh" >
 			<MudGrid>
 				<MudItem md="6" xs="12">
 					<MudGrid>
@@ -67,12 +75,12 @@
 					<MudGrid >
 						<MudItem md="12" xs="12">
 							<MudCard>
-								<MudCardHeader>
-									<MudIcon Style="color:green;font-size:3rem;padding-bottom:10px" Icon="@Icons.Filled.LocationOn"></MudIcon>
+								<MudCardHeader >
+									<MudIcon Style="color:green;font-size:2rem" Icon="@Icons.Filled.LocationOn"></MudIcon>
 									<HeroTitle Title="Customer Adress"></HeroTitle>
 								</MudCardHeader>
 								<MudCardContent>
-									<MudTable Items="@Model.customerAdresses" Hover="true" Breakpoint="Breakpoint.Sm" Context="adress">
+									<MudTable Items="@Model.customerAdresses" Hover="true" Breakpoint="Breakpoint.Sm" Context="adress"Dense="true">
 										<HeaderContent>
 											<MudTh Style="width:70px">Area</MudTh>
 											<MudTh Style="width:200px">Adress</MudTh>
@@ -92,7 +100,7 @@
 									</MudTable>
 								</MudCardContent>
 							    <MudCardActions>
-									<MudIconButton Style="color:forestgreen" >Add Adress</MudIconButton>
+									<MudIconButton Style="color:forestgreen">Add Adress</MudIconButton>
 								</MudCardActions>
 							</MudCard>
 						</MudItem>
@@ -106,7 +114,8 @@
 									<HeroTitle Title="Customer Phons"></HeroTitle>
 								</MudCardHeader>
 								<MudCardContent>
-									<MudTable Items="@Model.customerPhons.Take(1)" Hover="true" Breakpoint="Breakpoint.Sm" Context="Phons">
+							@*	<MudContainer Style="max-height: 300px;overflow-y:scroll; ">*@
+									<MudTable Items="@Model.customerPhons" Hover="true" Dense="true" FixedHeader="true" Height="200px" Breakpoint="Breakpoint.Sm" Context="Phons">
 										<HeaderContent>
 											<MudTh>Phone Type</MudTh>
 											<MudTh Style="width:200px">Phone</MudTh>
@@ -117,16 +126,18 @@
 											<MudTd>@Phons.PhoneType</MudTd>
 											<MudTd DataLabel="Sign">@Phons.Phone</MudTd>
 											<MudTd>
-												<MudIconButton Style="color:dodgerblue" Icon="@Icons.Filled.Edit"></MudIconButton>
+												<MudIconButton Style="color:dodgerblue" Icon="@Icons.Filled.Edit"OnClick="(()=>InvokeModal(Phons.Id))"></MudIconButton>
 											</MudTd>
 											<MudTd>
 												<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"></MudIconButton>
 											</MudTd>
 										</RowTemplate>
 									</MudTable>
+								@*</MudContainer>*@
+
 								</MudCardContent>
 							    <MudCardActions>
-									<MudIconButton Style="color:orangered" >Add Phone</MudIconButton>
+									<MudIconButton Style="color:orangered" OnClick="(()=>InvokeModal())">Add Phone</MudIconButton>
 								</MudCardActions>
 							</MudCard>
 						</MudItem>
@@ -136,6 +147,7 @@
 		
 
 			</MudGrid>
+			</MudContainer>
 		</DialogContent>
 		<DialogActions>
 			<MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
