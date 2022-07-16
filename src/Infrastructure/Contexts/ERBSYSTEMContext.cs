@@ -1,6 +1,15 @@
-﻿using ErpDashboard.Application.Interfaces.Services;
+﻿using Castle.Core.Resource;
+using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
+using ErpDashboard.Infrastructure.Extensions;
+using ErpDashboard.Shared.CustomAttribute;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Parser;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Reflection.Emit;
 
 #nullable disable
 
@@ -10,11 +19,12 @@ namespace ErpDashboard.Infrastructure.Contexts
     {
         private protected ICurrentUserService _currentUser;
 
-
+        public int? CompanyId { get; set; }
         public ERBSYSTEMContext(DbContextOptions<ERBSYSTEMContext> options, ICurrentUserService currentUser)
             : base(options, currentUser)
         {
             _currentUser = currentUser;
+            CompanyId = _currentUser.CompanyID;
         }
 
         public virtual DbSet<MigrationHistory> MigrationHistories { get; set; }
@@ -137,8 +147,24 @@ namespace ErpDashboard.Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // modelBuilder.SetQueryFilterOnAllEntities<ISoftDeletable>(p => !p.IsDeleted);
-            modelBuilder.HasAnnotation("Relational:Collation", "Arabic_CI_AS");
 
+            // modelBuilder.SetQueryFilterOnAllEntities<CompanyIdAttribute>(_currentUser.CompanyID);
+            //var AllCls = AppDomain.CurrentDomain.GetAssemblies()
+            //  .SelectMany(a => a.GetTypes().SelectMany(a => a.GetProperties()).Where(t => t.IsDefined(typeof(CompanyIdAttribute)))).Select(x => new { propName = x.Name, EntityName = x.DeclaringType.AssemblyQualifiedName, propType = x.PropertyType }).ToList();
+            //foreach (var cls in AllCls)
+            //{
+            //    //entity.HasQueryFilter(x => _currentUser.CompanyID.HasValue ? x.ComId == _currentUser.CompanyID : true);
+            //    Type t = Type.GetType(cls.EntityName);
+            //    var parameter = Expression.Parameter(t, "t");
+            //    var propertyExpression = Expression.PropertyOrField(parameter, cls.propName);
+            //    var constant = Expression.Constant(_currentUser.CompanyID.Value, cls.propType);
+            //    var constanttrue = Expression.Constant(true);
+            //    var equalExpression = Expression.Equal(propertyExpression, constant);
+            //    var lambda = Expression.Lambda(Expression.GetFuncType(t, typeof(bool)), _currentUser.CompanyID.HasValue?equalExpression:constanttrue, parameter);
+            //    modelBuilder.Entity(t).HasQueryFilter(lambda);
+            //}
+            modelBuilder.HasAnnotation("Relational:Collation", "Arabic_CI_AS");
+          
             modelBuilder.Entity<MigrationHistory>(entity =>
             {
                 entity.HasKey(e => new { e.MigrationId, e.ContextKey })
@@ -4608,9 +4634,75 @@ namespace ErpDashboard.Infrastructure.Contexts
                     .HasConstraintName("FK_dbo.tb_UserBranche_dbo.TB_Users_UserID");
             });
 
-            OnModelCreatingPartial(modelBuilder);
+           // OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        private void OnModelCreatingPartial(ModelBuilder modelBuilder)
+        {
+                    var AllCompaniesClasses = AppDomain.CurrentDomain.GetAssemblies()
+                    .SelectMany(a => a.GetTypes()
+                    .SelectMany(a => a.GetProperties())
+                    .Where(t => t.IsDefined(typeof(CompanyIdAttribute))))
+                    .Select(x => new {
+                        propName = x.Name,
+                        EntityName = x.DeclaringType.AssemblyQualifiedName,
+                        propType = x.PropertyType
+                    }).ToList();
+                    foreach (var cls in AllCompaniesClasses)
+                    {
+                //entity.HasQueryFilter(x,_currentUser => x.ComId == _currentUser.CompanyID);
+                Type t = Type.GetType(cls.EntityName);
+                var parameter = Expression.Parameter(t, "t");
+                var propertyExpression = Expression.PropertyOrField(parameter, cls.propName);
+                var param2 = Expression.Parameter(typeof(ICurrentUserService), "_currentUser");
+                var variable = Expression.Property(param2, "CompanyID");
+                var constant = Expression.Constant(_currentUser.CompanyID, cls.propType);
+                var constanttrue = Expression.Constant(true);
+                var equalExpression = Expression.Equal(propertyExpression, constant);
+                var iftrue = Expression.Condition(Expression.Equal(variable, Expression.Constant(null)),constanttrue,equalExpression);
+                // var lambda = Expression.Lambda(Expression.GetFuncType(t, typeof(bool)), CompanyId.HasValue ? equalExpression : constanttrue, parameter);
+                var lambda = Expression.Lambda(Expression.GetFuncType(t, typeof(bool)), equalExpression, parameter);
+                var values = new object[] { _currentUser.CompanyID };
+                var paramss = new ParameterExpression[] { parameter };
+                var Compailed = lambda.Compile();
+                var parsed = new ExpressionParser(paramss, $"t=> t.{cls.propName} == {_currentUser.CompanyID}", values,ParsingConfig.Default);
+                var lambda2 =(LambdaExpression)parsed.Parse(Expression.GetFuncType(t, typeof(bool)));
+                modelBuilder.Entity(t).HasQueryFilter(lambda2);
+                    }
+        }
+         Expression CreateMemberAccess(Expression target, string selector)
+        {
+            return selector.Split('.').Aggregate(target, (t, n) => Expression.PropertyOrField(t, n));
+        }
+        private void Lambda(ModelBuilder modelBuilder) 
+        {
+            var AllCompaniesClasses = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes()
+                .SelectMany(a => a.GetProperties())
+                .Where(t => t.IsDefined(typeof(CompanyIdAttribute))))
+                .Select(x => new {
+                    propName = x.Name,
+                    EntityName = x.DeclaringType.AssemblyQualifiedName,
+                    propType = x.PropertyType
+                }).ToList();
+            foreach (var cls in AllCompaniesClasses)
+            {
+                Type t = Type.GetType(cls.EntityName);
+                ConstantExpression argument = Expression.Constant(CompanyId.Value, cls.propType);
+                ParameterExpression parameter = Expression.Parameter(t, "t");
+                string propertyName = "Date";
+                Expression property = Expression.Property(parameter, propertyName);
+
+                Expression propertyHasvalue = Expression.Property(property, nameof(Nullable<DateTime>.HasValue));
+                Expression propertyValue = Expression.Property(property, nameof(Nullable<DateTime>.Value));
+                Expression propertyValueDate = Expression.Property(propertyValue, nameof(DateTime.Date));
+                ConditionalExpression ternary = Expression.Condition(Expression.Not(propertyHasvalue), Expression.Constant(null, typeof(DateTime?)), Expression.Convert(propertyValueDate, typeof(DateTime?)));
+                Expression argumentDate = Expression.Property(argument, nameof(DateTime.Date));
+                Expression equalExp = Expression.Equal(ternary, Expression.Convert(argumentDate, typeof(DateTime?)));
+            }
+
+
+
+        }
     }
 }

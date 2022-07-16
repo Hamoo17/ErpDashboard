@@ -3,24 +3,22 @@
 @using ErpDashboard.Application.Features.MealsCategory.Queries.Dto
 @inject IMealsCategoriesManager _MealsCategoryManager
 
-<HeroTitle Title="Units" Description="Manage Items Units" />
+<HeroTitle Title="MealsCategories" Description="Manage MealsCategories" />
 @if (mealCategoryResponses != null)
 {
 	<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
     <HeaderContent>
         <MudTh>ID</MudTh>
-        <MudTh>Name</MudTh>
-        <MudTh>Default Qty</MudTh>
-        <MudSpacer/>
+        <MudTh>Category Name</MudTh>
+        <MudTh>Symbol</MudTh>
+        <MudTh>IsSnack</MudTh>
         <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
-        <MudTd DataLabel="Sign">@context.Name\</MudTd>
+        <MudTd DataLabel="Sign">@context.EnName</MudTd>
         <MudTd DataLabel="Name">@context.Symbol</MudTd>
-        <MudTd DataLabel="Name">@context.IsSnack</MudTd>
-
-		<MudSpacer/>
+        <MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/>
 		<MudTd>		
 			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
 			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>

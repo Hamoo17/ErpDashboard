@@ -544,6 +544,33 @@
             <param name="id">Id To Get</param>
             <returns>Status 200 OK</returns>
         </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.MealsTypesController.Post(ErpDashboard.Application.Features.MealsTypes.Commands.AddEdit.AddEditMealsTypesCommand)">
+            <summary>
+            Create/Update Meals Types (AddEditMealsTypesCommand)
+            </summary>
+            <param name="command"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.MealsTypesController.Delete(System.Int32)">
+            <summary>
+            Delete a Meal Type
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.MealsTypesController.GetAll">
+            <summary>
+            Get All Meal Types
+            </summary>
+            <returns>Status 200 OK</returns>
+        </member>
+        <member name="M:ErpDashboard.Server.Controllers.v1.MealsTypesController.GetById(System.Int32)">
+            <summary>
+            Get Meal Types By Id
+            </summary>
+            <param name="id">Id To Get</param>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.PlanCategoryController.Post(ErpDashboard.Application.Features.PlanCategory.Command.AddEdit.AddEditPlanCategoryCommand)">
             <summary>
             Create/Update a Plan Category

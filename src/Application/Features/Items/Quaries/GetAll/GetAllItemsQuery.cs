@@ -4,6 +4,7 @@ using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ErpDashboard.Application.Features.Items.Quaries.GetAll
 {
@@ -25,7 +26,9 @@ namespace ErpDashboard.Application.Features.Items.Quaries.GetAll
         }
         public async Task<Result<List<GetItemResponse>>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
         {
+            var qstrg = _customIUnitOfWork.Repository<TbItem>().Entities.ToQueryString();
             var items = await _customIUnitOfWork.Repository<TbItem>().GetAllAsync();
+           
             var itemsmapped = _mapper.Map<List<GetItemResponse>>(items);
             return await Result<List<GetItemResponse>>.SuccessAsync(itemsmapped);
         }
