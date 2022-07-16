@@ -63,6 +63,78 @@
 						</MudItem>
 					</MudGrid>
 				</MudItem>
+				<MudItem md="6" xs="12">
+					<MudGrid >
+						<MudItem md="12" xs="12">
+							<MudCard>
+								<MudCardHeader>
+									<MudIcon Style="color:green;font-size:3rem;padding-bottom:10px" Icon="@Icons.Filled.LocationOn"></MudIcon>
+									<HeroTitle Title="Customer Adress"></HeroTitle>
+								</MudCardHeader>
+								<MudCardContent>
+									<MudTable Items="@Model.customerAdresses" Hover="true" Breakpoint="Breakpoint.Sm" Context="adress">
+										<HeaderContent>
+											<MudTh Style="width:70px">Area</MudTh>
+											<MudTh Style="width:200px">Adress</MudTh>
+											<MudTh Style="width:30px">Edit</MudTh>
+											<MudTh Style="width:30px">Delete</MudTh>
+										</HeaderContent>
+										<RowTemplate>
+											<MudTd DataLabel="Nr">@adress.AreaId</MudTd>
+											<MudTd DataLabel="Sign">@adress.Adress</MudTd>
+											<MudTd>
+												<MudIconButton Style="color:dodgerblue" Icon="@Icons.Filled.Edit"></MudIconButton>
+											</MudTd>
+											<MudTd>
+												<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"></MudIconButton>
+											</MudTd>
+										</RowTemplate>
+									</MudTable>
+								</MudCardContent>
+							    <MudCardActions>
+									<MudIconButton Style="color:forestgreen" >Add Adress</MudIconButton>
+								</MudCardActions>
+							</MudCard>
+						</MudItem>
+						<MudItem>
+							<MudSpacer></MudSpacer>
+						</MudItem>
+						<MudItem md="12" xs="12">
+							<MudCard>
+								<MudCardHeader>
+									<MudIcon Style="color:darkorange;font-size:3rem;padding-bottom:10px" Icon="@Icons.Filled.Phone"></MudIcon>
+									<HeroTitle Title="Customer Phons"></HeroTitle>
+								</MudCardHeader>
+								<MudCardContent>
+									<MudTable Items="@Model.customerPhons.Take(1)" Hover="true" Breakpoint="Breakpoint.Sm" Context="Phons">
+										<HeaderContent>
+											<MudTh>Phone Type</MudTh>
+											<MudTh Style="width:200px">Phone</MudTh>
+											<MudTh Style="width:30px">Edit</MudTh>
+											<MudTh Style="width:30px">Delete</MudTh>
+										</HeaderContent>
+										<RowTemplate>
+											<MudTd>@Phons.PhoneType</MudTd>
+											<MudTd DataLabel="Sign">@Phons.Phone</MudTd>
+											<MudTd>
+												<MudIconButton Style="color:dodgerblue" Icon="@Icons.Filled.Edit"></MudIconButton>
+											</MudTd>
+											<MudTd>
+												<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"></MudIconButton>
+											</MudTd>
+										</RowTemplate>
+									</MudTable>
+								</MudCardContent>
+							    <MudCardActions>
+									<MudIconButton Style="color:orangered" >Add Phone</MudIconButton>
+								</MudCardActions>
+							</MudCard>
+						</MudItem>
+
+					</MudGrid>
+				</MudItem>
+		
+
 			</MudGrid>
 		</DialogContent>
 		<DialogActions>

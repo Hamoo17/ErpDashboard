@@ -6,6 +6,7 @@ using ErpDashboard.Shared.Wrapper;
 using MediatR;
 using System.Linq.Expressions;
 using System.Linq.Dynamic.Core;
+using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers;
 
 namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
 {
@@ -68,7 +69,8 @@ namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
                 CustomerType=x.CustomerType,
                 CategoryId=x.CategoryId,
                 RegType=x.RegType,
-                customerAdresses=x.TbCustomerAdresses.ToList()
+                customerAdresses=_Mapper.Map<List<AdressDto>>(x.TbCustomerAdresses),
+                customerPhons=_Mapper.Map<List<PhonsDto>>(x.TbCustomersPhones)
             }).OrderBy(ordering).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             return Customers;
         }

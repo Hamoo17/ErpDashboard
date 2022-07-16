@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers;
 using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
@@ -29,7 +30,9 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
         public bool Status { get; set; }
         public int CategoryId { get; set; }
         public string RegType { get; set; }
-        public List<TbCustomerAdress> customerAdresses { get; set; }
+        public List<AdressDto> customerAdresses { get; set; }
+        public List<PhonsDto> customerPhons { get; set; }
+
     }
     internal class AddEditCustomerCommandHandler : IRequestHandler<AddEditCustomerCommand, IResult<int>>
     {

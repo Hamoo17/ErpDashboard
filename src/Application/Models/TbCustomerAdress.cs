@@ -14,7 +14,6 @@ namespace ErpDashboard.Application.Models
         public int CustomerId { get; set; }
         public string Adress { get; set; }
         public bool DefaultAdress { get; set; }
-
         public virtual TbArea Area { get; set; }
         public virtual TbCustomer Customer { get; set; }
         public virtual ICollection<TbSubscrbtionDetail> TbSubscrbtionDetails { get; set; }

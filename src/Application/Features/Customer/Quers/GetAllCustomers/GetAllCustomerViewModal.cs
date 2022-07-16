@@ -1,4 +1,5 @@
-﻿using ErpDashboard.Application.Models;
+﻿using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers;
+using ErpDashboard.Application.Models;
 using static ErpDashboard.Application.Enums.ErpSystemEnums;
 
 namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
@@ -23,6 +24,7 @@ namespace ErpDashboard.Application.Features.Customer.GetAllCustomers
         public string Category { get; set; }
         public string RegType { get; set; }
         public int CategoryId { get; set; }
-        public List<TbCustomerAdress>  customerAdresses { get; set; }
+        public List<AdressDto>  customerAdresses { get; set; }
+        public List<PhonsDto> customerPhons { get; set; }
     }
 }
