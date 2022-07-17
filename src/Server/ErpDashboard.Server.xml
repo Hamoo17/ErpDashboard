@@ -451,6 +451,15 @@
             <returns>Status 200 OK</returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAllCustomerCatrgories" -->
+        <!-- Badly formed XML comment ignored for member "M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAllAreas" -->
+        <!-- Badly formed XML comment ignored for member "M:ErpDashboard.Server.Controllers.v1.CustomerController.isPhoneExist(System.Int32,System.String)" -->
+        <member name="M:ErpDashboard.Server.Controllers.v1.CustomerController.Delete(System.Int32)">
+            <summary>
+            Delete a Customer
+            </summary>
+            <param name="id"></param>
+            <returns>Status 200 OK</returns>
+        </member>
         <member name="M:ErpDashboard.Server.Controllers.v1.DashboardController.GetDataAsync">
             <summary>
             Get Dashboard Data

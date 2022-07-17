@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ErpDashboard.Application.Features.Customer.Quers.GetAllAreas;
+using ErpDashboard.Application.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +14,6 @@ namespace ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers
         public int AreaId { get; set; }
         public int CustomerId { get; set; }
         public string Adress { get; set; }
+        public GetAllAreaViewModal Area { get; set; }
     }
 }
