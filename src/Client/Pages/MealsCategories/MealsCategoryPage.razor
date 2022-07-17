@@ -4,6 +4,8 @@
 @inject IMealsCategoriesManager _MealsCategoryManager
 
 <HeroTitle Title="MealsCategories" Description="Manage MealsCategories" />
+ <MudDivider/>
+ <MudSpacer/>
 @if (mealCategoryResponses != null)
 {
 	<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
@@ -19,13 +21,44 @@
         <MudTd DataLabel="Sign">@context.EnName</MudTd>
         <MudTd DataLabel="Name">@context.Symbol</MudTd>
         <MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/>
-		<MudTd>		
+		<MudTd>	
 			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
 			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
 		</MudTd>
 
    </RowTemplate>
 	</MudTable>
+
+}else
+{
+	<h1>Loading...</h1>
+}
+<HeroTitle Title="MealsCategories" Description="Manage MealsCategories" />
+ <MudDivider/>
+ <MudSpacer/>
+@if (mealCategoryResponses != null)
+{
+	<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Category Name</MudTh>
+        <MudTh>Symbol</MudTh>
+        <MudTh>IsSnack</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Sign">@context.EnName</MudTd>
+        <MudTd DataLabel="Name">@context.Symbol</MudTd>
+        <MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/>
+		<MudTd>	
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+		</MudTd>
+
+   </RowTemplate>
+	</MudTable>
+
 }else
 {
 	<h1>Loading...</h1>
