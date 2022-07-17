@@ -4,6 +4,7 @@
 @inject IMealsCategoriesManager _MealsCategoryManager
 
 <HeroTitle Title="MealsCategories" Description="Manage MealsCategories" />
+
 @if (mealCategoryResponses != null)
 {
 	<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
@@ -12,24 +13,29 @@
         <MudTh>Category Name</MudTh>
         <MudTh>Symbol</MudTh>
         <MudTh>IsSnack</MudTh>
+        <MudTh>View Types</MudTh>
         <MudTh>Actions</MudTh>
+
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.EnName</MudTd>
         <MudTd DataLabel="Name">@context.Symbol</MudTd>
-        <MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/>
-		<MudTd>		
+        <MudTd><MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/></MudTd>
+        <MudTd><MudIconButton Icon="@Icons.Filled.SmartToy" Color="Color.Dark" OnClick="GoToMealsTyps"></MudIconButton></MudTd>
+		<MudTd>
 			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
 			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
 		</MudTd>
 
    </RowTemplate>
 	</MudTable>
+
 }else
 {
 	<h1>Loading...</h1>
 }
+
 
 
 @code {
@@ -52,10 +58,14 @@
         else
         {
             foreach(var msg in response.Messages)
-			{
-				_snackBar.Add(msg, Severity.Error);
-			} 
+            {
+                _snackBar.Add(msg, Severity.Error);
+            } 
         }
+    }
+    async Task GoToMealsTyps()
+    {
+        _navigationManager.NavigateTo("/MealsTypes");
     }
 
 }
