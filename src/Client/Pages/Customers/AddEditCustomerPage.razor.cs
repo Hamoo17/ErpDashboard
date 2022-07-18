@@ -150,6 +150,12 @@ namespace ErpDashboard.Client.Pages.Customers
             }
         }
 
+        private void DeleteAdress(int id)
+        {
+           var deletedAdress=Model.customerAdresses.FirstOrDefault(x=>x.Id==id);
+            Model.customerAdresses.Remove(deletedAdress);
+            StateHasChanged();
+        }
 
 
 

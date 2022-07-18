@@ -91,7 +91,7 @@
 													<MudIconButton OnClick="(()=>InvokeAdressModal(adress.Id))" Style="color:dodgerblue" Icon="@Icons.Filled.Edit"></MudIconButton>
 												</MudTd>
 												<MudTd>
-													<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"></MudIconButton>
+													<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"OnClick="(()=>DeleteAdress(adress.Id))"></MudIconButton>
 												</MudTd>
 											</RowTemplate>
 										</MudTable>
