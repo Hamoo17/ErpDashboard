@@ -20,10 +20,10 @@
 					<MudSelectItem Value="@("Home Phone")" />
 					<MudSelectItem Value="@("Other Phone")" />
 				</MudSelect>
-				<MudTextField Immediate="true" Class="mt-8" For="@(() => Model.Phone)" @bind-Value="Model.Phone" Label="Phone" Variant="Variant.Outlined" />
+				<MudTextField  Immediate="true" Class="mt-8" For="@(() => Model.Phone)" @bind-Value="Model.Phone" Label="Phone" Variant="Variant.Outlined" />
 			</MudCardContent>
 			<MudCardActions>
-				<MudButton FullWidth="true" Disabled="@(!Validated)" OnClick="Save" Variant="Variant.Filled" Style="margin-bottom:25px; height:50px; background-color:green;border-radius:7px;color:white">Save</MudButton>
+				<MudButton FullWidth="true" OnClick="Save" Disabled="@(string.IsNullOrEmpty(Model.Phone) || string.IsNullOrEmpty(Model.PhoneType) || !Validated)"   Variant="Variant.Filled" Style="margin-bottom:25px; height:50px; background-color:green;border-radius:7px;color:white">Save</MudButton>
 			</MudCardActions>
 		</MudCard>
 	</DialogContent>
@@ -36,9 +36,16 @@
 	[Parameter] public CustomerPhoneClientDto Model { get; set; } = new();
 	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
 	private FluentValidationValidator _fluentValidationValidator;
-    private bool Validated => _fluentValidationValidator.Validate(options => { options.IncludeAllRuleSets(); });
+	
+	private bool Validated => _fluentValidationValidator.Validate(options => { options.IncludeAllRuleSets(); });
+	
 	private  void Save()
 	{
-		MudDialog.Close(Model);
+		
+		if (Validated)
+		{
+			MudDialog.Close(Model);
+		}
+		
 	}
 }

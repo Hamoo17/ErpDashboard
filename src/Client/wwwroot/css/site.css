@@ -1,5 +1,19 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+
+textarea:focus, input[type=text]:focus {
+    outline: none !important;
+    border-radius: 5px !important;
+    border: 2px solid !important;
+    box-shadow: 0 0 5px 0px black !important;
+}
+mud-input-slot, mud-input-root, mud-input-root-outlined:focus {
+    outline: none !important;
+    border-radius: 5px !important;
+    border: 2px solid !important;
+    border-color: rgb(21, 209, 21) !important;
+    box-shadow: 0 0 10px rgb(29, 224, 94) !important;
+}
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

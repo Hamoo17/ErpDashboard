@@ -56,6 +56,10 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
                 mappedcustomer.ComId =_currentUser.CompanyID.Value;
                 mappedcustomer.RegDate = DateTime.Now.Date;
                 mappedcustomer.CustomerId = await _UnitOfWork.Repository<TbCustomer>().GenerateIdentity(x => x.ComId,x=> x.CustomerId);
+                var MappedPhones = _Mapper.Map<List<TbCustomersPhone>>(request.customerPhons);
+                mappedcustomer.TbCustomersPhones = MappedPhones;
+                var MappedAddresses = _Mapper.Map<List<TbCustomerAdress>>(request.customerAdresses);
+                mappedcustomer.TbCustomerAdresses = MappedAddresses;
                 await _UnitOfWork.Repository<TbCustomer>().AddAsync(mappedcustomer);
                 await _UnitOfWork.Commit(cancellationToken);
                 return await Result<int>.SuccessAsync(mappedcustomer.Id,"Customer Add Successfuly");
@@ -78,9 +82,22 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
                     Customer.Status = request.Status;
                     Customer.Notes = request.Notes ?? Customer.Notes;
                     var MappedPhones = _Mapper.Map<List<TbCustomersPhone>>(request.customerPhons);
+                    var DeletedPhons = Customer.TbCustomersPhones.Where(x => !MappedPhones.Select(x => x.Id).Contains(x.Id)).ToList();
+                    foreach (var item in DeletedPhons)
+                    {
+                        Customer.TbCustomersPhones.Remove(item);
+                    }
                     Customer.TbCustomersPhones = MappedPhones;
+                  
                     var MappedAddresses = _Mapper.Map<List<TbCustomerAdress>>(request.customerAdresses);
+                    var DeletedAdress = Customer.TbCustomerAdresses.Where(x => MappedAddresses.Select(x => x.Id).Contains(x.Id)).ToList();
+                    foreach (var item in DeletedAdress)
+                    {
+                        Customer.TbCustomerAdresses.Remove(item);
+                    }
                     Customer.TbCustomerAdresses = MappedAddresses;
+
+
                     await _UnitOfWork.Repository<TbCustomer>().UpdateAsync(Customer, request.Id);
                     await _UnitOfWork.Commit(cancellationToken);
                     return await Result<int>.SuccessAsync(Customer.Id, "Customer Update Successfuly"); // join whatsapp

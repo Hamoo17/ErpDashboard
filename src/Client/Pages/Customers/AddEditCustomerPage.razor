@@ -125,7 +125,7 @@
 													<MudIconButton Style="color:dodgerblue" Icon="@Icons.Filled.Edit" OnClick="(()=>InvokeModal(Phons.Id))"></MudIconButton>
 												</MudTd>
 												<MudTd>
-													<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"></MudIconButton>
+													<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete" OnClick="(()=> Model.customerPhons.Remove(Phons))"></MudIconButton>
 												</MudTd>
 											</RowTemplate>
 										</MudTable>

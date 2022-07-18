@@ -99,6 +99,10 @@ namespace ErpDashboard.Client.Pages.Customers
                     }
                     else
                     {
+                        if (Model.customerPhons == null)
+                        {
+                            Model.customerPhons = new();
+                        }
                         var mapperPhone = _CustomerManager.GetPhoneDto(phone);
                         Model.customerPhons.Add(mapperPhone);
                     }
@@ -143,6 +147,10 @@ namespace ErpDashboard.Client.Pages.Customers
                     }
                     else
                     {
+                        if (Model.customerAdresses == null)
+                        {
+                            Model.customerAdresses = new();
+                        }
                         Model.customerAdresses.Add(Adress);
                     }
                     StateHasChanged();
@@ -152,14 +160,10 @@ namespace ErpDashboard.Client.Pages.Customers
 
         private void DeleteAdress(int id)
         {
-           var deletedAdress=Model.customerAdresses.FirstOrDefault(x=>x.Id==id);
+            var deletedAdress=Model.customerAdresses.FirstOrDefault(x=>x.Id==id);
             Model.customerAdresses.Remove(deletedAdress);
             StateHasChanged();
         }
-
-
-
-
 
 
     }

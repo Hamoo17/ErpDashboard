@@ -13,14 +13,18 @@ namespace ErpDashboard.Client.Models
             _manager = manager;
            // RuleFor(x => x).MustAsync(async (x, y) => await IsPhoneExist(x.Phone, x.CustomerId));
             RuleFor(x => x.PhoneType).NotEmpty().NotNull().WithMessage("Phone Type Can Not be Empty");
-            RuleFor(x => x.Phone).NotEmpty().WithMessage("Phone Number Can Not be Empty")
-                .MustAsync(async (y, z) =>
-           {
-               return await IsPhoneExist(y);
-           })
-                // .Must((x,y) => IsPhoneExist2(x.Phone,x.CustomerId))
-                .WithMessage("THIS PHONE NUMBER ALREADY Exist");
+            RuleFor(x => x.Phone).NotEmpty().NotNull().WithMessage("Phone Number Can Not be Empty").Length(10).WithMessage("Phone Length Must be 10.");
+           
+            When(z => z.Phone?.Length == 10, () => 
+            {
+                RuleFor(x => x.Phone).MustAsync(async (y, z) =>
+               {
+                   return await IsPhoneExist(y);
+               }).WithMessage("THIS PHONE NUMBER ALREADY Exist");
+            });
+             
         }
+       
         private async Task<bool> IsPhoneExist(string Phone , int CustomerId=0) 
         {
             if (!string.IsNullOrEmpty(Phone))
@@ -31,16 +35,5 @@ namespace ErpDashboard.Client.Models
             return await Task.FromResult(false);
         }
 
-        //private bool IsPhoneExist2(string Phone, int CustomerId = 0)
-        //{
-        //    if (!string.IsNullOrEmpty(Phone))
-        //    {
-        //        var r = Task.Run(async () => 
-        //        {
-        //             return ! await _manager.IsPhoneExist(CustomerId, Phone);
-        //        });
-        //    }
-        //    return false;
-        //}
     }
 }
