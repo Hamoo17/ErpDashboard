@@ -1,9 +1,16 @@
-﻿@page "/MealsTypes"
+﻿@page "/MealsTypes/{Id}"
 <h3>MealsTypes</h3>
 
-
+   <MudGrid>
+    <MudItem xs="12" sm="6" md="4">
+             <MudTextField T="string" Label="Type Name" Required="true" RequiredError="Type Name Is Required!"/>
+              </MudItem>
+               <MudItem xs="12" sm="6" md="4">
+           </MudItem>
+</MudGrid>
 
 
 @code {
 
+    [Parameter] public int Id{ get; set; }
 }
