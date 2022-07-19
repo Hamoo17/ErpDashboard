@@ -156,10 +156,9 @@
 		var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Large, FullWidth = true, DisableBackdropClick = true };
 		var dialog = _dialogService.Show<AddEditCustomerPage>(id == 0 ? "Create" : "Edit", parameters, options);
 		var result = await dialog.Result;
-		if (!result.Cancelled)
-		{
+
 			Reset();
-		}
+		
 	}
 	private void Reset()
 	{

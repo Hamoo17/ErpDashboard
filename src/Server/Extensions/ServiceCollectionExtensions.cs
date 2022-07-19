@@ -89,6 +89,7 @@ namespace ErpDashboard.Server.Extensions
         {
             services.AddSwaggerGen(async c =>
             {
+              
                 //TODO - Lowercase Swagger Documents
                 //c.DocumentFilter<LowercaseDocumentFilter>();
                 //Refer - https://gist.github.com/rafalkasa/01d5e3b265e5aa075678e0adfd54e23f
@@ -131,6 +132,7 @@ namespace ErpDashboard.Server.Extensions
                     Description = localizer["Input your Bearer token in this format - Bearer {your token here} to access this API"],
                 });
                 c.OperationFilter<AddRequiredHeaderParameter>();
+               
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -147,6 +149,7 @@ namespace ErpDashboard.Server.Extensions
                         }, new List<string>()
                     },
                 });
+                c.UseInlineDefinitionsForEnums();
             });
         }
 

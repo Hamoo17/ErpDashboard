@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Localization;
+using System.Text.Json.Serialization;
 using X.Paymob.CashIn;
 
 namespace ErpDashboard.Server
@@ -35,7 +36,7 @@ namespace ErpDashboard.Server
             services.AddCors();
             services.AddDevExpressControls();
             //  services.AddTransient<ProductValidationServices, ProductValidationService>();
-            services.AddMvc().AddNewtonsoftJson().ConfigureApplicationPartManager(x =>
+            services.AddMvc().AddNewtonsoftJson().AddJsonOptions(o=> o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())).ConfigureApplicationPartManager(x =>
             {
                 var parts = x.ApplicationParts;
                 var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.WebDocumentViewer.WebDocumentViewerController).Assembly.GetName().Name;
