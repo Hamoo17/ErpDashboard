@@ -460,6 +460,7 @@
             <param name="id"></param>
             <returns>Status 200 OK</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:ErpDashboard.Server.Controllers.v1.CustomerController.GetAllBranchies" -->
         <member name="M:ErpDashboard.Server.Controllers.v1.DashboardController.GetDataAsync">
             <summary>
             Get Dashboard Data

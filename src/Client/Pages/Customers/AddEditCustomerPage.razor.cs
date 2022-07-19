@@ -139,7 +139,7 @@ namespace ErpDashboard.Client.Pages.Customers
                 }
             }
 
-            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Medium, FullWidth = true, DisableBackdropClick = true };
             var dialog = _dialogService.Show<AddEditCustomerAdressPage>(id == 0 ? "Create" : "Edit", parameters, options);
             var result = await dialog.Result;
             if (!result.Cancelled)

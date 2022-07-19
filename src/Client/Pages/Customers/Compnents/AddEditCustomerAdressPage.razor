@@ -2,18 +2,43 @@
 @using ErpDashboard.Client.Infrastructure.Managers.Customers;
 @using ErpDashboard.Application.Features.Customer.Command.AddEdit;
 @using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers;
-
+@using ErpDashboard.Application.Features.Customer.Quers.GetAllAreas;
+@using ErpDashboard.Application.Features.Customer.Quers.GetAllBranches;
+@inject ICustomersManager _CustomerManger;
 <EditForm Model="Model">
 	<MudDialog>
 		<DialogContent>
 			<MudCard Style="margin-bottom:30px">
 				<MudCardHeader>
-					<MudIcon Style="color:darkorange;font-size:3rem;padding-bottom:10px" Icon="@Icons.Filled.LocationOn"></MudIcon>
+					<MudIcon Style=" color:darkorange;font-size:3rem;padding-bottom:10px" Icon="@Icons.Filled.LocationOn"></MudIcon>
 					<HeroTitle Title="Customer Adress"></HeroTitle>
 				</MudCardHeader>
+
+				<MudGrid Class="pa-3">
+					<MudItem xs="6">
+						<BranchiesCmbComponent></BranchiesCmbComponent>
+					</MudItem>
+					<MudItem xs="6">
+						<MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" AdornmentColor="Color.Info" Adornment="Adornment.Start" AdornmentIcon="@Icons.Filled.Search" Variant="Variant.Outlined" Label="Search By Area"></MudTextField>
+					</MudItem>
+					<MudItem xs="12">
+						<MudTable Items="@AreasList" Context="Areas" Breakpoint="Breakpoint.Sm" Hover="true"  Filter="new Func<GetAllAreaViewModal,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
+							<HeaderContent>
+								<MudTh>Branch</MudTh>
+								<MudTh>Area</MudTh>
+							</HeaderContent>
+							<RowTemplate>
+								<MudTd DataLabel="Branch">@BranchiesList.FirstOrDefault(b=>b.Id==Areas.BranchId).BranchName</MudTd>
+								<MudTd DataLabel="Area">@Areas.Name</MudTd>
+							</RowTemplate>
+						</MudTable>
+					</MudItem>
+				</MudGrid>
+
 				<MudCardContent>
 					<AreasCmbComponent @bind-Myvalue="Model.AreaId">
 					</AreasCmbComponent>
+					<MudAutocomplete T="int?" @bind-Value="SelectedArea" ToStringFunc="@(e=> e==null ? null : $"{AreasList.FirstOrDefault(x => x.Id == e.Value).BranchName} | {AreasList.FirstOrDefault(x => x.Id == e.Value).Name}")" SearchFunc="@Search1" ></MudAutocomplete>
 					<MudTextField Class="mt-8" For="@(() => Model.Adress)" @bind-Value="Model.Adress" Label="Adress" Variant="Variant.Outlined" />
 				</MudCardContent>
 				<MudCardActions>
@@ -29,10 +54,81 @@
 @code {
 	[Parameter] public AdressDto Model { get; set; } = new();
 	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
-
-
+	private List<GetAllAreaViewModal> AreasList { get; set; } = new();
+	private List<BranchesDto> BranchiesList { get; set; } = new();
+	private MudTable<GetAllAreaViewModal> _table;
+	string _searchString = "";
+	private int? SelectedArea;
+	private string searchString1 = "";
+	private GetAllAreaViewModal selectedItem1 = null;
+	private HashSet<GetAllAreaViewModal> selectedItems = new HashSet<GetAllAreaViewModal>();
+	private IEnumerable<GetAllAreaViewModal> Elements = new List<GetAllAreaViewModal>();
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadAreas();
+		await LoadBrancies();
+	}
 	private void Save()
 	{
 		MudDialog.Close(Model);
 	}
-}
+	Func<int?, string> ToStringFunc => e => $"{AreasList.FirstOrDefault(x => x.Id == e.Value).BranchName} | {AreasList.FirstOrDefault(x => x.Id == e.Value).Name}";
+	private async Task<IEnumerable<int>> Search1(string value)
+	{
+
+		if (string.IsNullOrEmpty(value))
+		return  AreasList.Select(x=>x.Id);
+		 
+		return AreasList.Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) || x.BranchName.Contains(value,StringComparison.InvariantCultureIgnoreCase)).Select(x=>x.Id);
+    }
+	private bool FilterFunc1(GetAllAreaViewModal element) => FilterFunc(element, searchString1);
+    private bool FilterFunc(GetAllAreaViewModal element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+	private async Task LoadAreas()
+	{
+		var Response = await _CustomerManger.GetAllAreasAsync();
+		if (Response.Succeeded)
+		{
+			AreasList = Response.Data;
+		}
+		else
+		{
+			foreach (var msg in Response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+
+		}
+	}
+	private async Task LoadBrancies()
+	{
+		var Response = await _CustomerManger.GetAllBranchiesAsync();
+		if (Response.Succeeded)
+		{
+			BranchiesList = Response.Data;
+		}
+		else
+		{
+			foreach (var msg in Response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+
+		}
+
+	}
+
+	private void OnSearch(string text)
+	{
+		_searchString = text;
+		_table.ReloadServerData();
+	}
+
+	}

@@ -2,6 +2,7 @@
 using ErpDashboard.Application.Features.Customer.Command.Delete;
 using ErpDashboard.Application.Features.Customer.GetAllCustomers;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllAreas;
+using ErpDashboard.Application.Features.Customer.Quers.GetAllBranches;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomerCategory;
 using ErpDashboard.Application.Features.Customer.Quers.PhoneExist;
 using ErpDashboard.Application.Features.PlanDays.Command.Delete;
@@ -79,6 +80,17 @@ namespace ErpDashboard.Server.Controllers.v1
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await _mediator.Send(new DeleteCustomerCommand { id = id }));
+        }
+
+        /// Get All Branchies
+        /// </summary>
+        /// <returns>Status 200 OK</returns>
+        //[Authorize(Policy = Permissions.PlanCategory.View)]
+        [HttpGet("GetAllBranchies")]
+        public async Task<IActionResult> GetAllBranchies()
+        {
+            var Branchies = await _mediator.Send(new GetAllBranchesQuery());
+            return Ok(Branchies);
         }
 
     }

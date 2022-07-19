@@ -21,6 +21,7 @@
         public static string GetAreas = "api/v1/Customer/GetAllAreas";
         public static string isPhoneExist(int CustomerID , string Phone) => $"api/v1/Customer/isPhoneExist/{CustomerID}/{Phone}";
         public static string Delete(int id) => $"api/V1/Customer/{id}";
+        public static string GetBranchies = "api/v1/Customer/GetAllBranchies";
 
     }
 }

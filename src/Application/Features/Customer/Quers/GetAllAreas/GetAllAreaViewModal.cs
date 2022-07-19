@@ -11,5 +11,8 @@ namespace ErpDashboard.Application.Features.Customer.Quers.GetAllAreas
         public int Id { get; set; }
         public int? AreaId { get; set; }
         public string Name { get; set; }
+        public int BranchId { get; set; }
+        public string BranchName { get; set; }
+
     }
 }

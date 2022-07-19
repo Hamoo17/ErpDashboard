@@ -4,6 +4,7 @@ using ErpDashboard.Application.Interfaces.Repositories;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace ErpDashboard.Application.Features.Customer.Quers.GetAllAreas
 
         public async Task<IResult<List<GetAllAreaViewModal>>> Handle(GetAllAreasQuery request, CancellationToken cancellationToken)
         {
-            var Areas = await _UnitOFWork.Repository<TbArea>().GetAllAsync();
+            var Areas = await _UnitOFWork.Repository<TbArea>().Entities.Include(x=>x.Branch).ToListAsync();
             var Mapped = _Mapper.Map<List<GetAllAreaViewModal>>(Areas);
             return await Result<List<GetAllAreaViewModal>>.SuccessAsync(Mapped);
         }

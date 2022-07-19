@@ -1,0 +1,62 @@
+﻿@using ErpDashboard.Application.Features.Customer.Quers.GetAllBranches
+@using ErpDashboard.Client.Infrastructure.Managers.Customers
+@inject ICustomersManager _ICustomerManager
+<MudSelect Variant="Variant.Outlined" T="int" @bind-Value="MyValue" ToStringFunc="@converter()"  Label="Branchies" AnchorOrigin="Origin.BottomCenter">
+  @if (BranchiesList != null)
+  {
+	  foreach (var Branch in BranchiesList)
+	  {
+		   <MudSelectItem  Value="@Branch.Id">@Branch.BranchName</MudSelectItem>
+	  }
+  }
+</MudSelect>
+
+@code {
+	private List<BranchesDto> BranchiesList { get; set; }=new();
+	Func<int, string> converter()
+	{
+		return x => BranchiesList.FirstOrDefault(c => c.Id == x).BranchName;
+	}
+
+
+	protected override async Task OnInitializedAsync()
+	{
+		await LoadData();
+	}
+
+	private async Task LoadData()
+	{
+		var response = await _ICustomerManager.GetAllBranchiesAsync();
+
+		if (response.Succeeded)
+		{
+			BranchiesList = response.Data;
+		}
+		else
+		{
+			foreach (var msg in response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			}
+
+		}
+	}
+
+
+	private int _value;
+
+	[Parameter]
+	public int MyValue
+	{
+		get => _value;
+		set
+		{
+			if (_value == value ) return;
+			_value = value;
+			MyValueChanged.InvokeAsync(value);
+		}
+	}
+
+	[Parameter]
+	public EventCallback<int> MyValueChanged { get; set; }
+}

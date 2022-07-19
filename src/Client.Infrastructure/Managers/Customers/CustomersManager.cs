@@ -2,6 +2,7 @@
 using ErpDashboard.Application.Features.Customer.Command.AddEdit;
 using ErpDashboard.Application.Features.Customer.GetAllCustomers;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllAreas;
+using ErpDashboard.Application.Features.Customer.Quers.GetAllBranches;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomerCategory;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomers;
 using ErpDashboard.Application.Features.PlanCategory.Query.Dto;
@@ -41,6 +42,12 @@ namespace ErpDashboard.Client.Infrastructure.Managers.Customers
         {
             var response = await _HttpClient.GetAsync(CustomersEndpoint.GetAll(request.PageNumber, request.PageSize, request.SearchString, request.OrderBy));
             return await response.ToPaginatedResult<GetAllCustomerViewModal>();
+        }
+
+        public async Task<IResult<List<BranchesDto>>> GetAllBranchiesAsync()
+        {
+            var Response = await _HttpClient.GetAsync(CustomersEndpoint.GetBranchies);
+            return await Response.ToResult <List< BranchesDto >>();
         }
 
         public async Task<IResult<List<GetAllCustomerCategoryViewModel>>> GetAllCustomerCategoryAsync()
