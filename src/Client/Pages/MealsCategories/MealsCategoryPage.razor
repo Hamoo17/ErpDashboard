@@ -3,38 +3,58 @@
 @using ErpDashboard.Application.Features.MealsCategory.Queries.Dto
 @inject IMealsCategoriesManager _MealsCategoryManager
 
-<HeroTitle Title="MealsCategories" Description="Manage MealsCategories" />
+<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
+	<ColGroup>
+		<col style="width:300px;" />
+		<col style="width:100px;" />
+		<col />
+		<col style="width:100px;" />
+	</ColGroup>
+	<HeaderContent>
+		<MudTh></MudTh>
+		<MudTh>Nr</MudTh>
+		<MudTh>Name</MudTh>
+		<MudTh>Age</MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Id))">@((true)? "Hide" : "Show") Types Details</MudButton></MudTd>
+		<MudTd DataLabel="Nr">@context.EnName</MudTd>
+		<MudTd DataLabel="Name">@context.Symbol</MudTd>
+		<MudTd DataLabel="Age">@context.IsSnack</MudTd>
+	</RowTemplate>
+	<ChildRowContent>
+		@if (true)
+				{
+@*  <MudTr>
+   <td colspan="4">
+	<MudCard Elevation="0">
+	 <MudCardHeader>
+	  <CardHeaderContent>
+	   <MudText Typo="Typo.body1">Address Details for <strong>@context.EnName</strong></MudText>
+	  </CardHeaderContent>
+	 </MudCardHeader>
+	 <MudCardContent Class="pa-0">
+	  <MudTable Items="@context.tbMealsTypes" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
+	   <ColGroup>
+		<col />
+		<col />
+		<col style="width:200px;" />
+	   </ColGroup>
+	   <HeaderContent>
+		<MudTh>Type Name</MudTh>
+	   </HeaderContent>
+	   <RowTemplate>
+		<MudTd DataLabel="Address Line 1">@AddressContext.Name</MudTd>
+	   </RowTemplate>
+	  </MudTable>
+	 </MudCardContent>
+	</MudCard>
+   </td>
+  </MudTr>*@
+		}
+	</ChildRowContent>
+</MudTable>
 
-@if (mealCategoryResponses != null)
-{
-	<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
-    <HeaderContent>
-        <MudTh>ID</MudTh>
-        <MudTh>Category Name</MudTh>
-        <MudTh>Symbol</MudTh>
-        <MudTh>IsSnack</MudTh>
-        <MudTh>View Types</MudTh>
-        <MudTh>Actions</MudTh>
-
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Nr">@context.Id</MudTd>
-        <MudTd DataLabel="Sign">@context.EnName</MudTd>
-        <MudTd DataLabel="Name">@context.Symbol</MudTd>
-        <MudTd><MudSwitch @bind-Checked="@context.IsSnack" Color="Color.Success" UnCheckedColor="Color.Error"/></MudTd>
-        <MudTd><MudIconButton Icon="@Icons.Filled.SmartToy" Color="Color.Dark" OnClick="GoToMealsTyps"></MudIconButton></MudTd>
-		<MudTd>
-			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
-			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
-		</MudTd>
-
-   </RowTemplate>
-	</MudTable>
-
-}else
-{
-	<h1>Loading...</h1>
-}
 
 
 
@@ -63,9 +83,11 @@
             } 
         }
     }
-    async Task GoToMealsTyps()
-    {
-        _navigationManager.NavigateTo("/MealsTypes");
-    }
+		private void ShowBtnPress(int nr)
+	{
+		//Person tmpPerson = People.First(f => f.Number == nr);
+		//tmpPerson.ShowDetails = !tmpPerson.ShowDetails;
+	}
+}
 
 }

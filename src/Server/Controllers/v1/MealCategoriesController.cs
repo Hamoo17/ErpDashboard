@@ -39,7 +39,7 @@ namespace ErpDashboard.Server.Controllers.v1
         /// Get All Meal Categories
         /// </summary>
         /// <returns>Status 200 OK</returns>
-        [Authorize(Policy = Permissions.MealCategories.View)]
+        //[Authorize(Policy = Permissions.MealCategories.View)]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
