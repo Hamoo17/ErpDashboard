@@ -27,7 +27,7 @@ namespace ErpDashboard.Application.Features.Customer.Command.AddEdit
         public Customer_Type CustomerType { get; set; }
         public int Evalution { get; set; }
         public string Notes { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; }=true;
         public int CategoryId { get; set; }
         public string RegType { get; set; }
         public List<AdressDto> customerAdresses { get; set; }

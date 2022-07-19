@@ -163,7 +163,7 @@
 	}
 	private void Reset()
 	{
-		
+
 		OnSearch("");
 	}
 	private async Task Delete(int id)
@@ -182,6 +182,7 @@
 			if (response.Succeeded)
 			{
 				_snackBar.Add(response.Messages[0], Severity.Success);
+				Reset();
 			}
 			else
 			{

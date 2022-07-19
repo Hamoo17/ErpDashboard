@@ -19,6 +19,17 @@ namespace ErpDashboard.Client.Pages.Customers
 
         private async Task Save()
         {
+            if (Model.customerAdresses == null || Model.customerAdresses.Count == 0)
+            {
+                _snackBar.Add("You Must Add One Customer Adress At Lest", Severity.Warning);
+                return;
+            }
+
+            if (Model.customerPhons==null|| Model.customerPhons.Count==0)
+            {
+                _snackBar.Add("You Must Add One Customer Phons At Lest", Severity.Warning);
+                return;
+            }
             Model.Notes = Model.Notes ?? string.Empty;
             var respons = await _CustomerManager.SaveAsync(Model);
             if (respons.Succeeded)

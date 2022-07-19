@@ -5,6 +5,8 @@
 
 
 <EditForm Model="Model" OnInvalidSubmit="Save">
+	<FluentValidationValidator @ref="_fluentValidationValidator" />
+
 	<MudDialog>
 		<TitleContent>
 			@if (Model.Id == 0)
@@ -64,7 +66,7 @@
 								<MudTextField For="@(() => Model.Notes)" @bind-Value="Model.Notes" Label="Notes" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem>
-								<MudSwitch Label="Customer State" @bind-Checked="Model.Status" Color="Color.Tertiary"></MudSwitch>
+								<MudSwitch Label="Customer State" @bind-Checked="Model.Status" Disabled="false" Color="Color.Tertiary"></MudSwitch>
 							</MudItem>
 						</MudGrid>
 					</MudItem>
@@ -91,13 +93,13 @@
 													<MudIconButton OnClick="(()=>InvokeAdressModal(adress.Id))" Style="color:dodgerblue" Icon="@Icons.Filled.Edit"></MudIconButton>
 												</MudTd>
 												<MudTd>
-													<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete"OnClick="(()=>DeleteAdress(adress.Id))"></MudIconButton>
+													<MudIconButton Style="color:orangered" Icon="@Icons.Filled.Delete" OnClick="(()=>DeleteAdress(adress.Id))"></MudIconButton>
 												</MudTd>
 											</RowTemplate>
 										</MudTable>
 									</MudCardContent>
 									<MudCardActions>
-										<MudIconButton Style="color:forestgreen"OnClick="(()=>InvokeAdressModal())">Add Adress</MudIconButton>
+										<MudIconButton Style="color:forestgreen" OnClick="(()=>InvokeAdressModal())">Add Adress</MudIconButton>
 									</MudCardActions>
 								</MudCard>
 							</MudItem>
@@ -145,12 +147,15 @@
 			</MudContainer>
 		</DialogContent>
 		<DialogActions>
-			<MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
-			<MudButton DisableElevation Variant="Variant.Filled" OnClick="Save" ButtonType="ButtonType.Submit" Color="Color.Secondary">@(Model.Id == 0?"Add":"Save")</MudButton>
+			<MudButton DisableElevation Variant="Variant.Filled" Style="width:150px;background-color:lightcoral;color:white" OnClick="Cancel">Cancel</MudButton>
+			<MudButton DisableElevation Style="background-color:green;width:150px"  Variant="Variant.Filled" OnClick="Save"Disabled="@(string.IsNullOrEmpty(Model.CustomerName) ||
+			string.IsNullOrEmpty(Model.Weight) ||string.IsNullOrEmpty(Model.Height))" ButtonType="ButtonType.Submit" Color="Color.Secondary">@(Model.Id == 0?"Add":"Save")</MudButton>
 		</DialogActions>
 	</MudDialog>
 </EditForm>
 
 @code {
+	private FluentValidationValidator _fluentValidationValidator;
+	private bool Validated => _fluentValidationValidator.Validate(options => { options.IncludeAllRuleSets(); });
 
 }
