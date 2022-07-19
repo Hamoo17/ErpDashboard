@@ -12,6 +12,7 @@ namespace ErpDashboard.Application.Serialization.Serializers
         public NewtonSoftJsonSerializer(IOptions<NewtonsoftJsonSettings> settings)
         {
             _settings = settings.Value.JsonSerializerSettings;
+            settings.Value.JsonSerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
 
         public T Deserialize<T>(string text)

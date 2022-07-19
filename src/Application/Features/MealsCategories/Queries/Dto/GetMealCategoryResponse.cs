@@ -8,6 +8,6 @@ namespace ErpDashboard.Application.Features.MealsCategory.Queries.Dto
         public string EnName { get; set; }
         public string Symbol { get; set; }
         public bool IsSnack { get; set; }
-        public List<TbMealsType> tbMealsTypes { get; set; }
+        public List<MealsTypesResponse> tbMealsTypes { get; set; }
     }
 }

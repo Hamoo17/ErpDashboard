@@ -12,46 +12,54 @@
 	</ColGroup>
 	<HeaderContent>
 		<MudTh></MudTh>
-		<MudTh>Nr</MudTh>
 		<MudTh>Name</MudTh>
-		<MudTh>Age</MudTh>
+		<MudTh>Symbol</MudTh>
+		<MudTh>Issnack</MudTh>
 	</HeaderContent>
 	<RowTemplate>
-		<MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Id))">@((true)? "Hide" : "Show") Types Details</MudButton></MudTd>
-		<MudTd DataLabel="Nr">@context.EnName</MudTd>
-		<MudTd DataLabel="Name">@context.Symbol</MudTd>
-		<MudTd DataLabel="Age">@context.IsSnack</MudTd>
+		<MudTd><MudIconButton  Icon= "@Icons.Material.Filled.Add" 
+		OnClick="@(() => ShowBtnPress())"> Types Details</MudIconButton></MudTd>
+		<MudTd DataLabel="Name">@context.EnName</MudTd>
+		<MudTd DataLabel="Symbol">@context.Symbol</MudTd>
+		<MudTd DataLabel="Issnack">@context.IsSnack</MudTd>
+
 	</RowTemplate>
 	<ChildRowContent>
-		@if (true)
-				{
-@*  <MudTr>
-   <td colspan="4">
-	<MudCard Elevation="0">
-	 <MudCardHeader>
-	  <CardHeaderContent>
-	   <MudText Typo="Typo.body1">Address Details for <strong>@context.EnName</strong></MudText>
-	  </CardHeaderContent>
-	 </MudCardHeader>
-	 <MudCardContent Class="pa-0">
-	  <MudTable Items="@context.tbMealsTypes" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
-	   <ColGroup>
-		<col />
-		<col />
-		<col style="width:200px;" />
-	   </ColGroup>
-	   <HeaderContent>
-		<MudTh>Type Name</MudTh>
-	   </HeaderContent>
-	   <RowTemplate>
-		<MudTd DataLabel="Address Line 1">@AddressContext.Name</MudTd>
-	   </RowTemplate>
-	  </MudTable>
-	 </MudCardContent>
-	</MudCard>
-   </td>
-  </MudTr>*@
+		@if(IconImageChange)
+		{
+
+			<MudTr>
+				<td colspan="4">
+					@*<MudCard Elevation="0">
+						<MudCardHeader>
+							<CardHeaderContent>
+								<MudText Typo="Typo.body1">Address Details for <strong>@context.EnName</strong></MudText>
+							</CardHeaderContent>
+						</MudCardHeader>
+						<MudCardContent Class="pa-0">
+							<MudTable Items="@context.tbMealsTypes" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
+								<ColGroup>
+									<col />
+									<col />
+									<col style="width:200px;" />
+								</ColGroup>
+								<HeaderContent>
+									<MudTh>Type Name</MudTh>
+								</HeaderContent>
+								<RowTemplate>
+									<MudTd DataLabel="Address Line 1">@AddressContext.Name</MudTd>
+								</RowTemplate>
+							</MudTable>
+						</MudCardContent>
+					</MudCard>*@
+					@foreach (var item in context.tbMealsTypes)
+					{
+						<MudChip Variant="Variant.Outlined" Color="Color.Info">@item.Name</MudChip>
+					}
+				</td>
+			</MudTr>
 		}
+
 	</ChildRowContent>
 </MudTable>
 
@@ -60,33 +68,40 @@
 
 @code {
 
-    public List<GetMealCategoryResponse> mealCategoryResponses { get; set; }
+	public List<GetMealCategoryResponse> mealCategoryResponses { get; set; }
+	public bool IconImageChange = false ; // add  
 
-    protected override async void OnInitialized()
-    {
-        await GetMealsCategoriesData();
-    }
-
-    async Task GetMealsCategoriesData()
-    {
-        var response = await _MealsCategoryManager.GetAllAsync();
-        if (response.Succeeded)
-        {
-            mealCategoryResponses = response.Data;
-            StateHasChanged();
-        }
-        else
-        {
-            foreach(var msg in response.Messages)
-            {
-                _snackBar.Add(msg, Severity.Error);
-            } 
-        }
-    }
-		private void ShowBtnPress(int nr)
+	protected override async void OnInitialized()
 	{
-		//Person tmpPerson = People.First(f => f.Number == nr);
-		//tmpPerson.ShowDetails = !tmpPerson.ShowDetails;
+		await GetMealsCategoriesData();
+	}
+
+	async Task GetMealsCategoriesData()
+	{
+		var response = await _MealsCategoryManager.GetAllAsync();
+		if (response.Succeeded)
+		{
+			mealCategoryResponses = response.Data;
+			StateHasChanged();
+		}
+		else
+		{
+			foreach(var msg in response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			} 
+		}
+	}
+	private void ShowBtnPress()
+	{
+		if (IconImageChange)
+		{
+			IconImageChange = false;
+		}
+		else
+		{
+			IconImageChange = true;
+		}
 	}
 }
 

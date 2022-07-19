@@ -22,7 +22,7 @@ namespace ErpDashboard.Application.Features.MealsCategory.Queries.GetAll
         private readonly ICustomIUnitOfWork<int> _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _userService;
-        public GetAllMealCategoryQueryHandler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper,  ICurrentUserService userService)
+        public GetAllMealCategoryQueryHandler(ICustomIUnitOfWork<int> unitOfWork, IMapper mapper, ICurrentUserService userService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -32,13 +32,20 @@ namespace ErpDashboard.Application.Features.MealsCategory.Queries.GetAll
         {
             //var categories = await _unitOfWork.Repository<TbMealsCategory>().GetAllAsync();
             var mappedCates = await _unitOfWork.Repository<TbMealsCategory>().Entities.Where(c => c.ComId == _userService.CompanyID)
-                .Select(c => new GetMealCategoryResponse()
+                .Select(c => new GetMealCategoryResponse() //MealsTypesResponse
                 {
                     EnName = c.EnName,
                     Id = c.Id,
                     IsSnack = c.Issnack,
                     Symbol = c.Symbol,
-                    tbMealsTypes = c.TbMealsTypes.ToList()
+                    tbMealsTypes = c.TbMealsTypes.Select(a => new MealsTypesResponse()
+                    {
+                        CategoryId = a.CategoryId,
+                        Id = a.Id,
+                        Name = a.Name,
+                        CategoryName = c.EnName,
+                        CategorySympol = c.Symbol
+                    }).ToList()
                 }).ToListAsync();
             //var mappedCates = _mapper.Map<List<GetMealCategoryResponse>>(categories);
             return await Result<List<GetMealCategoryResponse>>.SuccessAsync(mappedCates);
