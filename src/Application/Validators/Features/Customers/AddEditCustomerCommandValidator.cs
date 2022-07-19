@@ -17,7 +17,7 @@ namespace ErpDashboard.Application.Validators.Features.Customers
             RuleFor(x => x.Height).NotEmpty().WithMessage("Required Data");
             RuleFor(x => x.RegType).NotEmpty().NotNull().WithMessage("Required Data");
             RuleFor(x => x.CategoryId).NotNull().NotEmpty().WithMessage("Required Data");
-            RuleFor(x => x.BirthDate).NotNull().NotEmpty().WithMessage("Required Data");
+            RuleFor(x => x.BirthDate).NotNull().NotEmpty().GreaterThan(new DateTime(1930,1,1)).WithMessage("Required Data");
         }
     }
 }

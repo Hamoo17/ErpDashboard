@@ -30,7 +30,7 @@
 					<MudItem md="6" xs="12">
 						<MudGrid>
 							<MudItem xs="12" md="12">
-								<MudTextField For="@(() => Model.CustomerName)" @bind-Value="Model.CustomerName" Label="Customer Name" Variant="Variant.Outlined" />
+								<MudTextField Required="true" For="@(() => Model.CustomerName)" @bind-Value="Model.CustomerName" Label="Customer Name" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="12">
 								<CustomerCategoryCmbCompnents @bind-Myvalue="Model.CategoryId">
@@ -44,20 +44,20 @@
 								</MudSelect>
 							</MudItem>
 							<MudItem xs="12" md="12">
-								<MudDatePicker Variant="Variant.Outlined" Label="Birth date" @bind-Date="Model.BirthDate"></MudDatePicker>
+								<MudDatePicker Required="true" For="@(() => Model.BirthDate)"  Variant="Variant.Outlined" Label="Birth date" @bind-Date="Model.BirthDate"></MudDatePicker>
 							</MudItem>
 
 							<MudItem xs="12" md="12">
-								<MudTextField For="@(() => Model.Email)" @bind-Value="Model.Email" Label="Email" Variant="Variant.Outlined" />
+								<MudTextField Required="true"  For="@(() => Model.Email)" @bind-Value="Model.Email" Label="Email" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="6">
-								<MudTextField For="@(() => Model.Weight)" @bind-Value="Model.Weight" Label="Weight" Variant="Variant.Outlined" />
+								<MudTextField Required="true"  For="@(() => Model.Weight)" @bind-Value="Model.Weight" Label="Weight" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="6">
-								<MudTextField For="@(() => Model.Height)" @bind-Value="Model.Height" Label="Height" Variant="Variant.Outlined" />
+								<MudTextField Required="true"  For="@(() => Model.Height)" @bind-Value="Model.Height" Label="Height" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="12">
-								<MudSelect For="@(()=>Model.CustomerType)" Variant="Variant.Outlined" Label="Customer Type" @bind-Value="Model.CustomerType">
+								<MudSelect Required="true"  For="@(()=>Model.CustomerType)" Variant="Variant.Outlined" Label="Customer Type" @bind-Value="Model.CustomerType">
 									<MudSelectItem Value="@ErpSystemEnums.Customer_Type.Customer">Customer</MudSelectItem>
 									<MudSelectItem Value="@ErpSystemEnums.Customer_Type.Sponser">Sponser</MudSelectItem>
 								</MudSelect>
