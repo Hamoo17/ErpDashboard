@@ -25,10 +25,10 @@ namespace ErpDashboard.Client.Infrastructure.Managers.MealsCategories
             return await response.ToResult<int>();
         }
 
-        public async Task<IResult<List<GetMealCategoryResponse>>> GetAllAsync()
+        public async Task<IResult<List<MealsTypesResponse>>> GetAllAsync()
         {
             var response = await _httpClient.GetAsync(MealsCategoriesEndPoints.GetAll);
-            return await response.ToResult<List<GetMealCategoryResponse>>();
+            return await response.ToResult<List<MealsTypesResponse>>();
         }
 
         public async Task<IResult<GetMealCategoryResponse>> GetByIdAsync(int id)

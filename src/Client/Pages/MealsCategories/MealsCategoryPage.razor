@@ -3,64 +3,29 @@
 @using ErpDashboard.Application.Features.MealsCategory.Queries.Dto
 @inject IMealsCategoriesManager _MealsCategoryManager
 
-<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
-	<ColGroup>
-		<col style="width:300px;" />
-		<col style="width:100px;" />
-		<col />
-		<col style="width:100px;" />
-	</ColGroup>
-	<HeaderContent>
-		<MudTh></MudTh>
-		<MudTh>Name</MudTh>
-		<MudTh>Symbol</MudTh>
-		<MudTh>Issnack</MudTh>
-	</HeaderContent>
-	<RowTemplate>
-		<MudTd><MudIconButton  Icon= "@Icons.Material.Filled.Add" 
-		OnClick="@(() => ShowBtnPress())"> Types Details</MudIconButton></MudTd>
-		<MudTd DataLabel="Name">@context.EnName</MudTd>
-		<MudTd DataLabel="Symbol">@context.Symbol</MudTd>
-		<MudTd DataLabel="Issnack">@context.IsSnack</MudTd>
+<MudTable Hover="true" Breakpoint="Breakpoint.Sm" FixedHeader="true"
+          Items="mealCategoryResponses"
+          GroupBy="@_groupDefinition"
+          GroupHeaderStyle="background-color:var(--mud-palette-background-grey)"
+          GroupFooterClass="mb-4"
+          Dense="true">
+    <ColGroup>
+        <col style="width: 60px;" />
+        <col />
+        <col />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+    </HeaderContent>
+    <GroupHeaderTemplate>
+        <MudTh Class="mud-table-cell-custom-group" colspan="5">@($"{context.GroupName}: {context.Key}")</MudTh>
+        <MudIconButton Icon="@Icons.Filled.EditNote">Edit</MudIconButton>
+    </GroupHeaderTemplate>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudIconButton Icon="@Icons.Filled.EditNote">Edit</MudIconButton>
+    </RowTemplate>
 
-	</RowTemplate>
-	<ChildRowContent>
-		@if(IconImageChange)
-		{
-
-			<MudTr>
-				<td colspan="4">
-					@*<MudCard Elevation="0">
-						<MudCardHeader>
-							<CardHeaderContent>
-								<MudText Typo="Typo.body1">Address Details for <strong>@context.EnName</strong></MudText>
-							</CardHeaderContent>
-						</MudCardHeader>
-						<MudCardContent Class="pa-0">
-							<MudTable Items="@context.tbMealsTypes" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
-								<ColGroup>
-									<col />
-									<col />
-									<col style="width:200px;" />
-								</ColGroup>
-								<HeaderContent>
-									<MudTh>Type Name</MudTh>
-								</HeaderContent>
-								<RowTemplate>
-									<MudTd DataLabel="Address Line 1">@AddressContext.Name</MudTd>
-								</RowTemplate>
-							</MudTable>
-						</MudCardContent>
-					</MudCard>*@
-					@foreach (var item in context.tbMealsTypes)
-					{
-						<MudChip Variant="Variant.Outlined" Color="Color.Info">@item.Name</MudChip>
-					}
-				</td>
-			</MudTr>
-		}
-
-	</ChildRowContent>
 </MudTable>
 
 
@@ -68,8 +33,7 @@
 
 @code {
 
-	public List<GetMealCategoryResponse> mealCategoryResponses { get; set; }
-	public bool IconImageChange = false ; // add  
+	public List<MealsTypesResponse> mealCategoryResponses { get; set; }
 
 	protected override async void OnInitialized()
 	{
@@ -92,17 +56,15 @@
 			} 
 		}
 	}
-	private void ShowBtnPress()
-	{
-		if (IconImageChange)
-		{
-			IconImageChange = false;
-		}
-		else
-		{
-			IconImageChange = true;
-		}
-	}
-}
+    private TableGroupDefinition<MealsTypesResponse> _groupDefinition = new()
+    {
+        GroupName = "CategoryName",
+        Indentation = false,
+        Expandable = true,
+        IsInitiallyExpanded = false,
+        Selector = (e) => e.CategoryName
+    };
 
 }
+
+
