@@ -9,8 +9,8 @@ namespace ErpDashboard.Application.Reports.RptModels
 {
     public class KetchenRptParemeters
     {
-        public TbErbMainBranch Branch { get; set; }
-        public TbDriver Driver { get; set; }
+        public string Branch { get; set; }
+        public string Driver { get; set; }
         public DateTime RptDateTime { get; set; }
     }
 }
