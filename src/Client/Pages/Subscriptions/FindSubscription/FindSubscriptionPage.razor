@@ -3,102 +3,334 @@
 @using ErpDashboard.Client.Infrastructure.Managers.Subscriptions
 @using FluentValidation
 @using ErpDashboard.Application.Features.Subscriptions.Queries.GetSidByPhone
-<HeroTitle Title="Subscription Manager" Description="Search For Subscription And Manage it."></HeroTitle>
 
 
 
+<style>
+	h4 {
+		color: #737F9E;
+	}
 
-<MudGrid Class="d-flex justify-center flex-grow-1 gap-4 pr-2 pl-2" Elevation="0"> 
-    <MudItem md="3" sm="6" xs="12">
-       <MudForm Model="Model" @ref="form" @onsubmit="Submit" >
-       <MudTextField HelperTextOnFocus="true" T="string" OnAdornmentClick="Submit"  @onfocusout="ResetValidation" OnClearButtonClick="ResetValidation" 
-            Adornment="Adornment.End" @bind-Value="Model.PhoneNumber" Validation="PhoneValidator.Validation" AdornmentIcon="@Icons.Filled.Search" 
-            Clearable="true" Immediate="true"  Mask="@(new PatternMask("0000000000"))" OnKeyDown="OnKeyDownPhone" Label="Phone" MaxLength="10" Variant="Variant.Outlined" 
-            HelperText="Search By Phone Number ex. 050XXXXXXX" >
-        </MudTextField>
-       </MudForm>
-    </MudItem>
-    <MudItem md="3" xs="12" sm="6" >
-        <MudForm   @ref="form2" >
-       <MudTextField HelperTextOnFocus="true" T="int?" Value="null"
-            Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" 
-            Clearable="true"   Label="SID" MaxLength="10" Variant="Variant.Outlined" 
-            HelperText="Search By Subscription Id ex. XXX" >
-        </MudTextField>
-       </MudForm>
-    </MudItem>
+	hr {
+		border: 1px solid #F5F5F5;
+		margin-bottom: 50px;
+		margin-top: 50px;
+	}
+
+	h1.first {
+		color: white;
+		font-size: 20px;
+		font-weight: 400;
+		letter-spacing: 1px;
+		margin-right: 280px;
+	}
+
+	h3.last {
+		color: white;
+		font-size: 14px;
+		font-weight: 350;
+		letter-spacing: 1px;
+		margin-top: -35px
+	}
+</style>
+<MudGrid>
+	<MudItem xs="12" lg="12">
+		<MudCard Style="border-radius:5px">
+			<MudCardHeader>
+				<div>
+				<MudText Style="display:inline">Subscription Manager</MudText>
+				<MudText>"Search For Subscription And Manage it."</MudText>
+				</div>
+
+@*				<MudStack>
+					<h2>Subscription Manager</h2>
+					<h4>"Search For Subscription And Manage it."</h4>
+				</MudStack>
+*@			</MudCardHeader>
+			<MudCardContent>
+				<MudGrid>
+					<MudItem md="6" sm="6" xs="12" lg="4">
+						<MudForm Model="Model" @ref="form" @onsubmit="Submit">
+							<MudTextField HelperTextOnFocus="true" T="string" OnAdornmentClick="Submit" @onfocusout="ResetValidation" OnClearButtonClick="ResetValidation"
+										  Adornment="Adornment.End" @bind-Value="Model.PhoneNumber" Validation="PhoneValidator.Validation" AdornmentIcon="@Icons.Filled.Search"
+										  Clearable="true" Immediate="true" Mask="@(new PatternMask("0000000000"))" OnKeyDown="OnKeyDownPhone" Label="Phone" MaxLength="10" Variant="Variant.Outlined"
+										  HelperText="Search By Phone Number ex. 050XXXXXXX">
+							</MudTextField>
+						</MudForm>
+					</MudItem>
+					<MudItem md="6" xs="12" sm="6" lg="4">
+						<MudForm @ref="form2">
+							<MudTextField HelperTextOnFocus="true" T="int?" Value="null"
+										  Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"
+										  Clearable="true" Label="SID" MaxLength="10" Variant="Variant.Outlined"
+										  HelperText="Search By Subscription Id ex. XXX">
+							</MudTextField>
+						</MudForm>
+					</MudItem>
+
+				</MudGrid>
+
+			</MudCardContent>
+		</MudCard>
+	</MudItem>
+	<MudItem md="6" lg="3" xs="12">
+		<MudCard Style="border-radius:5px;">
+			<MudCard>
+				<MudCardContent Style="height:100px; background-color:#0162E8;border-radius:5px 5px 0px 0px;">
+					<h1 class="first">MOUZA ALMANSOORIe</h1>
+				</MudCardContent>
+			</MudCard>
+			<MudImage Style=" margin-left:130px; border:3px solid white; margin-top:-50px; border-radius:100%;width:90px" Src="https://www.spruko.com/demo/valex/Valex/assets/img/faces/17.jpg"></MudImage>
+			<MudCardContent>
+				<MudText>Customer Type</MudText>
+				<MudText>Regestartions Type</MudText>
+				<MudText>Category</MudText>
+				<MudText>Birth Date</MudText>
+				<MudStack Style="margin-top:50px" Row="true">
+					<MudStack Style="padding-right:60px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">87 kg</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Weight</MudText>
+					</MudStack>
+					<MudStack Style="padding-right:60px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">187 kg</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Height</MudText>
+					</MudStack>
+					<MudStack Style="padding-right:3px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">Active</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Status</MudText>
+					</MudStack>
+
+				</MudStack>
+
+				<hr />
+				<MudStack Style="padding-bottom:10px" Row="true">
+					<MudAvatar Style="background-color:#B2D0F8">
+						<MudIcon Icon="@Icons.Material.Filled.LocationOn" Style="color:#0162E8"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">Cairo st</MudText>
+				</MudStack>
+				<MudStack Row="true">
+					<MudAvatar Style="background-color:#DEF6E2">
+						<MudIcon Icon="@Icons.Material.Filled.PhoneAndroid" Style="color:#22C03C"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">01000645197</MudText>
+				</MudStack>
+				<MudStack Row="true">
+					<MudAvatar Style="background-color:#FCE1E7">
+						<MudIcon Icon="@Icons.Material.Filled.Email" Style="color:#EE335E"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">Email</MudText>
+				</MudStack>
+
+			</MudCardContent>
+
+		</MudCard>
+
+	</MudItem>
+
+	<MudItem md="6" lg="4" xs="12">
+		<MudCard Style="border-radius:5px;">
+			<MudCard>
+				<MudCardContent Style="height:114px; background-color:#EE335E;border-radius:5px 5px 0px 0px;">
+					<MudStack Row="true">
+						<h1 class="first">KETO PLAN</h1>
+						<MudAvatar Style="margin-right:-100px; background-color:#EE335E;color:white;  border:1.5px solid white; margin-top:0px; border-radius:100%;width:70px;height:70px">Expire</MudAvatar>
+					</MudStack>
+
+					<h3 class="last">CH-KT-2M-7-14 Days</h3>
+				</MudCardContent>
+			</MudCard>
+
+
+			<MudCardContent>
+				<MudText>Customer Type</MudText>
+				<MudText>Regestartions Type</MudText>
+				<MudText>Category</MudText>
+				<MudText>Birth Date</MudText>
+				<MudStack Style="margin-top:50px" Row="true">
+					<MudStack Style="padding-right:60px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">87 kg</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Weight</MudText>
+					</MudStack>
+					<MudStack Style="padding-right:60px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">187 kg</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Height</MudText>
+					</MudStack>
+					<MudStack Style="padding-right:3px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">Active</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Status</MudText>
+					</MudStack>
+
+				</MudStack>
+
+				<hr />
+				<MudStack Style="padding-bottom:10px" Row="true">
+					<MudAvatar Style="background-color:#B2D0F8">
+						<MudIcon Icon="@Icons.Material.Filled.LocationOn" Style="color:#0162E8"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">Cairo st</MudText>
+				</MudStack>
+				<MudStack Row="true">
+					<MudAvatar Style="background-color:#DEF6E2">
+						<MudIcon Icon="@Icons.Material.Filled.PhoneAndroid" Style="color:#22C03C"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">01000645197</MudText>
+				</MudStack>
+				<MudStack Row="true">
+					<MudAvatar Style="background-color:#FCE1E7">
+						<MudIcon Icon="@Icons.Material.Filled.Email" Style="color:#EE335E"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">Email</MudText>
+				</MudStack>
+
+			</MudCardContent>
+
+		</MudCard>
+
+	</MudItem>
+	<MudItem md="6" lg="4" xs="12">
+		<MudCard Style="border-radius:5px;">
+			<MudCard>
+				<MudCardContent Style="height:114px; background-color:#22C03C;border-radius:5px 5px 0px 0px;">
+					<MudStack Row="true">
+						<h1 class="first">VEGETARIAN </h1>
+						<MudAvatar Style="background-color:#22C03C;color:white;  border:1.5px solid white; margin-top:0px; border-radius:100%;width:70px;height:70px">Active</MudAvatar>
+					</MudStack>
+
+					<h3 class="last">CH-VEG-3M-7-21 Days</h3>
+				</MudCardContent>
+			</MudCard>
+
+
+			<MudCardContent>
+				<MudText>Customer Type</MudText>
+				<MudText>Regestartions Type</MudText>
+				<MudText>Category</MudText>
+				<MudText>Birth Date</MudText>
+				<MudStack Style="margin-top:50px" Row="true">
+					<MudStack Style="padding-right:60px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">87 kg</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Weight</MudText>
+					</MudStack>
+					<MudStack Style="padding-right:60px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">187 kg</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Height</MudText>
+					</MudStack>
+					<MudStack Style="padding-right:3px">
+						<MudText Style="color:#031b4e;font-weight:500;font-size:17px">Active</MudText>
+						<MudText Style="color:#7987a1 !important;margin-top:-9px;font-weight:500;font-size:14px">Status</MudText>
+					</MudStack>
+
+				</MudStack>
+
+				<hr />
+				<MudStack Style="padding-bottom:10px" Row="true">
+					<MudAvatar Style="background-color:#B2D0F8">
+						<MudIcon Icon="@Icons.Material.Filled.LocationOn" Style="color:#0162E8"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">Cairo st</MudText>
+				</MudStack>
+				<MudStack Row="true">
+					<MudAvatar Style="background-color:#DEF6E2">
+						<MudIcon Icon="@Icons.Material.Filled.PhoneAndroid" Style="color:#22C03C"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">01000645197</MudText>
+				</MudStack>
+				<MudStack Row="true">
+					<MudAvatar Style="background-color:#FCE1E7">
+						<MudIcon Icon="@Icons.Material.Filled.Email" Style="color:#EE335E"></MudIcon>
+					</MudAvatar>
+					<MudText Style="padding-top:7px">Email</MudText>
+				</MudStack>
+
+			</MudCardContent>
+
+		</MudCard>
+
+	</MudItem>
+
+
+	@*	<MudItem xs="12" lg="4">
+	@if (!found)
+	{
+	<MudAlert Severity="MudBlazor.Severity.Error">@NotfoundMsg</MudAlert>
+	}
+	@if (CustomerInfo.Subscriptions != null)
+	{
+	<MudCard>
+	<MudStack Class="pt-5" Spacing="5" Row="true" Style="flex-wrap: wrap;" Justify="Justify.FlexStart" AlignItems="AlignItems.Center">
+	@foreach (var subscription in CustomerInfo.Subscriptions)
+	{
+	<ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent PlanTitle="@subscription.PlanTitle" PlanSlogan="@subscription.PlanName.Split('-')[0]"
+	RemainingDays="@subscription.RemainingDays.ToString()" SusbscriptionId="@subscription.SubscriptionId" Status="@subscription.Status.ToString()">
+
+	</ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent>
+	}
+
+	</MudStack>
+	<hr class="id" />
+	</MudCard>
+	}
+
+	</MudItem>
+	*@
 </MudGrid>
-@if (!found)
-{
-    <MudAlert Severity="MudBlazor.Severity.Error">@NotfoundMsg</MudAlert>
-}
-@if (CustomerInfo.Subscriptions != null)
-{
- <MudStack Class="pt-5" Spacing="5" Row="true" Style="flex-wrap: wrap;" Justify="Justify.FlexStart"  AlignItems="AlignItems.Center">
-    @foreach (var subscription in CustomerInfo.Subscriptions)
-    {
-        <ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent
-         PlanTitle="@subscription.PlanTitle" PlanSlogan="@subscription.PlanName.Split('-')[0]"
-        RemainingDays="@subscription.RemainingDays.ToString()" SusbscriptionId="@subscription.SubscriptionId" Status="@subscription.Status.ToString()">
 
-        </ErpDashboard.Client.Pages.Subscriptions.Components.SubscriptionInfoComponent>
-    }
 
-</MudStack>   
-}
 
 @code {
-    [Inject] public ISubscriptionManager _subscriptionManager { get; set; }
-    GetSidByPhoneQury Model = new();
-    CustomerInfoDto CustomerInfo = new();
-    MudForm form;
-    MudForm form2;
-    string NotfoundMsg = "";
-    bool found = true;
-    protected override Task OnInitializedAsync()
-    {
-        CustomerInfo = new();
-        CustomerInfo.Subscriptions = new();
-        return base.OnInitializedAsync();
-    }
-    private async Task OnKeyDownPhone(KeyboardEventArgs e)
-    {
-        if (e.Key == "Enter")
-        {
-            await Submit();
-        }
-    }
-    void ResetValidation()
-    {
+	[Inject] public ISubscriptionManager _subscriptionManager { get; set; }
+	GetSidByPhoneQury Model = new();
+	CustomerInfoDto CustomerInfo = new();
+	MudForm form;
+	MudForm form2;
+	string NotfoundMsg = "";
+	bool found = true;
+	protected override Task OnInitializedAsync()
+	{
+		CustomerInfo = new();
+		CustomerInfo.Subscriptions = new();
+		return base.OnInitializedAsync();
+	}
+	private async Task OnKeyDownPhone(KeyboardEventArgs e)
+	{
+		if (e.Key == "Enter")
+		{
+			await Submit();
+		}
+	}
+	void ResetValidation()
+	{
 
-        if (string.IsNullOrEmpty(Model.PhoneNumber) || string.IsNullOrWhiteSpace(Model.PhoneNumber))
-        {
-            form.ResetValidation();
-        }
+		if (string.IsNullOrEmpty(Model.PhoneNumber) || string.IsNullOrWhiteSpace(Model.PhoneNumber))
+		{
+			form.ResetValidation();
+		}
 
-    }
-    private async Task Submit()
-    {
+	}
+	private async Task Submit()
+	{
 
-        await form.Validate();
+		await form.Validate();
 
-        if (form.IsValid && !string.IsNullOrEmpty(Model.PhoneNumber) && !string.IsNullOrWhiteSpace(Model.PhoneNumber))
-        {
-            await SerchByPhone();
-        }
-    }
-    private async Task SerchByPhone()
-    {
-        var Response = await _subscriptionManager.GetSidByPhone(Model.PhoneNumber);
-        if (Response.Succeeded)
-        {   
-            CustomerInfo = Response.Data;
-        }else
-        {
-            CustomerInfo = new();
-            NotfoundMsg = Response.Messages[0];
-        }
-        found = Response.Succeeded;
-    }
-    FluentValueValidator<string> PhoneValidator = new FluentValueValidator<string>(x => x.Length(10).WithMessage("Number Must be 10 Digits"));
+		if (form.IsValid && !string.IsNullOrEmpty(Model.PhoneNumber) && !string.IsNullOrWhiteSpace(Model.PhoneNumber))
+		{
+			await SerchByPhone();
+		}
+	}
+	private async Task SerchByPhone()
+	{
+		var Response = await _subscriptionManager.GetSidByPhone(Model.PhoneNumber);
+		if (Response.Succeeded)
+		{
+			CustomerInfo = Response.Data;
+		}
+		else
+		{
+			CustomerInfo = new();
+			NotfoundMsg = Response.Messages[0];
+		}
+		found = Response.Succeeded;
+	}
+	FluentValueValidator<string> PhoneValidator = new FluentValueValidator<string>(x => x.Length(10).WithMessage("Number Must be 10 Digits"));
 }

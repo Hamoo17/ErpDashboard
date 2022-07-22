@@ -9,66 +9,78 @@
 		color: mediumvioletred !important;
 		font-weight: bold !important;
 	}
+	hr {
+  border: 1px solid #F5F5F5;
+  margin-bottom:-17px;
+}
 </style>
 
-<MudAppBar Style="position:sticky;top:64px;background-color:white!important" Color="Color.Transparent" Fixed="false" Class="mb-4">
-	<MudIcon Size=Size.Large Color=Color.Tertiary Class="mr-4" Icon="@Icons.Material.Filled.AccountCircle"></MudIcon>
-	<HeroTitle Title=Customers></HeroTitle>
-	<MudSpacer></MudSpacer>
-	<MudFab StartIcon="@Icons.Filled.Add" Label="Add New Customer" Color=Color.Success OnClick="(() => InvokeModal(0))" />
-</MudAppBar>
+@*<MudAppBar Style="position:sticky;top:64px;background-color:white!important" Color="Color.Transparent" Fixed="false" Class="mb-4">
+</MudAppBar>*@
+<MudCard Style="border-radius:7px">
+	<MudCardHeader>
+		<HeroTitle  Title=Customers></HeroTitle>
+		<MudIconButton  Variant="Variant.Filled" Style="margin-left:30px; background-color:#025CD8 ;border-radius:7px;color:white;width:120px;height:38px" OnClick="(() => InvokeModal(0))">Add New</MudIconButton>
+		<MudSpacer></MudSpacer>
+		<MudSpacer></MudSpacer>
+		<MudSpacer></MudSpacer>
+		<MudSpacer></MudSpacer>
+		<MudSpacer></MudSpacer>
+		<MudTextField Style="height:40px" T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Info" IconSize="Size.Medium" Class="mt-0" Variant="Variant.Outlined"></MudTextField>
+		
+	</MudCardHeader>
+	<MudCardContent>
+		<hr  />
+		<MudTable Style=" border-color:#F5F5F5;outline:none" Bordered="true" Items="@Customers" @ref="_table" Hover="true" Breakpoint="Breakpoint.Sm" ServerData="@(new Func<TableState, Task<TableData<GetAllCustomerViewModal>>>(ServerReload))" Loading=@_Loading LoadingProgressColor=Color.Success Dense=true Class="mt-4">
+			<ColGroup>
+				<col />
+				<col style="width: 1px;" />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+			</ColGroup>
+			<HeaderContent>
+				<MudTh Style="color:red">Avatar</MudTh>
+				<MudTh Style="color:red" Class="mySize"><MudTableSortLabel T="GetAllCustomerViewModal" SortLabel="Id">ID</MudTableSortLabel></MudTh>
+				<MudTh><MudTableSortLabel T="GetAllCustomerViewModal" SortLabel="CustomerName">Name</MudTableSortLabel></MudTh>
+				<MudTh> Phones</MudTh>
+				<MudTh> Adress</MudTh>
+				<MudTh>Category</MudTh>
+				<MudTh>Reg date</MudTh>
+				<MudTh>Status</MudTh>
+				<MudTh>Actions</MudTh>
+			</HeaderContent>
 
-<MudTable Items="@Customers" @ref="_table" Hover="true" Breakpoint="Breakpoint.Sm" ServerData="@(new Func<TableState, Task<TableData<GetAllCustomerViewModal>>>(ServerReload))" Loading=@_Loading LoadingProgressColor=Color.Success Dense=true Class="mt-4">
-	<ToolBarContent>
-		<MudSpacer />
-		<MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"Variant="Variant.Outlined"></MudTextField>
+			<RowTemplate>
+				<MudTd><MudAvatar Color="Color.Tertiary">@context.CustomerName.Substring(0,1)</MudAvatar></MudTd>
+				<MudTd Class="mySize" DataLabel="Nr">@context.CustomerId</MudTd>
+				<MudTd DataLabel="Sign">@context.CustomerName</MudTd>
+				<MudTd DataLabel="Name">@context.CustomerPhone</MudTd>
+				<MudTd DataLabel="Name">@context.Adress</MudTd>
+				<MudTd DataLabel="Name">@context.Category</MudTd>
+				<MudTd DataLabel="Name">@context.RegDate</MudTd>
 
-	</ToolBarContent>
-	<ColGroup>
-		<col />
-		<col style="width: 1px;" />
-		<col />
-		<col />
-		<col />
-		<col />
-		<col />
-		<col />
-		<col />
-	</ColGroup>
-	<HeaderContent>
-		<MudTh Style="color:red">Avatar</MudTh>
-		<MudTh Style="color:red" Class="mySize"><MudTableSortLabel T="GetAllCustomerViewModal" SortLabel="Id">ID</MudTableSortLabel></MudTh>
-		<MudTh><MudTableSortLabel T="GetAllCustomerViewModal" SortLabel="CustomerName">Name</MudTableSortLabel></MudTh>
-		<MudTh> Phones</MudTh>
-		<MudTh> Adress</MudTh>
-		<MudTh>Category</MudTh>
-		<MudTh>Reg date</MudTh>
-		<MudTh>Status</MudTh>
-		<MudTh>Actions</MudTh>
-	</HeaderContent>
+				<MudTd>
+					<MudSwitch @bind-Checked=@context.Status ReadOnly="true" Color="Color.Tertiary" />
+				</MudTd>
 
-	<RowTemplate>
-		<MudTd><MudAvatar Color="Color.Tertiary">@context.CustomerName.Substring(0,1)</MudAvatar></MudTd>
-		<MudTd Class="mySize" DataLabel="Nr">@context.CustomerId</MudTd>
-		<MudTd DataLabel="Sign">@context.CustomerName</MudTd>
-		<MudTd DataLabel="Name">@context.CustomerPhone</MudTd>
-		<MudTd DataLabel="Name">@context.Adress</MudTd>
-		<MudTd DataLabel="Name">@context.Category</MudTd>
-		<MudTd DataLabel="Name">@context.RegDate</MudTd>
+				<MudTd>
+					<MudButton StartIcon="@Icons.Material.Filled.Edit" Style="background-color:#025CD8;border-radius:5px;color:white;width:10px" Variant="Variant.Filled" OnClick="(() => InvokeModal(context.id))"></MudButton>
+					<MudButton StartIcon="@Icons.Material.Filled.Delete" Style="background-color:#F95374;border-radius:5px;color:white;width:20px" Variant="Variant.Filled" OnClick="(()=>Delete(context.id))"></MudButton>
+				</MudTd>
+			</RowTemplate>
+			<PagerContent>
+				<TablePager />
+			</PagerContent>
+		</MudTable>
 
-		<MudTd>
-			<MudSwitch @bind-Checked=@context.Status ReadOnly="true" Color="Color.Tertiary" />
-		</MudTd>
+	</MudCardContent>
+</MudCard>
 
-		<MudTd>
-			<MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="(() => InvokeModal(context.id))">Edit </MudButton>
-			<MudButton Variant="Variant.Filled" Color="Color.Error"OnClick="(()=>Delete(context.id))"  >Delete</MudButton>
-		</MudTd>
-	</RowTemplate>
-	<PagerContent>
-		<TablePager />
-	</PagerContent>
-</MudTable> 
 @code {
 	private IEnumerable<GetAllCustomerViewModal> Customers;
 	private GetAllCustomerViewModal _customer;
@@ -157,8 +169,8 @@
 		var dialog = _dialogService.Show<AddEditCustomerPage>(id == 0 ? "Create" : "Edit", parameters, options);
 		var result = await dialog.Result;
 
-			Reset();
-		
+		Reset();
+
 	}
 	private void Reset()
 	{

@@ -18,7 +18,7 @@ namespace ErpDashboard.Client.Infrastructure.Settings
             {
                 FontFamily = new[] { "Montserrat", "Helvetica", "Arial", "sans-serif" },
                 FontSize = "6rem",
-                FontWeight = 300,
+                FontWeight = 200,
                 LineHeight = 1.167,
                 LetterSpacing = "-.01562em"
             },
@@ -115,8 +115,8 @@ namespace ErpDashboard.Client.Infrastructure.Settings
             {
                 Primary = "#282F48",
                 Secondary = "#00000089",
-                AppbarBackground = "#242939",
-                Background = Colors.Grey.Lighten5,
+                AppbarBackground = "#594AE2",
+                Background = "#e7edf8",
                 DrawerBackground = "#FFFFFF",
                 DrawerText = "rgba(0,0,0, 0.7)",
                 
