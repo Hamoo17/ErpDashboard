@@ -14,7 +14,7 @@ namespace ErpDashboard.Client.Infrastructure.Managers.MealsCategories
          Task<IResult<int>> SaveAsync(AddEditMealsCategoryCommand command);
          Task<IResult<int>> DeleteAsync(int id);
          Task<IResult<GetMealCategoryResponse>> GetByIdAsync(int id);
-         Task<IResult<List<GetMealCategoryResponse>>> GetAllAsync();
+         Task<IResult<List<MealsTypesResponse>>> GetAllAsync();
 
     }
 }

@@ -3,56 +3,29 @@
 @using ErpDashboard.Application.Features.MealsCategory.Queries.Dto
 @inject IMealsCategoriesManager _MealsCategoryManager
 
-<MudTable Items="@mealCategoryResponses" Hover="true" Breakpoint="Breakpoint.Sm">
-	<ColGroup>
-		<col style="width:300px;" />
-		<col style="width:100px;" />
-		<col />
-		<col style="width:100px;" />
-	</ColGroup>
-	<HeaderContent>
-		<MudTh></MudTh>
-		<MudTh>Nr</MudTh>
-		<MudTh>Name</MudTh>
-		<MudTh>Age</MudTh>
-	</HeaderContent>
-	<RowTemplate>
-		<MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Id))">@((true)? "Hide" : "Show") Types Details</MudButton></MudTd>
-		<MudTd DataLabel="Nr">@context.EnName</MudTd>
-		<MudTd DataLabel="Name">@context.Symbol</MudTd>
-		<MudTd DataLabel="Age">@context.IsSnack</MudTd>
-	</RowTemplate>
-	<ChildRowContent>
-		@if (true)
-				{
-@*  <MudTr>
-   <td colspan="4">
-	<MudCard Elevation="0">
-	 <MudCardHeader>
-	  <CardHeaderContent>
-	   <MudText Typo="Typo.body1">Address Details for <strong>@context.EnName</strong></MudText>
-	  </CardHeaderContent>
-	 </MudCardHeader>
-	 <MudCardContent Class="pa-0">
-	  <MudTable Items="@context.tbMealsTypes" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
-	   <ColGroup>
-		<col />
-		<col />
-		<col style="width:200px;" />
-	   </ColGroup>
-	   <HeaderContent>
-		<MudTh>Type Name</MudTh>
-	   </HeaderContent>
-	   <RowTemplate>
-		<MudTd DataLabel="Address Line 1">@AddressContext.Name</MudTd>
-	   </RowTemplate>
-	  </MudTable>
-	 </MudCardContent>
-	</MudCard>
-   </td>
-  </MudTr>*@
-		}
-	</ChildRowContent>
+<MudTable Hover="true" Breakpoint="Breakpoint.Sm" FixedHeader="true"
+          Items="mealCategoryResponses"
+          GroupBy="@_groupDefinition"
+          GroupHeaderStyle="background-color:var(--mud-palette-background-grey)"
+          GroupFooterClass="mb-4"
+          Dense="true">
+    <ColGroup>
+        <col style="width: 60px;" />
+        <col />
+        <col />
+    </ColGroup>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+    </HeaderContent>
+    <GroupHeaderTemplate>
+        <MudTh Class="mud-table-cell-custom-group" colspan="5">@($"{context.GroupName}: {context.Key}")</MudTh>
+        <MudIconButton Icon="@Icons.Filled.EditNote">Edit</MudIconButton>
+    </GroupHeaderTemplate>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudIconButton Icon="@Icons.Filled.EditNote">Edit</MudIconButton>
+    </RowTemplate>
+
 </MudTable>
 
 
@@ -60,34 +33,38 @@
 
 @code {
 
-    public List<GetMealCategoryResponse> mealCategoryResponses { get; set; }
+	public List<MealsTypesResponse> mealCategoryResponses { get; set; }
 
-    protected override async void OnInitialized()
-    {
-        await GetMealsCategoriesData();
-    }
-
-    async Task GetMealsCategoriesData()
-    {
-        var response = await _MealsCategoryManager.GetAllAsync();
-        if (response.Succeeded)
-        {
-            mealCategoryResponses = response.Data;
-            StateHasChanged();
-        }
-        else
-        {
-            foreach(var msg in response.Messages)
-            {
-                _snackBar.Add(msg, Severity.Error);
-            } 
-        }
-    }
-		private void ShowBtnPress(int nr)
+	protected override async void OnInitialized()
 	{
-		//Person tmpPerson = People.First(f => f.Number == nr);
-		//tmpPerson.ShowDetails = !tmpPerson.ShowDetails;
+		await GetMealsCategoriesData();
 	}
-}
+
+	async Task GetMealsCategoriesData()
+	{
+		var response = await _MealsCategoryManager.GetAllAsync();
+		if (response.Succeeded)
+		{
+			mealCategoryResponses = response.Data;
+			StateHasChanged();
+		}
+		else
+		{
+			foreach(var msg in response.Messages)
+			{
+				_snackBar.Add(msg, Severity.Error);
+			} 
+		}
+	}
+    private TableGroupDefinition<MealsTypesResponse> _groupDefinition = new()
+    {
+        GroupName = "CategoryName",
+        Indentation = false,
+        Expandable = true,
+        IsInitiallyExpanded = false,
+        Selector = (e) => e.CategoryName
+    };
 
 }
+
+
