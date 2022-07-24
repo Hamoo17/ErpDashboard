@@ -1,9 +1,14 @@
 ﻿@page "/Units"
 @using ErpDashboard.Client.Infrastructure.Managers.Units
 @using ErpDashboard.Application.Features.Units.Queries.Dto
+@using ErpDashboard.Application.Features.Units.Commands.AddEdit
 @inject IUnitsManager _UnitManager
 
-<HeroTitle Title="Units" Description="Manage Items Units" />
+<MudAppBar Color="Color.Transparent" Fixed="false" >
+	<HeroTitle Title="Units"/>
+	  <MudSpacer />
+	<MudIconButton Icon=@Icons.Filled.AddBox Color=Color.Inherit Edge="Edge.Start" OnClick="(()=>InvokeModal())"/>
+</MudAppBar>
 @if (UnitResponses != null)
 {
 	<MudTable Items="@UnitResponses" Hover="true" Breakpoint="Breakpoint.Sm">
@@ -16,12 +21,12 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
-        <MudTd DataLabel="Sign">@context.EnName\</MudTd>
+        <MudTd DataLabel="Sign">@context.EnName</MudTd>
         <MudTd DataLabel="Name">@context.DefQty</MudTd>
 		<MudSpacer/>
 		<MudTd>		
-			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
-			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary" OnClick="(()=>InvokeModal(context.Id))"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick = "(()=>Delete(context.Id))"></MudIconButton>
 		</MudTd>
 
    </RowTemplate>
@@ -33,8 +38,10 @@
 
 
 @code {
-    
+
     public  List<UnitResponse> UnitResponses { get; set; }
+    public UnitResponse UnitResponse = new();
+
     protected override async void OnInitialized()
     {
         await GetUnitsData();
@@ -45,14 +52,73 @@
         if (Response.Succeeded)
         {
             UnitResponses = Response.Data;
-           StateHasChanged();
+            StateHasChanged();
         }
         else
         {
             foreach(var msg in Response.Messages)
-			{
-				_snackBar.Add(msg, Severity.Error);
-			}
+            {
+                _snackBar.Add(msg, Severity.Error);
+            }
         }
+    }
+    private async Task InvokeModal(int id = 0)
+    {
+        var parameters = new DialogParameters();
+        if (id != 0)
+        {
+            UnitResponse = UnitResponses.FirstOrDefault(c => c.Id == id);
+            if (UnitResponse != null)
+            {
+                parameters.Add(nameof(AddEditUnitsModal.Model), new AddEditUnitsCommand
+					{
+						Id = UnitResponse.Id,
+						EnName = UnitResponse.EnName,
+						DefQty = UnitResponse.DefQty,
+
+					});
+            }
+        }
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+        var dialog = _dialogService.Show<AddEditUnitsModal>(id == 0 ? "Create" : "Edit", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            await Reset();
+        }
+
+    }
+    private async Task Delete(int id)
+    {
+        string deleteContent = "You Are Going To Delete the Units";
+        var parameters = new DialogParameters
+            {
+                {nameof(Shared.Dialogs.DeleteConfirmation.ContentText), string.Format(deleteContent, id)}
+            };
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+        var dialog = _dialogService.Show<Shared.Dialogs.DeleteConfirmation>("Delete", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            var response = await _UnitManager.DeleteAsync(id);
+            if (response.Succeeded)
+            {
+                await Reset();
+                _snackBar.Add(response.Messages[0], Severity.Success);
+            }
+            else
+            {
+                await Reset();
+                foreach (var message in response.Messages)
+                {
+                    _snackBar.Add(message, Severity.Error);
+                }
+            }
+        }
+    }
+    private async Task Reset()
+    {
+        UnitResponse = new UnitResponse();
+        await GetUnitsData();
     }
 }
