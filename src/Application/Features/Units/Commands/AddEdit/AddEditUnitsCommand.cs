@@ -18,7 +18,7 @@ namespace ErpDashboard.Application.Features.Units.Commands.AddEdit
     {
         public int Id { get; set; }
         public string EnName { get; set; }
-        public int DefQty { get; set; }
+        public decimal? DefQty { get; set; }
     }
     internal class AddEditUnitsHandler : IRequestHandler<AddEditUnitsCommand, Result<int>>
     {
@@ -41,10 +41,11 @@ namespace ErpDashboard.Application.Features.Units.Commands.AddEdit
                 return await Result<int>.FailAsync(_localizer["NO COMPANY WITH THIS ID"]);
             }
 
-            var UnitNameExist = await _unitOfWork.Repository<TbUnit>().Entities.AnyAsync(c => c.EnName == command.EnName);
-            if (!UnitNameExist)
+
+            if (command.Id == 0)
             {
-                if (command.Id == 0)
+                var UnitNameExist = await _unitOfWork.Repository<TbUnit>().Entities.AnyAsync(c => c.EnName == command.EnName);
+                if (!UnitNameExist)
                 {
 
                     var UnitMapped = _Mapper.Map<TbUnit>(command);
@@ -55,25 +56,27 @@ namespace ErpDashboard.Application.Features.Units.Commands.AddEdit
                 }
                 else
                 {
-                    var unit = await _unitOfWork.Repository<TbUnit>().GetByIdAsync(command.Id);
-                    if (unit != null)
-                    {
-                        var UnitMapped = _Mapper.Map<TbUnit>(command);
-                        await _unitOfWork.Repository<TbUnit>().UpdateAsync(UnitMapped , command.Id);
-                        await _unitOfWork.Commit(cancellationToken);
-                        return await Result<int>.SuccessAsync(_localizer["Unit Updated"]);
-                    }
-                    else
-                    {
-                        return await Result<int>.FailAsync(_localizer["Unit Not Found"]);
-                    }
+                    return await Result<int>.FailAsync(_localizer["Unit Name Exist"]);
                 }
             }
             else
             {
-                return await Result<int>.FailAsync(_localizer["Unit Name Exist"]);
+                var unit = await _unitOfWork.Repository<TbUnit>().GetByIdAsync(command.Id);
+                if (unit != null)
+                {
+                    var UnitMapped = _Mapper.Map<TbUnit>(command);
+                    await _unitOfWork.Repository<TbUnit>().UpdateAsync(UnitMapped, command.Id);
+                    await _unitOfWork.Commit(cancellationToken);
+                    return await Result<int>.SuccessAsync(_localizer["Unit Updated"]);
+                }
+                else
+                {
+                    return await Result<int>.FailAsync(_localizer["Unit Not Found"]);
+                }
             }
-
         }
+
+
     }
 }
+
