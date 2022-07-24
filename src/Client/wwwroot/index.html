@@ -8,11 +8,20 @@
     <base href="/" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="_content/Toolbelt.Blazor.LoadingBar/style.min.css" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css?v=5.0.5" rel="stylesheet" />
     <link href="js/styles.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
-
     <link href="css/loader.css" rel="stylesheet" />
+    <style>
+        #loading-bar .bar {
+            height: 4px !important;
+        }
+
+        #loading-bar .peg {
+            height: 4px !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -98,6 +107,7 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="js/scroll.js"></script>
+    <script src=" _content/Toolbelt.Blazor.LoadingBar/script.min.js"></script>
     <script src="js/sounds.js"></script>
     <script src="js/file.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
