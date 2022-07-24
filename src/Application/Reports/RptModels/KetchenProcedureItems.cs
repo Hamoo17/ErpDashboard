@@ -10,6 +10,9 @@ namespace ErpDashboard.Application.Reports.RptModels
     {
         public decimal Qty { get; set; }
         public string UnitName { get; set; }
+        public decimal ItemId { get; set; }
         public string ItemName { get; set; }
+        public string DepartmentName { get; set; }
+
     }
 }
