@@ -57,11 +57,13 @@ namespace ErpDashboard.Client.Extensions
                 .AddTransient<ProductValidationServices, ProductValidationService>()
                 .AddScoped<AuthenticationStateProvider, BlazorHeroStateProvider>()
                 .AddManagers()
+                
                 .AddExtendedAttributeManagers()
                 .AddTransient<AuthenticationHeaderHandler>()
                 .AddScoped(sp => sp
                     .GetRequiredService<IHttpClientFactory>()
                     .CreateClient(ClientName).EnableIntercept(sp))
+
                 .AddHttpClient(ClientName, client =>
                 {
                     client.DefaultRequestHeaders.AcceptLanguage.Clear();
@@ -69,6 +71,14 @@ namespace ErpDashboard.Client.Extensions
                     client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
                 })
                 .AddHttpMessageHandler<AuthenticationHeaderHandler>();
+            builder.Services.AddLoadingBar(options => 
+            {
+                options.LoadingBarColor = "green";
+                options.DisableStyleSheetAutoInjection = true;
+                options.DisableClientScriptAutoInjection = true;
+                options.ContainerSelector = "#MainContainer";
+            });
+            builder.UseLoadingBar();
             builder.Services.AddHttpClientInterceptor();
             return builder;
         }

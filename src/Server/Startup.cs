@@ -59,6 +59,7 @@ namespace ErpDashboard.Server
             services.AddServerStorage(); //TODO - should implement ServerStorageProvider to work correctly!
             services.AddScoped<ServerPreferenceManager>();
             services.AddScoped<AllCustomersReport>();
+            services.AddScoped<AllKetchenReports>();
             services.AddPaymobCashIn(config =>
                 {
                     config.ApiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SndjbTltYVd4bFgzQnJJam94T0RBME1Ea3NJbU5zWVhOeklqb2lUV1Z5WTJoaGJuUWlMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuRmVRVHZXQ3ExclFlTTkycDR2T0RtMWVsMzVXVHJOUEsyamd5WEg1U2luRDRuUVVjc18tS0MtcUJsNlc1T1lqRHlpczBJZzluMVJNdG40N1Rqd0k5MHc=";

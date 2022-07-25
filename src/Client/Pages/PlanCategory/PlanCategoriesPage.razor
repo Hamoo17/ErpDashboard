@@ -1,9 +1,14 @@
 ﻿@page "/PlanCategory"
 @using Client.Infrastructure.Managers.PlanCategory
+@using ErpDashboard.Application.Features.PlanCategory.Command.AddEdit
 @using ErpDashboard.Application.Features.PlanCategory.Query.Dto
 @inject IPlanCtegoryManager _PlanCategoryManager
 
-<HeroTitle Title="Plan Categories" Description="Manage Plan Categories" />
+<MudAppBar Color="Color.Transparent" Fixed="false" >
+	<HeroTitle Title="PlanCategories"/>
+	  <MudSpacer />
+	<MudIconButton Icon=@Icons.Filled.AddBox Color=Color.Inherit Edge="Edge.Start" OnClick="(()=>InvokeModal())"/>
+</MudAppBar>
 @if (PlanCategories != null)
 {
 	<MudTable Items="@PlanCategories" Hover="true" Breakpoint="Breakpoint.Sm">
@@ -20,8 +25,8 @@
         <MudTd DataLabel="Name">@context.Symbol</MudTd>
 		<MudSpacer/>
 		<MudTd>		
-			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary"></MudIconButton>
-			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Edit" Color="Color.Tertiary" OnClick="(()=>InvokeModal(context.Id))"></MudIconButton>
+			<MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="(()=>Delete(context.Id))"></MudIconButton>
 		</MudTd>
 
    </RowTemplate>
@@ -37,10 +42,11 @@
 @code {
 
 	List<customercategoryviewmodel>PlanCategories;
+	customercategoryviewmodel PlanCategory = new ();
 	protected async override Task OnInitializedAsync()
 	{
-		 await GetData();
-		 
+		await GetData();
+
 	}
 
 	private async Task GetData()
@@ -57,9 +63,65 @@
 				_snackBar.Add(msg, Severity.Error);
 			}
 		}
+	}
+	private async Task InvokeModal(int id = 0)
+	{
+		var parameters = new DialogParameters();
+		if (id != 0)
+		{
+			PlanCategory = PlanCategories.FirstOrDefault(c => c.Id == id);
+			if (PlanCategory != null)
+			{
+				parameters.Add(nameof(AddEditPlanCategoryModal.Model), new AddEditPlanCategoryCommand
+					{
+						Id = PlanCategory.Id,
+						TypeName = PlanCategory.TypeName,
+						Symbol = PlanCategory.Symbol,
+
+					});
+			}
+		}
+	    var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+        var dialog = _dialogService.Show<AddEditPlanCategoryModal>(id == 0 ? "Create" : "Edit", parameters, options);
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            await Reset();
+        }
 
 
 	}
-
-
-}
+	     private async Task Delete(int id)
+        {
+            string deleteContent = "You Are Going To Delete the Plan Categories";
+            var parameters = new DialogParameters
+            {
+                {nameof(Shared.Dialogs.DeleteConfirmation.ContentText), string.Format(deleteContent, id)}
+            };
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+            var dialog = _dialogService.Show<Shared.Dialogs.DeleteConfirmation>("Delete", parameters, options);
+            var result = await dialog.Result;
+            if (!result.Cancelled)
+            {
+                var response = await _PlanCategoryManager.DeleteAsync(id);
+                if (response.Succeeded)
+                {
+                    await Reset();
+                    _snackBar.Add(response.Messages[0], Severity.Success);
+                }
+                else
+                {
+                    await Reset();
+                    foreach (var message in response.Messages)
+                    {
+                        _snackBar.Add(message, Severity.Error);
+                    }
+                }
+            }
+        }
+	    private async Task Reset()
+    {
+        PlanCategory = new customercategoryviewmodel();
+        await GetData();
+    }
+	}

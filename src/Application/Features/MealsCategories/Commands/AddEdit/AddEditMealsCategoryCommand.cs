@@ -4,6 +4,7 @@ using ErpDashboard.Application.Interfaces.Services;
 using ErpDashboard.Application.Models;
 using ErpDashboard.Shared.Wrapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 
@@ -42,11 +43,18 @@ namespace ErpDashboard.Application.Features.MealsCategory.Commands.AddEdit
             }
             if (command.Id == 0)
             {
-
-                TbMealsCategory MealCat = _mapper.Map<TbMealsCategory>(command);
-                await _unitOfWork.Repository<TbMealsCategory>().AddAsync(MealCat);
-                await _unitOfWork.Commit(cancellationToken);
-                return await Result<int>.SuccessAsync(MealCat.Id, _localizer["Meal Category Saved"]);
+                var NameExist = await _unitOfWork.Repository<TbMealsCategory>().Entities.AnyAsync(c=>c.EnName == command.EnName);
+                if (!NameExist)
+                {
+                    TbMealsCategory MealCat = _mapper.Map<TbMealsCategory>(command);
+                    await _unitOfWork.Repository<TbMealsCategory>().AddAsync(MealCat);
+                    await _unitOfWork.Commit(cancellationToken);
+                    return await Result<int>.SuccessAsync(MealCat.Id, _localizer["Meal Category Saved"]);
+				}
+                else
+                {
+                    return await Result<int>.FailAsync(_localizer["Category Name Exist"]);
+                }
             }
             else
             {
