@@ -1,6 +1,7 @@
 ﻿using ErpDashboard.Application.Features.Customer.Command.AddEdit;
 using ErpDashboard.Application.Features.Customer.Command.Delete;
 using ErpDashboard.Application.Features.Customer.GetAllCustomers;
+using ErpDashboard.Application.Features.Customer.Quers.CustomerExist;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllAreas;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllBranches;
 using ErpDashboard.Application.Features.Customer.Quers.GetAllCustomerCategory;
@@ -91,6 +92,17 @@ namespace ErpDashboard.Server.Controllers.v1
         {
             var Branchies = await _mediator.Send(new GetAllBranchesQuery());
             return Ok(Branchies);
+        }
+
+        /// Check If Customer Exist
+        /// </summary>
+        /// <returns>Status 200 OK</returns>
+        //[Authorize(Policy = Permissions.PlanCategory.View)]
+        [HttpGet("isCustomerExist/{Phone}")]
+        public async Task<IActionResult> isCustomerExist( string Phone)
+        {
+            var Customer = await _mediator.Send(new CustomerExistQuery() {  Phone = Phone });
+            return Ok(Customer);
         }
 
     }

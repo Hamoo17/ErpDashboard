@@ -19,5 +19,6 @@ namespace ErpDashboard.Client.Infrastructure.Managers.Customers
         PhonsDto GetPhoneDto(CustomerPhoneClientDto ClientDto);
         Task<IResult<int>> DeleteAsync(int id);
         Task<IResult<List<BranchesDto>>> GetAllBranchiesAsync();
+        Task<IResult<GetAllCustomerViewModal>> IsCustomerExist(string Phone);
     }
 }

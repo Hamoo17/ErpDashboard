@@ -22,6 +22,7 @@
         public static string isPhoneExist(int CustomerID , string Phone) => $"api/v1/Customer/isPhoneExist/{CustomerID}/{Phone}";
         public static string Delete(int id) => $"api/V1/Customer/{id}";
         public static string GetBranchies = "api/v1/Customer/GetAllBranchies";
+        public static string isCustomerExist( string Phone) => $"api/v1/Customer/isCustomerExist/{Phone}";
 
     }
 }

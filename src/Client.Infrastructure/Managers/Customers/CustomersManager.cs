@@ -73,6 +73,11 @@ namespace ErpDashboard.Client.Infrastructure.Managers.Customers
             var response = await _HttpClient.PostAsJsonAsync(CustomersEndpoint.Save, Command);
             return await response.ToResult<int>();
         }
+        public async Task<IResult<GetAllCustomerViewModal>> IsCustomerExist( string Phone)
+        {
+            var response = await _HttpClient.GetAsync(CustomersEndpoint.isCustomerExist( Phone));
+            return await response.Content.ReadFromJsonAsync< IResult < GetAllCustomerViewModal >> ();
+        }
 
     }
 }
